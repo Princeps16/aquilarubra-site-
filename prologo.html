@@ -1,3 +1,4 @@
+<!-- prologo.html -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -14,6 +15,7 @@
             text-align: center;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
         .container {
@@ -21,69 +23,53 @@
             max-width: 900px;
             margin: 50px auto;
             padding: 30px;
-            background: rgba(0, 0, 0, 0); /* Contenitore completamente trasparente */
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 1.5s forwards ease-out;
+            background: rgba(0, 0, 0, 0);
+            animation: fadeIn 2s ease-in;
         }
 
-        /* Effetto di ingresso */
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 2.8em;
             color: #b31b1b;
             margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 1.8s forwards ease-out;
+            text-shadow: 3px 3px 10px rgba(179, 27, 27, 0.7);
         }
 
-        h2 {
-            font-size: 1.8em;
-            color: #b31b1b;
-            margin-top: 20px;
-            opacity: 0;
-            animation: fadeIn 2s forwards ease-out;
+        .burned-effect {
+            background: url('burned-paper.png') no-repeat center;
+            background-size: contain;
+            padding: 20px;
+            border-radius: 10px;
         }
 
         p {
-            font-size: 1.5em;
-            line-height: 1.8;
+            font-size: 1.4em;
+            line-height: 1.6;
             text-align: justify;
-            opacity: 0;
-            animation: fadeIn 2.2s forwards ease-out;
         }
 
         .button {
             display: inline-block;
             background-color: #b31b1b;
             color: #ffffff;
-            padding: 14px 28px;
+            padding: 10px 20px;
             text-decoration: none;
             font-size: 1.2em;
             border-radius: 5px;
-            margin: 20px 10px;
-            transition: 0.3s ease;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            animation: fadeIn 2.5s forwards ease-out;
+            margin-top: 20px;
         }
 
         .button:hover {
             background-color: #8b1111;
-            transform: scale(1.05);
-            box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5);
         }
-
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container burned-effect">
         <h1>Prologo</h1>
         <h2>Castellum Arbor Felix, est del Reno - Metà Marzo, Anno 847 Ab Urbe Condita</h2>
         <p>Il vento sibilava tra i tronchi spogli delle foreste a est del Reno, portando con sé l’odore umido della terra bagnata e il gelo della fine dell’inverno. Il cielo, coperto da nubi pesanti, sembrava schiacciare la terra con il suo peso plumbeo, e ogni soffio d’aria insinuava un freddo viscido nelle ossa, penetrando sotto le tuniche e le armature. La neve si era ormai sciolta quasi ovunque, lasciando il suolo un pantano di fango e resti vegetali in decomposizione. Il Castellum Arbor Felix, piccolo avamposto oltre il fiume, era immerso in un silenzio teso, rotto solo dal crepitio delle torce e dal ronzio lontano dei grilli notturni.
