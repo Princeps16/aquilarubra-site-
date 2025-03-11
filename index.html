@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aquila Rubra - Il Giuramento del Legato</title>
     <style>
+        /* Sfondo completo */
         body {
             background: url('sfondo.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -14,33 +15,43 @@
             margin: 0;
             padding: 0;
         }
+
+        /* Contenitore centrale con sfondo scuro trasparente */
         .container {
             width: 90%;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 40px auto;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.7); /* Sfondo trasparente per migliorare leggibilità */
+            background: rgba(0, 0, 0, 0.8); /* Maggiore trasparenza per leggibilità */
             border-radius: 10px;
         }
-        h1 {
-            color: #b31b1b;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
+
+        /* Logo principale */
         .logo {
-            width: 200px;
+            width: 300px; /* Adatta la dimensione se necessario */
             margin-top: 20px;
         }
+
+        /* Separatore */
         .divider {
             width: 60%;
             height: 2px;
             background-color: #b31b1b;
             margin: 20px auto;
         }
+
+        /* Testo */
+        h1, h2 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Ombra per contrasto su sfondo */
+        }
+
         p {
             font-size: 1.2em;
             line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         }
+
+        /* Bottone */
         .button {
             display: inline-block;
             background-color: #b31b1b;
@@ -51,9 +62,12 @@
             border-radius: 5px;
             margin-top: 20px;
         }
+
         .button:hover {
             background-color: #8b1111;
         }
+
+        /* Sezioni */
         .section {
             margin-top: 40px;
         }
@@ -61,8 +75,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="logo.png" alt="Aquila Rubra Logo" class="logo">
-        <h1>Aquila Rubra</h1>
+        <img src="titolo.jpg" alt="Aquila Rubra Logo" class="logo">
         <p>Il Giuramento del Legato</p>
         <div class="divider"></div>
         <p>Un legato. Un giuramento. Un impero in fiamme.<br>
