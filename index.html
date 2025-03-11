@@ -15,6 +15,7 @@
             overflow-x: hidden;
         }
 
+        /* Sezione effetto Parallasse */
         .parallax {
             background: url('sfondo.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -84,6 +85,7 @@
     </style>
 </head>
 <body>
+
     <div class="parallax">
         "Là dove l'Aquila della XII Fulminata si innalza tra le fiamme e la cenere, Roma scrive il suo destino con il ferro e il sangue."
     </div>
@@ -92,11 +94,11 @@
         <img src="titolo.jpg" alt="Aquila Rubra" class="logo">
 
         <p class="text">
-            Sulle terre di confine dell'Impero Romano, tra il fango e il sangue del Limes, si combatte una guerra che deciderà il destino di Roma.
-            <strong>Valerio Rufo Celtico</strong>, legato della XII Legione Fulminata, guida i suoi uomini tra le insidie della politica e il fragore della battaglia.
-            <strong>Giulio Aquila</strong>, un giovane soldato in cerca di riscatto, impara presto che la guerra non concede redenzione.
-            Nel cuore della notte barbara si aggira <strong>Sairika</strong>, un tempo prigioniera dei Romani, ora un’ombra letale nei boschi del Reno.
-            Tra le mura di Roma, <strong>Claudia Rufa Celtica</strong>, spirito indomabile, sfida le convenzioni con la sua mente affilata come una lama, mentre
+            Sulle terre di confine dell'Impero Romano, tra il fango e il sangue del Limes, si combatte una guerra che deciderà il destino di Roma. 
+            <strong>Valerio Rufo Celtico</strong>, legato della XII Legione Fulminata, guida i suoi uomini tra le insidie della politica e il fragore della battaglia. 
+            <strong>Giulio Aquila</strong>, un giovane soldato in cerca di riscatto, impara presto che la guerra non concede redenzione. 
+            Nel cuore della notte barbara si aggira <strong>Sairika</strong>, un tempo prigioniera dei Romani, ora un’ombra letale nei boschi del Reno. 
+            Tra le mura di Roma, <strong>Claudia Rufa Celtica</strong>, spirito indomabile, sfida le convenzioni con la sua mente affilata come una lama, mentre 
             <strong>Aurelia Cassia</strong>, nobile e implacabile, tesse il suo gioco di potere per non perdere l’uomo che ha giurato di legare a sé.
         </p>
 
@@ -115,8 +117,11 @@
 
     <script>
         function playSound(id) {
-            document.getElementById(id).play();
+            var audio = document.getElementById(id);
+            audio.currentTime = 0;
+            audio.play();
         }
     </script>
+
 </body>
 </html>
