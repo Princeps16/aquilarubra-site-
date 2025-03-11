@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aquila Rubra - Il Giuramento del Legato</title>
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
     <style>
-        /* Sfondo che copre tutta la pagina */
+        /* Sfondo generale */
         html, body {
             height: 100%;
             margin: 0;
@@ -13,19 +14,33 @@
             background: url('sfondo.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
-            font-family: 'Georgia', serif;
+            font-family: 'Julius Sans One', sans-serif;
             text-align: center;
         }
 
-        /* Testo leggibile con ombra */
+        /* Contenitore trasparente */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Testo */
         h1, h2, p {
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-size: 1.4em; /* Ingrandito */
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-top: 40px;
         }
 
         /* Logo ingrandito */
         .logo {
             width: 100%;
-            max-width: 600px; /* Ingrandito */
+            max-width: 700px; /* Ingrandito ulteriormente */
             margin-top: 20px;
         }
 
@@ -34,9 +49,9 @@
             display: inline-block;
             background-color: #b31b1b;
             color: #ffffff;
-            padding: 10px 20px;
+            padding: 15px 30px; /* Ingrandito */
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1.3em;
             border-radius: 5px;
             margin-top: 20px;
         }
@@ -47,30 +62,32 @@
     </style>
 </head>
 <body>
-    <!-- Frase d'effetto prima del titolo -->
-    <p style="font-size: 1.4em; font-style: italic;">"Quando il sangue si mescola alla polvere del Limes, il destino di Roma è scritto nel ferro e nel fuoco."</p>
+    <!-- Frase d'effetto -->
+    <p style="font-size: 1.5em; font-style: italic;">"Quando il sangue si mescola alla polvere del Limes, il destino di Roma è scritto nel ferro e nel fuoco."</p>
     
     <!-- Logo del titolo -->
     <img src="titolo.jpg" alt="Aquila Rubra Logo" class="logo">
 
-    <!-- Presentazione della storia e dei personaggi -->
-    <p>
-        Sulle terre di confine dell'Impero Romano, tra il fango e il sangue del Limes, 
-        si combatte una guerra che deciderà il destino di Roma. <strong>Valerio Rufo Celtico</strong>, 
-        legato della XII Legione Fulminata, guida i suoi uomini tra le insidie della politica e 
-        il fragore della battaglia. <strong>Giulio Aquila</strong>, un giovane soldato in cerca di riscatto, 
-        impara presto che la guerra non concede redenzione. Nel cuore della notte barbara si aggira 
-        <strong>Sairika</strong>, un tempo prigioniera dei Romani, ora un’ombra letale nei boschi del Reno. 
-        Tra le mura di Roma, <strong>Claudia Rufa Celtica</strong>, spirito indomabile, sfida le convenzioni con 
-        la sua mente affilata come una lama, mentre <strong>Aurelia Cassia</strong>, nobile e implacabile, tesse 
-        il suo gioco di potere per non perdere l’uomo che ha giurato di legare a sé.
-    </p>
+    <div class="container">
+        <!-- Presentazione della storia e dei personaggi -->
+        <p>
+            Sulle terre di confine dell'Impero Romano, tra il fango e il sangue del Limes, 
+            si combatte una guerra che deciderà il destino di Roma. <strong>Valerio Rufo Celtico</strong>, 
+            legato della XII Legione Fulminata, guida i suoi uomini tra le insidie della politica e 
+            il fragore della battaglia. <strong>Giulio Aquila</strong>, un giovane soldato in cerca di riscatto, 
+            impara presto che la guerra non concede redenzione. Nel cuore della notte barbara si aggira 
+            <strong>Sairika</strong>, un tempo prigioniera dei Romani, ora un’ombra letale nei boschi del Reno. 
+            Tra le mura di Roma, <strong>Claudia Rufa Celtica</strong>, spirito indomabile, sfida le convenzioni con 
+            la sua mente affilata come una lama, mentre <strong>Aurelia Cassia</strong>, nobile e implacabile, tesse 
+            il suo gioco di potere per non perdere l’uomo che ha giurato di legare a sé.
+        </p>
 
-    <a href="#" class="button">Acquista Ora</a>
+        <a href="#" class="button">Acquista Ora</a>
 
-    <!-- Ambientazione -->
-    <h2>Ambientazione</h2>
-    <p>Dal cuore del Castrum di Argentorate ai territori inesplorati oltre il Reno, un mondo di guerra e strategia militare prende vita.</p>
-    <a href="#" class="button">Esplora il Mondo</a>
+        <!-- Ambientazione -->
+        <h2>Ambientazione</h2>
+        <p>Dal cuore del Castrum di Argentorate ai territori inesplorati oltre il Reno, un mondo di guerra e strategia militare prende vita.</p>
+        <a href="#" class="button">Esplora il Mondo</a>
+    </div>
 </body>
 </html>
