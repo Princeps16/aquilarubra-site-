@@ -14,6 +14,12 @@
             text-align: center;
             margin: 0;
             padding: 0;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .container {
@@ -21,70 +27,71 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
-            background: rgba(0, 0, 0, 0); /* Nessuno sfondo opaco */
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 1.5s forwards ease-out;
-        }
-
-        /* Effetti di ingresso */
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            background: rgba(0, 0, 0, 0);
         }
 
         .quote {
-            font-size: 2em;
+            font-size: 1.8em;
             font-style: italic;
             margin-top: 30px;
             opacity: 0;
-            animation: fadeIn 1.8s forwards ease-out;
+            animation: slideIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .logo {
             width: 100%;
-            max-width: 750px; /* Ingrandito */
-            margin-top: 40px;
-            margin-bottom: 50px; /* Maggiore distanziamento */
+            max-width: 750px; /* Ancora più grande */
+            margin-top: 50px;
+            margin-bottom: 50px;
             opacity: 0;
-            animation: fadeIn 2s forwards ease-out;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        .text {
+            font-size: 1.4em;
+            line-height: 1.8;
+            text-align: justify;
+            opacity: 0;
+            animation: fadeIn 2.5s ease-in-out forwards;
         }
 
         .button {
             display: inline-block;
             background-color: #b31b1b;
             color: #ffffff;
-            padding: 14px 28px;
+            padding: 12px 24px;
             text-decoration: none;
             font-size: 1.2em;
             border-radius: 5px;
-            margin: 20px 10px;
-            transition: 0.3s ease;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            transition: 0.3s ease-in-out;
+            opacity: 0;
+            animation: fadeIn 3s ease-in-out forwards;
         }
 
         .button:hover {
             background-color: #8b1111;
-            transform: scale(1.05);
-            box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5);
-        }
-
-        .text {
-            font-size: 1.5em;
-            line-height: 1.9;
-            text-align: justify;
-            margin-top: 20px;
-            opacity: 0;
-            animation: fadeIn 2.2s forwards ease-out;
+            box-shadow: 0 0 15px rgba(179, 27, 27, 0.8);
         }
 
         h2 {
-            font-size: 2.4em;
-            margin-top: 60px;
+            font-size: 2.2em;
+            margin-top: 50px;
             opacity: 0;
-            animation: fadeIn 2.5s forwards ease-out;
+            animation: fadeIn 3.5s ease-in-out forwards;
+        }
+
+        /* Effetti sonori (facoltativi) */
+        .button:hover::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
         }
 
     </style>
@@ -103,12 +110,23 @@
             <strong>Aurelia Cassia</strong>, nobile e implacabile, tesse il suo gioco di potere per non perdere l’uomo che ha giurato di legare a sé.
         </p>
 
-        <a href="prologo.html" class="button">Leggi il Prologo</a>
-        <a href="#" class="button">Acquista Ora</a>
+        <a href="prologo.html" class="button" onclick="playSound('sword')">Leggi un Estratto</a>
+        <a href="#" class="button" onclick="playSound('fire')">Acquista Ora</a>
 
         <h2>Ambientazione</h2>
         <p class="text">Dal cuore del Castrum di Argentorate ai territori inesplorati oltre il Reno, un mondo di guerra e strategia militare prende vita.</p>
-        <a href="#" class="button">Esplora il Mondo</a>
+        <a href="#" class="button" onclick="playSound('explore')">Esplora il Mondo</a>
     </div>
+
+    <!-- Effetti sonori -->
+    <audio id="sword" src="sword.mp3"></audio>
+    <audio id="fire" src="fire.mp3"></audio>
+    <audio id="explore" src="explore.mp3"></audio>
+
+    <script>
+        function playSound(id) {
+            document.getElementById(id).play();
+        }
+    </script>
 </body>
 </html>
