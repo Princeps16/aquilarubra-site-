@@ -6,52 +6,43 @@
     <title>Aquila Rubra - Il Giuramento del Legato</title>
     <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
     <style>
-        /* Sfondo generale */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
+        body {
             background: url('sfondo.jpg') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
             font-family: 'Julius Sans One', sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Contenitore trasparente */
         .container {
             width: 90%;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 20px;
+            background: rgba(0, 0, 0, 0); /* Contenitore completamente trasparente */
         }
 
-        /* Testo */
-        h1, h2, p {
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            font-size: 1.4em; /* Ingrandito */
+        .quote {
+            font-size: 1.5em; /* Aumentato */
+            font-style: italic;
+            margin-top: 30px;
         }
 
-        h2 {
-            font-size: 1.8em;
-            margin-top: 40px;
-        }
-
-        /* Logo ingrandito */
         .logo {
-            width: 100%;
-            max-width: 700px; /* Ingrandito ulteriormente */
+            width: 100%; /* Aumentato */
+            max-width: 550px; /* Ingrandito */
             margin-top: 20px;
         }
 
-        /* Bottone */
         .button {
             display: inline-block;
             background-color: #b31b1b;
             color: #ffffff;
-            padding: 15px 30px; /* Ingrandito */
+            padding: 12px 24px;
             text-decoration: none;
-            font-size: 1.3em;
+            font-size: 1.2em;
             border-radius: 5px;
             margin-top: 20px;
         }
@@ -59,34 +50,37 @@
         .button:hover {
             background-color: #8b1111;
         }
+
+        .text {
+            font-size: 1.3em;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
-    <!-- Frase d'effetto -->
-    <p style="font-size: 1.5em; font-style: italic;">"Quando il sangue si mescola alla polvere del Limes, il destino di Roma è scritto nel ferro e nel fuoco."</p>
-    
-    <!-- Logo del titolo -->
-    <img src="titolo.jpg" alt="Aquila Rubra Logo" class="logo">
-
     <div class="container">
-        <!-- Presentazione della storia e dei personaggi -->
-        <p>
-            Sulle terre di confine dell'Impero Romano, tra il fango e il sangue del Limes, 
-            si combatte una guerra che deciderà il destino di Roma. <strong>Valerio Rufo Celtico</strong>, 
-            legato della XII Legione Fulminata, guida i suoi uomini tra le insidie della politica e 
-            il fragore della battaglia. <strong>Giulio Aquila</strong>, un giovane soldato in cerca di riscatto, 
-            impara presto che la guerra non concede redenzione. Nel cuore della notte barbara si aggira 
-            <strong>Sairika</strong>, un tempo prigioniera dei Romani, ora un’ombra letale nei boschi del Reno. 
-            Tra le mura di Roma, <strong>Claudia Rufa Celtica</strong>, spirito indomabile, sfida le convenzioni con 
-            la sua mente affilata come una lama, mentre <strong>Aurelia Cassia</strong>, nobile e implacabile, tesse 
-            il suo gioco di potere per non perdere l’uomo che ha giurato di legare a sé.
+        <p class="quote">"Là dove l'Aquila della XII Fulminata si innalza tra le fiamme e la cenere, Roma scrive il suo destino con il ferro e il sangue."</p>
+        <img src="titolo.jpg" alt="Aquila Rubra" class="logo">
+
+        <p class="text">
+            Sulle terre di confine dell'Impero Romano, tra il fango e il sangue del Limes, si combatte una guerra che deciderà il destino di Roma. 
+            <strong>Valerio Rufo Celtico</strong>, legato della XII Legione Fulminata, guida i suoi uomini tra le insidie della politica e il fragore della battaglia. 
+            <strong>Giulio Aquila</strong>, un giovane soldato in cerca di riscatto, impara presto che la guerra non concede redenzione. 
+            Nel cuore della notte barbara si aggira <strong>Sairika</strong>, un tempo prigioniera dei Romani, ora un’ombra letale nei boschi del Reno. 
+            Tra le mura di Roma, <strong>Claudia Rufa Celtica</strong>, spirito indomabile, sfida le convenzioni con la sua mente affilata come una lama, mentre 
+            <strong>Aurelia Cassia</strong>, nobile e implacabile, tesse il suo gioco di potere per non perdere l’uomo che ha giurato di legare a sé.
         </p>
 
         <a href="#" class="button">Acquista Ora</a>
 
-        <!-- Ambientazione -->
         <h2>Ambientazione</h2>
-        <p>Dal cuore del Castrum di Argentorate ai territori inesplorati oltre il Reno, un mondo di guerra e strategia militare prende vita.</p>
+        <p class="text">Dal cuore del Castrum di Argentorate ai territori inesplorati oltre il Reno, un mondo di guerra e strategia militare prende vita.</p>
         <a href="#" class="button">Esplora il Mondo</a>
     </div>
 </body>
