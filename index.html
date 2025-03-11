@@ -17,21 +17,21 @@
             text-align: center;
         }
 
-        /* Contenitore centrale con sfondo trasparente */
+        /* Contenitore centrale con sfondo semi-trasparente */
         .container {
             width: 90%;
             max-width: 800px;
-            margin: auto;
+            margin: 50px auto;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85); /* Migliorato per maggiore leggibilità */
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.7);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.7);
         }
 
         /* Logo ingrandito */
         .logo {
             width: 100%;
-            max-width: 500px; /* Aumentata la dimensione */
+            max-width: 500px;
             margin-top: 20px;
         }
 
@@ -69,43 +69,39 @@
         .button:hover {
             background-color: #8b1111;
         }
-
-        /* Sezioni */
-        .section {
-            margin-top: 40px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Frase d'effetto prima del titolo -->
+        <p style="font-size: 1.4em; font-style: italic;">"Quando il sangue si mescola alla polvere del Limes, il destino di Roma è scritto nel ferro e nel fuoco."</p>
+        
+        <!-- Logo del titolo -->
         <img src="titolo.jpg" alt="Aquila Rubra Logo" class="logo">
+
         <div class="divider"></div>
-        <p>Un legato. Un giuramento. Un impero in fiamme.<br>
-           Scopri la storia epica di Valerio Rufo Celtico e della XII Legione Fulminata.</p>
+
+        <!-- Presentazione della storia e dei personaggi -->
+        <p>
+            Sulle terre di confine dell'Impero Romano, tra il fango e il sangue del Limes, 
+            si combatte una guerra che deciderà il destino di Roma. <strong>Valerio Rufo Celtico</strong>, 
+            legato della XII Legione Fulminata, guida i suoi uomini tra le insidie della politica e 
+            il fragore della battaglia. <strong>Giulio Aquila</strong>, un giovane soldato in cerca di riscatto, 
+            impara presto che la guerra non concede redenzione. Nel cuore della notte barbara si aggira 
+            <strong>Zairichi</strong>, un tempo prigioniera dei Romani, ora un’ombra letale nei boschi del Reno. 
+            Tra le mura di Roma, <strong>Claudia Rufa Celtica</strong>, spirito indomabile, sfida le convenzioni con 
+            la sua mente affilata come una lama, mentre <strong>Aurelia Cassia</strong>, nobile e implacabile, tesse 
+            il suo gioco di potere per non perdere l’uomo che ha giurato di legare a sé.
+        </p>
+
         <a href="#" class="button">Acquista Ora</a>
-        
-        <div class="section">
-            <h2>Il Romanzo</h2>
-            <p>Un'epopea storica ambientata sul Limes romano, tra battaglie sanguinose, tradimenti e onore. Segui il viaggio di Valerio Rufo e la sua legione nella lotta contro le tribù germaniche.</p>
-        </div>
-        
-        <div class="section">
-            <h2>I Personaggi</h2>
-            <p>
-                <strong>Valerio Rufo Celtico:</strong> Il legato della XII Legione Fulminata, devoto a Roma ma perseguitato dai suoi demoni.<br>
-                <strong>Giulio Aquila:</strong> Giovane soldato in cerca di redenzione, diviso tra l'eredità romana e la brutalità della guerra.<br>
-                <strong>Zairichi:</strong> Guerriera tigurina dal passato tormentato, animata da un odio feroce nei confronti dei Romani.<br>
-                <strong>Claudia Rufa Celtica:</strong> Spirito libero e ribelle, si muove tra filosofia e pericolo con un fascino indomabile.<br>
-                <strong>Aurelia Cassia:</strong> Nobildonna dal cuore di ghiaccio, consumata dal timore di perdere Valerio e dal veleno delle sue macchinazioni.<br>
-            </p>
-            <a href="#" class="button">Scopri Tutti i Personaggi</a>
-        </div>
-        
-        <div class="section">
-            <h2>Ambientazione</h2>
-            <p>Dal cuore del Castrum di Argentorate ai territori inesplorati oltre il Reno, un mondo di guerra e strategia militare prende vita.</p>
-            <a href="#" class="button">Esplora il Mondo</a>
-        </div>
+
+        <div class="divider"></div>
+
+        <!-- Ambientazione -->
+        <h2>Ambientazione</h2>
+        <p>Dal cuore del Castrum di Argentorate ai territori inesplorati oltre il Reno, un mondo di guerra e strategia militare prende vita.</p>
+        <a href="#" class="button">Esplora il Mondo</a>
     </div>
 </body>
 </html>
