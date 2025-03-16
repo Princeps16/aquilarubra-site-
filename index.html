@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aquila Rubra - Il Giuramento del Legato</title>
-    <link rel="icon" type="image/png" href="favicon.ico"> <!-- Favicon -->
     <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
     <style>
         body {
@@ -15,52 +14,44 @@
             text-align: center;
             margin: 0;
             padding: 0;
+            animation: fadeIn 1.5s ease-in-out;
         }
 
-        /* NAVBAR */
-        .navbar {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        .navbar img {
-            width: 70px; /* Logo piccolo nella navbar */
-            height: auto;
-            margin-right: 10px;
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0);
         }
-        .navbar h1 {
+
+        .quote {
             font-size: 1.8em;
-            margin: 0;
+            font-style: italic;
+            margin-top: 30px;
+            opacity: 0;
+            animation: slideIn 1.5s ease-in-out forwards;
         }
 
-        /* HERO SECTION */
-        .hero {
-            padding: 100px 20px;
-            text-align: center;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .hero-logo {
-            width: 250px;
-            height: auto;
-            display: block;
-            margin: 0 auto 20px;
+
+        .logo {
+            width: 100%;
+            max-width: 750px; /* Ancora più grande */
+            margin-top: 50px;
+            margin-bottom: 50px;
             opacity: 0;
             animation: fadeIn 2s ease-in-out forwards;
         }
-        .hero-quote {
-            font-size: 1.8em;
-            font-style: italic;
-            margin-top: 20px;
-        }
 
-        /* ANIMAZIONI */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* TESTO */
         .text {
             font-size: 1.4em;
             line-height: 1.8;
@@ -69,7 +60,6 @@
             animation: fadeIn 2.5s ease-in-out forwards;
         }
 
-        /* BUTTON */
         .button {
             display: inline-block;
             background-color: #b31b1b;
@@ -83,42 +73,34 @@
             opacity: 0;
             animation: fadeIn 3s ease-in-out forwards;
         }
+
         .button:hover {
             background-color: #8b1111;
             box-shadow: 0 0 15px rgba(179, 27, 27, 0.8);
         }
 
-        /* FOOTER */
-        footer {
-            background: rgba(0, 0, 0, 0.8);
-            color: #ffffff;
-            padding: 20px;
-            text-align: center;
+        h2 {
+            font-size: 2.2em;
             margin-top: 50px;
+            opacity: 0;
+            animation: fadeIn 3.5s ease-in-out forwards;
         }
-        footer a {
-            color: #b31b1b;
-            text-decoration: none;
+
+        /* Effetti sonori (facoltativi) */
+        .button:hover::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
         }
+
     </style>
 </head>
 <body>
-
-    <!-- NAVBAR CON LOGO PICCOLO -->
-    <div class="navbar">
-        <img src="logo-aquila-rubra.png" alt="Logo Aquila Rubra">
-        <h1>Aquila Rubra</h1>
-    </div>
-
-    <!-- HERO SECTION -->
-    <div class="hero">
-        <img src="logo-aquila-rubra.png" alt="Aquila Rubra" class="hero-logo">
-        <p class="hero-quote">"Là dove l'Aquila della XII Fulminata si innalza tra le fiamme e la cenere, Roma scrive il suo destino con il ferro e il sangue."</p>
-        <a href="prologo.html" class="button">Leggi un Estratto</a>
-        <a href="#" class="button">Acquista Ora</a>
-    </div>
-
     <div class="container">
+        <p class="quote">"Là dove l'Aquila della XII Fulminata si innalza tra le fiamme e la cenere, Roma scrive il suo destino con il ferro e il sangue."</p>
+        <img src="titolo.png" alt="Aquila Rubra" class="logo">
+
         <p class="text">
             Sulle terre di confine dell'Impero Romano, tra il fango e il sangue del Limes, si combatte una guerra che deciderà il destino di Roma. 
             <strong>Valerio Rufo Celtico</strong>, legato della XII Legione Fulminata, guida i suoi uomini tra le insidie della politica e il fragore della battaglia. 
@@ -128,9 +110,12 @@
             <strong>Aurelia Cassia</strong>, nobile e implacabile, tesse il suo gioco di potere per non perdere l’uomo che ha giurato di legare a sé.
         </p>
 
+        <a href="prologo.html" class="button" onclick="playSound('sword')">Leggi un Estratto</a>
+        <a href="#" class="button" onclick="playSound('fire')">Acquista Ora</a>
+
         <h2>Ambientazione</h2>
         <p class="text">Dal cuore del Castrum di Argentorate ai territori inesplorati oltre il Reno, un mondo di guerra e strategia militare prende vita.</p>
-        <a href="#" class="button">Esplora il Mondo</a>
+        <a href="#" class="button" onclick="playSound('explore')">Esplora il Mondo</a>
     </div>
 
     <!-- Effetti sonori -->
@@ -142,4 +127,18 @@
         function playSound(id) {
             document.getElementById(id).play();
         }
-    </
+    </script>
+    <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
+    <p>© 2024 Aquila Rubra - Tutti i diritti riservati.</p>
+    <p>Effetti sonori da <a href="https://freesound.org/" target="_blank" style="color: #b31b1b;">Freesound</a> e <a href="https://pixabay.com/sound-effects/" target="_blank" style="color: #b31b1b;">Pixabay</a>.</p>
+    <p>
+        <a href="privacy.html" style="color: #b31b1b;">Privacy Policy</a> | 
+        <a href="cookies.html" style="color: #b31b1b;">Cookie Policy</a>
+    </p>
+    <p>Seguici su: 
+        <a href="https://www.instagram.com/tua_pagina" target="_blank" style="color: #b31b1b;">Instagram</a> | 
+        <a href="https://www.facebook.com/tua_pagina" target="_blank" style="color: #b31b1b;">Facebook</a>
+    </p>
+</footer>
+</body>
+</html>
