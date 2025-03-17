@@ -1,34 +1,57 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-        <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLHJY4Z7FQ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-WLHJY4Z7FQ');
     </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Decimo Valerio Lupo">
-    <meta name="description" content="Aquila Rubra - Un romanzo epico scritto da Valerio Lupo">
-    <meta name="keywords" content="Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, DVL, Roma, Impero Romano">
+    <meta name="description" content="Aquila Rubra - Un romanzo epico scritto da Decimo Valerio Lupo">
+    <meta name="keywords" content="Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, Roma, Impero Romano">
     <meta property="og:title" content="Aquila Rubra - Il Giuramento del Legato">
     <meta property="og:description" content="Scopri il nuovo romanzo epico di Decimo Valerio Lupo, ambientato ai confini dell'Impero.">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Aquila Rubra - Il Giuramento del Legato</title>
+    
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    
     <style>
-        body {
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .navbar img {
+            height: 50px;
+        }
+
+        /* Parallax Effect */
+        .hero {
             background: url('sfondo.jpg') no-repeat center center fixed;
             background-size: cover;
-            color: #ffffff;
-            font-family: 'Julius Sans One', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin: 0;
-            padding: 0;
+            padding: 20px;
+            color: #ffffff;
             animation: fadeIn 1.5s ease-in-out;
         }
 
@@ -37,40 +60,15 @@
             to { opacity: 1; }
         }
 
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0);
+        .hero img {
+            max-width: 400px;
+            animation: fadeIn 2s ease-in-out forwards;
         }
 
         .quote {
             font-size: 1.8em;
             font-style: italic;
-            margin-top: 30px;
-            opacity: 0;
-            animation: slideIn 1.5s ease-in-out forwards;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo {
-            width: 100%;
-            max-width: 750px; /* Ancora più grande */
-            margin-top: 50px;
-            margin-bottom: 50px;
-            opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
-        }
-
-        .text {
-            font-size: 1.4em;
-            line-height: 1.8;
-            text-align: justify;
+            margin-top: 20px;
             opacity: 0;
             animation: fadeIn 2.5s ease-in-out forwards;
         }
@@ -94,70 +92,94 @@
             box-shadow: 0 0 15px rgba(179, 27, 27, 0.8);
         }
 
-        h2 {
-            font-size: 2.2em;
+        /* Sezione Personaggi */
+        .characters {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 50px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .character-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .character {
+            width: 250px;
+            text-align: center;
+        }
+
+        .character img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .character p {
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
             margin-top: 50px;
-            opacity: 0;
-            animation: fadeIn 3.5s ease-in-out forwards;
         }
-
-        /* Effetti sonori (facoltativi) */
-        .button:hover::after {
-            content: "";
-            display: block;
-            width: 0;
-            height: 0;
-        }
-
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <p class="quote">"Là dove l'Aquila della XII Fulminata si innalza tra le fiamme e la cenere, Roma scrive il suo destino con il ferro e il sangue."</p>
-        <img src="titolo.png" alt="Aquila Rubra" class="logo">
-
-        <p class="text">
-            Il vento del nord ulula tra le tende della legione, portando con sé l’odore della pioggia e del sangue. Nelle foreste oscure, occhi attenti scrutano il confine, là dove il dominio di Roma si scontra con la furia delle tribù. Cinque figure si muovono nell’ombra della Storia, ognuna con il proprio fardello, ognuna in bilico tra ciò che è stato e ciò che sarà.
-            <strong>Valerio Rufo Celtico</strong> marcia avanti con lo sguardo fisso all’orizzonte, il peso di Roma sulle spalle. È un uomo di ferro, forgiato dal dovere e dalla disciplina, ma sotto la corazza c’è un uomo che sa che la guerra non si vince solo con la spada, ma con il sacrificio. E a Roma, nessun sacrificio è mai sufficiente.
-            <strong>Giulio Aquila</strong> è come un falco incatenato, sempre in lotta con se stesso. Nato per combattere, cresciuto per servire, ma troppo inquieto per non domandarsi se il destino che gli è stato imposto sia davvero l’unico possibile. Ogni battaglia è una prova, ogni scelta una gabbia che si stringe attorno a lui. Eppure, c’è una voce nel vento che lo chiama verso un sentiero che non ha mai osato percorrere.
-            <strong>Sairika</strong>, la predatrice, si muove silenziosa tra le ombre, attende, osserva. L’odio la nutre, il fuoco della vendetta la guida. Roma le ha tolto tutto, e lei è pronta a restituire il favore. Non ha paura della morte, perché la sua anima è già stata strappata via. Ma ciò che non si spezza, si affila. E la sua lama non conosce misericordia.
-            <strong>Aurelia Cassia</strong> è la vipera tra i lupi, il veleno nelle vene di Roma. Non ha bisogno di spade, perché le sue parole sono più affilate di qualsiasi gladio. Dietro il suo sorriso perfetto si nasconde un calcolo, dietro ogni sguardo una strategia. Lei non attacca. Lei attende che l’avversario abbassi la guardia e poi colpisce, con la grazia di chi non sbaglia mai un colpo.
-            <strong>Claudia Rufa Celtica</strong> è il fuoco che non si spegne, il vento che non si lascia imprigionare. Libera come il mare in tempesta, ride in faccia alle regole che gli altri accettano senza domande. Viaggia, scopre, seduce, si immerge nel pericolo come se fosse l’unico modo per sentire davvero la vita scorrere nelle vene. Ma anche il fuoco più indomabile può bruciare troppo in fretta.
-            La guerra sta per iniziare. Il limes arde sotto il peso delle ambizioni di uomini e dèi. Nessuno può sfuggire al proprio destino. Ma c’è ancora chi è disposto a sfidarlo.
-        </p>
-        <a href="personaggi.html" class="button">Scopri i Personaggi</a>
-        <a href="prologo.html" class="button" onclick="playSound('sword')">Leggi un Estratto</a>
-        <a href="#" class="button" onclick="playSound('fire')">Acquista Ora</a>
-
-        <h2>Ambientazione</h2>
-        <p class="text">Siamo nell’anno 847 Ab Urbe Condita. L’Impero Romano si estende ancora vasto e potente, ma il limes germanico è un confine fragile, una cicatrice di legno e pietra tra la civiltà e il caos delle tribù barbare. Qui, nel castrum di Argentorate, sede della XII Legione Fulminata, i giorni si susseguono tra addestramenti estenuanti, pattugliamenti nel fango e scontri sanguinosi con i barbari. Ogni notte, il vento porta con sé l’eco dei tamburi di guerra e il sussurro di ombre che si muovono tra le foreste impenetrabili degli Agri Decumates.
-                        Il castrum è una fortezza di disciplina e acciaio, un baluardo di Roma incastonato tra le nebbie del Reno. Dietro le sue mura di pietra e legno, legionari temprati dalla fatica affinano le loro spade, mentre i tribuni e il legato Valerio Rufo Celtico tessono strategie per contenere l’inevitabile avanzata delle orde germaniche.
-                        Ma il confine non è solo uno scontro di armi. È un crocevia di ambizioni, tradimenti e passioni. In questo mondo di ferro e cenere, dove l’onore si paga con il sangue e la lealtà è più affilata di un gladio, ogni uomo e ogni donna è costretto a scegliere: piegarsi al giogo dell’Impero o lottare per la propria libertà.</p>
-        <p class="text">Benvenuti nel limes in fiamme. Benvenuti in <strong>Aquila Rubra - Il Giuramento del Legato.</strong></p>
-        <a href="#" class="button" onclick="playSound('explore')">Esplora il Mondo</a>
+    <!-- Navbar -->
+    <div class="navbar">
+        <img src="logo.png" alt="Aquila Rubra">
     </div>
 
-    <!-- Effetti sonori -->
-    <audio id="sword" src="sword.mp3"></audio>
-    <audio id="fire" src="fire.mp3"></audio>
-    <audio id="explore" src="explore.mp3"></audio>
+    <!-- Hero Section -->
+    <div class="hero">
+        <img src="titolo.png" alt="Aquila Rubra">
+        <p class="quote">"Là dove l'Aquila della XII Fulminata si innalza tra le fiamme e la cenere, Roma scrive il suo destino con il ferro e il sangue."</p>
+        <a href="prologo.html" class="button">Leggi un Estratto</a>
+        <a href="personaggi.html" class="button">Scopri i Personaggi</a>
+        <a href="#" class="button">Acquista Ora</a>
+    </div>
 
-    <script>
-        function playSound(id) {
-            document.getElementById(id).play();
-        }
-    </script>
-    <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
-    <p>© 2025 Decimo Valerio Lupo - Aquila Rubra - Tutti i diritti riservati.</p>
-    <p>Effetti sonori da <a href="https://freesound.org/" target="_blank" style="color: #b31b1b;">Freesound</a> e <a href="https://pixabay.com/sound-effects/" target="_blank" style="color: #b31b1b;">Pixabay</a>.</p>
-    <p>
-        <a href="privacy.html" style="color: #b31b1b;">Privacy Policy</a> | 
-        <a href="cookies.html" style="color: #b31b1b;">Cookie Policy</a>
-    </p>
-    <p>Seguici su: 
-        <a href="https://www.instagram.com/aquilarubra_official?igsh=cjZuNGh1Nm80enBx&utm_source=qr" target="_blank" style="color: #b31b1b;">Instagram</a> | 
-        <a href="https://www.facebook.com/tua_pagina" target="_blank" style="color: #b31b1b;">Facebook</a>
-    </p>
-</footer>
+    <!-- Sezione Personaggi -->
+    <div class="characters">
+        <h2>Personaggi</h2>
+        <div class="character-container">
+            <div class="character">
+                <img src="valerio.jpg" alt="Valerio Rufo Celtico">
+                <p><strong>Valerio Rufo Celtico</strong> - Il comandante della XII Legione Fulminata.</p>
+            </div>
+            <div class="character">
+                <img src="giulio.jpg" alt="Giulio Aquila">
+                <p><strong>Giulio Aquila</strong> - Un giovane soldato in cerca di redenzione.</p>
+            </div>
+            <div class="character">
+                <img src="zairichi.jpg" alt="Zairichi">
+                <p><strong>Zairichi</strong> - La guerriera tigurina assetata di vendetta.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Decimo Valerio Lupo - Aquila Rubra - Tutti i diritti riservati.</p>
+        <p>
+            <a href="privacy.html" style="color: #b31b1b;">Privacy Policy</a> | 
+            <a href="cookies.html" style="color: #b31b1b;">Cookie Policy</a>
+        </p>
+        <p>Seguici su: 
+            <a href="https://www.instagram.com/aquilarubra_official" target="_blank" style="color: #b31b1b;">Instagram</a> | 
+            <a href="https://www.facebook.com/tua_pagina" target="_blank" style="color: #b31b1b;">Facebook</a>
+        </p>
+    </footer>
 </body>
 </html>
