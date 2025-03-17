@@ -108,6 +108,48 @@
             width: 0;
             height: 0;
         }
+/* 📱 Ottimizzazioni per mobile */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        width: 95vw; /* Adatta il contenuto alla larghezza dello schermo */
+        max-width: none;
+        padding: 10px;
+    }
+
+    .quote {
+        font-size: 1.2em; /* Riduci la dimensione della citazione */
+        line-height: 1.4;
+        margin-top: 20px;
+    }
+
+    .logo {
+        max-width: 300px; /* Riduci il logo per evitare che occupi troppo spazio */
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .text {
+        font-size: 1em; /* Migliora la leggibilità del testo */
+        line-height: 1.5;
+        text-align: left; /* Migliore leggibilità su mobile */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .button {
+        width: 90%; /* Rendi i pulsanti più accessibili */
+        font-size: 1.1em;
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 1.6em; /* Riduci leggermente la dimensione del titolo */
+    }
+}
 
     </style>
 </head>
