@@ -26,8 +26,7 @@
 
         .map-container {
             position: relative;
-            display: inline-block;
-            width: 90vw; /* Adatta la larghezza della mappa al viewport */
+            width: 90vw;
             max-width: 900px;
         }
 
@@ -69,14 +68,14 @@
         <h1>Esplora il Mondo di Aquila Rubra</h1>
         <p>Clicca sui punti sulla mappa per scoprire le località principali.</p>
         <div class="map-container">
-            <img src="mappasezione.png" alt="Mappa di Aquila Rubra">
+            <img id="mappa" src="mappasezione.png" alt="Mappa di Aquila Rubra">
 
-            <!-- Punti interattivi con coordinate migliorate -->
-            <div class="map-marker" style="top: 40%; left: 48%;" data-info="Argentorate - Sede della XII Legione Fulminata"></div>
-            <div class="map-marker" style="top: 35%; left: 41%;" data-info="Mogontiacum - Avamposto militare romano"></div>
-            <div class="map-marker" style="top: 55%; left: 46%;" data-info="Lugdunum - Centro amministrativo della Gallia"></div>
-            <div class="map-marker" style="top: 80%; left: 52%;" data-info="Roma - Il cuore dell'Impero"></div>
-            <div class="map-marker" style="top: 45%; left: 50%;" data-info="Arbor Felix - Territori contesi tra Romani e Barbari"></div>
+            <!-- Punti interattivi con percentuali migliorate -->
+            <div class="map-marker" style="top: 38%; left: 50%;" data-info="Argentorate - Sede della XII Legione Fulminata"></div>
+            <div class="map-marker" style="top: 33%; left: 43%;" data-info="Mogontiacum - Avamposto militare romano"></div>
+            <div class="map-marker" style="top: 56%; left: 48%;" data-info="Lugdunum - Centro amministrativo della Gallia"></div>
+            <div class="map-marker" style="top: 78%; left: 52%;" data-info="Roma - Il cuore dell'Impero"></div>
+            <div class="map-marker" style="top: 44%; left: 51%;" data-info="Arbor Felix - Territori contesi tra Romani e Barbari"></div>
         </div>
         <div id="tooltip" class="tooltip"></div>
         <br>
@@ -100,6 +99,14 @@
             marker.addEventListener('click', function() {
                 alert(this.dataset.info);
             });
+        });
+
+        // DEBUG COORDINATE (Clicca sulla mappa per vedere le coordinate)
+        document.getElementById('mappa').addEventListener('click', function(event) {
+            let rect = this.getBoundingClientRect();
+            let xPercent = ((event.clientX - rect.left) / rect.width) * 100;
+            let yPercent = ((event.clientY - rect.top) / rect.height) * 100;
+            alert(`Nuova coordinata: top: ${yPercent.toFixed(2)}%; left: ${xPercent.toFixed(2)}%`);
         });
     </script>
 
