@@ -5,13 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La XII Legione Fulminata</title>
     <style>
-        body {
-            background: #121212;
+         body {
+            background: url('sfondo.jpg') no-repeat center center fixed;
+            background-size: cover;
             color: #ffffff;
             font-family: 'Julius Sans One', sans-serif;
             text-align: center;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0);
+            animation: fadeIn 2s ease-in;
         }
 
         .content {
