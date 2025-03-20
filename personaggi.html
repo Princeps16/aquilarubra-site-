@@ -1,24 +1,10 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLHJY4Z7FQ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-WLHJY4Z7FQ');
-    </script>
-    <meta name="author" content="Decimo Valerio Lupo">
-    <meta name="description" content="Aquila Rubra - Un romanzo epico scritto da Valerio Lupo">
-    <meta name="keywords" content="Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, DVL, Roma, Impero Romano">
-    <meta property="og:title" content="Aquila Rubra - Il Giuramento del Legato">
-    <meta property="og:description" content="Scopri il nuovo romanzo epico di Decimo Valerio Lupo, ambientato ai confini dell'Impero.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I Personaggi - Aquila Rubra</title>
-    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <title>Personaggi - Aquila Rubra</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         body {
             background: url('sfondo.jpg') no-repeat center center fixed;
@@ -31,104 +17,75 @@
         }
 
         .container {
-            width: 90%;
+            width: 80%;
             max-width: 900px;
-            margin: 50px auto;
+            margin: 0 auto;
             padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
         }
 
         h1 {
             font-size: 2.5em;
-            color: #b31b1b;
-        }
-
-        .character {
-            display: flex;
-            align-items: center;
             margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 10px;
+            text-transform: uppercase;
         }
 
-        .character img {
-            width: 150px;
-            height: auto;
-            border-radius: 10px;
-            margin-right: 20px;
-        }
-
-        .character-text {
-            text-align: left;
-        }
-
-        .button {
-            display: inline-block;
-            background-color: #b31b1b;
-            color: #ffffff;
-            padding: 12px 24px;
-            text-decoration: none;
-            font-size: 1.2em;
-            border-radius: 5px;
-            margin-top: 20px;
+        .character-block {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #b31b1b;
             transition: 0.3s ease-in-out;
         }
 
-        .button:hover {
-            background-color: #8b1111;
+        .character-block:hover {
+            border-left: 5px solid #ff3b3b;
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
+        .character-block h2 {
+            font-size: 1.8em;
+            color: #b31b1b;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .character-block p {
+            font-size: 1.2em;
+            text-align: left;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>I Personaggi di Aquila Rubra</h1>
+        <h1>I Protagonisti di Aquila Rubra</h1>
 
-        <div class="character">
-            <img src="valerio.jpg" alt="Valerio Rufo Celtico">
-            <div class="character-text">
-                <h2>Valerio Rufo Celtico</h2>
-                <p>Legato della XII Legione Fulminata, stratega implacabile e fedele servitore di Roma. La guerra lo ha temprato, ma il limes lo metterà alla prova come mai prima.</p>
-            </div>
+        <div class="character-block">
+            <h2>Valerio Rufo Celtico</h2>
+            <p>Comandante della XII Legione Fulminata. Un uomo forgiato nel dovere e nella disciplina. Per lui, Roma è tutto. Ma a quale prezzo?</p>
         </div>
 
-        <div class="character">
-            <img src="giulio.jpg" alt="Giulio Aquila">
-            <div class="character-text">
-                <h2>Giulio Aquila</h2>
-                <p>Un giovane soldato in cerca di riscatto, diviso tra la disciplina romana e il richiamo della libertà. La sua lealtà verrà messa alla prova più volte.</p>
-            </div>
+        <div class="character-block">
+            <h2>Giulio Aquila</h2>
+            <p>Un giovane guerriero in lotta con il proprio destino. Il fuoco della battaglia arde in lui, ma c’è un'ombra che lo segue sempre.</p>
         </div>
 
-        <div class="character">
-            <img src="sairika.jpg" alt="Sairika">
-            <div class="character-text">
-                <h2>Sairika</h2>
-                <p>Guerriera tigurina, un tempo prigioniera, ora ombra letale tra i boschi del Reno. La vendetta scorre nelle sue vene quanto il sangue barbaro che la guida.</p>
-            </div>
+        <div class="character-block">
+            <h2>Zairichi</h2>
+            <p>Guerriera tigurina, nata nel sangue e nella vendetta. La sua lama non conosce esitazione, la sua anima è un campo di battaglia.</p>
         </div>
 
-        <div class="character">
-            <img src="claudia.jpg" alt="Claudia Rufa Celtica">
-            <div class="character-text">
-                <h2>Claudia Rufa Celtica</h2>
-                <p>Una mente affilata come una lama, in grado di giocare con le regole della società romana. Spirito ribelle, il limes sarà per lei una terra di pericoli e tentazioni.</p>
-            </div>
+        <div class="character-block">
+            <h2>Aurelia Cassia</h2>
+            <p>Intrighi, potere, ambizione. Nulla sfugge alla sua mente tagliente. Roma è il suo palcoscenico, il mondo la sua scacchiera.</p>
         </div>
 
-        <div class="character">
-            <img src="aurelia.jpg" alt="Aurelia Cassia">
-            <div class="character-text">
-                <h2>Aurelia Cassia</h2>
-                <p>Nobile e implacabile, è la donna che ha giurato di legare Valerio a sé. Intrighi, potere e paura plasmano ogni sua scelta.</p>
-            </div>
+        <div class="character-block">
+            <h2>Claudia Rufa Celtica</h2>
+            <p>Libera come il vento, pericolosa come il fuoco. Non esistono catene abbastanza forti per domarla. Ma ogni tempesta cela un segreto.</p>
         </div>
-
-        <a href="index.html" class="button">Torna alla Home</a>
     </div>
-
 </body>
 </html>
+
