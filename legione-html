@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La XII Legione Fulminata</title>
+    <style>
+        body {
+            background: url('sfondo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            font-family: 'Julius Sans One', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #b31b1b;
+        }
+
+        .text {
+            font-size: 1.3em;
+            line-height: 1.6;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>La XII Legione Fulminata</h1>
+        <p class="text">
+            La **XII Legione Fulminata** è una delle più temute dell’Impero Romano. Conosciuta per la sua ferocia in battaglia e il rigore dei suoi soldati, la legione ha scritto pagine di sangue e gloria lungo il confine del Limes.
+        </p>
+
+        <p class="text">
+            Il legato **Valerio Rufo Celtico** la guida con polso di ferro, sapendo che ogni errore può significare la morte. Tra le mura del castrum di Argentorate, ogni legionario sa che il dovere viene prima di tutto.
+        </p>
+
+        <p class="text">
+            Nelle terre oltre il Reno, la minaccia delle tribù germaniche incombe. La **XII Fulminata** è l’ultimo baluardo tra Roma e il caos.
+        </p>
+
+        <a href="index.html" class="button">Torna alla Home</a>
+    </div>
+
+</body>
+</html>
