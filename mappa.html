@@ -25,9 +25,12 @@
         }
 
         .map-container {
-            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 90vw;
             max-width: 900px;
+            margin: 0 auto;
         }
 
         .map-container img {
@@ -35,80 +38,19 @@
             height: auto;
             border: 2px solid #b31b1b;
         }
-
-        .map-marker {
-            position: absolute;
-            width: 15px;
-            height: 15px;
-            background-color: red;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .map-marker:hover {
-            transform: scale(1.5);
-        }
-
-        .tooltip {
-            display: none;
-            position: absolute;
-            background: rgba(179, 27, 27, 0.9);
-            color: white;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 14px;
-            white-space: nowrap;
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Esplora il Mondo di Aquila Rubra</h1>
-        <p>Clicca sui punti sulla mappa per scoprire le località principali.</p>
+        <p>La mappa del mondo in cui si svolge la storia.</p>
         <div class="map-container">
-            <img id="mappa" src="mappasezione.png" alt="Mappa di Aquila Rubra">
-
-            <!-- Punti interattivi con percentuali migliorate -->
-            <div class="map-marker" style="top: 38%; left: 50%;" data-info="Argentorate - Sede della XII Legione Fulminata"></div>
-            <div class="map-marker" style="top: 33%; left: 43%;" data-info="Mogontiacum - Avamposto militare romano"></div>
-            <div class="map-marker" style="top: 56%; left: 48%;" data-info="Lugdunum - Centro amministrativo della Gallia"></div>
-            <div class="map-marker" style="top: 78%; left: 52%;" data-info="Roma - Il cuore dell'Impero"></div>
-            <div class="map-marker" style="top: 44%; left: 51%;" data-info="Arbor Felix - Territori contesi tra Romani e Barbari"></div>
+            <img src="mappasezione.png" alt="Mappa di Aquila Rubra">
         </div>
-        <div id="tooltip" class="tooltip"></div>
         <br>
         <a href="index.html" class="button" style="background-color: #b31b1b; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Torna alla Home</a>
     </div>
-
-    <script>
-        document.querySelectorAll('.map-marker').forEach(marker => {
-            marker.addEventListener('mouseenter', function(event) {
-                let tooltip = document.getElementById('tooltip');
-                tooltip.innerText = this.dataset.info;
-                tooltip.style.display = 'block';
-                tooltip.style.left = (event.pageX + 10) + 'px';
-                tooltip.style.top = (event.pageY - 10) + 'px';
-            });
-
-            marker.addEventListener('mouseleave', function() {
-                document.getElementById('tooltip').style.display = 'none';
-            });
-
-            marker.addEventListener('click', function() {
-                alert(this.dataset.info);
-            });
-        });
-
-        // DEBUG COORDINATE (Clicca sulla mappa per vedere le coordinate)
-        document.getElementById('mappa').addEventListener('click', function(event) {
-            let rect = this.getBoundingClientRect();
-            let xPercent = ((event.clientX - rect.left) / rect.width) * 100;
-            let yPercent = ((event.clientY - rect.top) / rect.height) * 100;
-            alert(`Nuova coordinata: top: ${yPercent.toFixed(2)}%; left: ${xPercent.toFixed(2)}%`);
-        });
-    </script>
 
 </body>
 </html>
