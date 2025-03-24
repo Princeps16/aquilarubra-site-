@@ -1,30 +1,316 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLHJY4Z7FQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-WLHJY4Z7FQ');
+    </script>
+    <meta name="author" content="Decimo Valerio Lupo">
+    <meta name="description" content="Aquila Rubra - Un romanzo epico scritto da Valerio Lupo">
+    <meta name="keywords" content="Narrativa, Romanzo, Legione, Antica Roma, Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, DVL, Roma, Impero Romano">
+    <meta property="og:title" content="Aquila Rubra - The Oath of the Legate">
+    <meta property="og:description" content="Scopri il nuovo romanzo epico di Decimo Valerio Lupo, ambientato ai confini dell'Impero.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Decimus Valerius Lupus">
-    <meta name="description" content="Aquila Rubra - An epic novel by Decimus Valerius Lupus">
-    <meta name="keywords" content="Historical Novel, Ancient Rome, Roman Legion, Limes, Aquila Rubra, Decimus Valerius Lupus, Empire">
-    <meta property="og:title" content="Aquila Rubra - The Oath of the Legate">
-    <meta property="og:description" content="Discover the new epic novel by Decimus Valerius Lupus, set at the edge of the Empire.">
     <title>Aquila Rubra - The Oath of the Legate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: url('sfondo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            font-family: 'Julius Sans One', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0);
+        }
+<div style="position: absolute; top: 20px; right: 20px;">
+  <a href="index.html" style="color: #ffcc00; font-weight: bold; text-decoration: none;">🇮🇹 Italiano</a>
+</div>
+        .quote {
+            font-size: 1.8em;
+            font-style: italic;
+            margin-top: 30px;
+            opacity: 0;
+            animation: slideIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 750px; /* Ancora più grande */
+            margin-top: 50px;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        .text {
+            font-size: 1.4em;
+            line-height: 1.8;
+            text-align: justify;
+            opacity: 0;
+            animation: fadeIn 2.5s ease-in-out forwards;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #b31b1b;
+            color: #ffffff;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 1.2em;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: 0.3s ease-in-out;
+            opacity: 0;
+            animation: fadeIn 3s ease-in-out forwards;
+        }
+
+        .button:hover {
+            background-color: #8b1111;
+            box-shadow: 0 0 15px rgba(179, 27, 27, 0.8);
+        }
+
+        h2 {
+            font-size: 2.2em;
+            margin-top: 50px;
+            opacity: 0;
+            animation: fadeIn 3.5s ease-in-out forwards;
+        }
+
+        /* Effetti sonori (facoltativi) */
+        .button:hover::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+        }
+/* 📱 Ottimizzazioni per mobile */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        width: 95vw; /* Adatta il contenuto alla larghezza dello schermo */
+        max-width: none;
+        padding: 10px;
+    }
+
+    .quote {
+        font-size: 1.2em; /* Riduci la dimensione della citazione */
+        line-height: 1.4;
+        margin-top: 20px;
+    }
+
+    .logo {
+        max-width: 300px; /* Riduci il logo per evitare che occupi troppo spazio */
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .text {
+        font-size: 1em; /* Migliora la leggibilità del testo */
+        line-height: 1.5;
+        text-align: left; /* Migliore leggibilità su mobile */
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .button {
+        width: 90%; /* Rendi i pulsanti più accessibili */
+        font-size: 1.1em;
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 1.6em; /* Riduci leggermente la dimensione del titolo */
+    }
+}
+.release-info {
+    margin-top: 10px;
+    font-size: 1.3em;
+    color: #ffcc00; /* Giallo dorato per farla risaltare */
+    text-align: center;
+    font-weight: bold;
+    animation: fadeIn 3.2s ease-in-out forwards;
+}
+
+    </style>
 </head>
-<body style="font-family: 'Julius Sans One', sans-serif; background-color: #121212; color: #fff; padding: 20px;">
-    <h1 style="text-align:center;">"Where the Eagle of the XII Fulminata rises among flames and ash, Rome carves its fate in iron and blood."</h1>
+<body>
+    <div class="container">
+        <p class="quote">"Where the Eagle of the XII Fulminata rises among flames and ash, Rome carves its fate in iron and blood."</p>
+        <img src="titolo.png" alt="Aquila Rubra" class="logo">
+
+        <p class="text">
+            The northern wind howls through the legion’s tents, carrying the scent of rain and blood. In the shadowed forests, watchful eyes stalk the frontier, where the reach of Rome clashes against the fury of barbarian tribes.
+Five figures move in the twilight of history, each burdened by their own past, each suspended between what was and what will be.
+Valerius Rufo Celticus marches with his gaze fixed on the horizon, bearing the weight of Rome on his shoulders. A man of iron, forged by duty and discipline. But beneath his armor lies one truth: war is not won by the sword alone—but through sacrifice. And in Rome, no sacrifice is ever enough.
+Julius Aquila, a chained hawk, is constantly at war with himself. Born to fight, raised to serve—but too restless to accept the path imposed upon him. Each battle is a test, each choice a cage tightening around him. Yet a voice in the wind calls him toward a path he never dared to walk.
+Sairika, the huntress, moves silently through the shadows. Hate fuels her. Vengeance guides her. Rome took everything—now she’s ready to take it all back. Death does not frighten her; her soul was already torn away. What doesn’t break, sharpens. And her blade shows no mercy.
+Aurelia Cassia is the viper among wolves, venom in Rome’s veins. She needs no sword—her words are sharper than any gladius. Behind her perfect smile hides calculation, behind every glance a strategy. She doesn’t attack—she waits until her enemies let down their guard… then strikes with elegance and deadly precision.
+Claudia Rufa Celtica is the flame that will not die, the wind that won’t be caged. As free as a stormy sea, she laughs at the rules others obey without question. She travels, discovers, seduces—diving into danger as if it's the only way to feel alive. But even the fiercest fire can burn too fast.
+The war is coming.
+The limes burns beneath the weight of ambition—of men and gods alike.
+No one escapes fate.
+But there are still those who dare to defy it.
+        </p>
+        <a href="personaggi.html" class="button">Scopri i Personaggi</a>
+        <a href="prologo.html" class="button" onclick="playSound('sword')">Leggi un Estratto</a>
+      <div class="release-info">
+    <p class="release-text">Disponibile dal <strong>15 Aprile 2025</strong></p>
+    <p id="countdown"></p>
+</div>
+<a href="https://www.amazon.it/dp/B0F22WH5KC?dplnkId=5b618c01-aff0-4f12-995f-48b314589573&nodl=1" 
+   class="button" target="_blank">Preordina ora su Amazon!</a>
+<div class="newsletter-container">
+    <h3>Iscriviti alla nostra newsletter</h3>
+    <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
     
-    <p>The northern wind howls through the legion’s tents, carrying the scent of rain and blood... [truncated for brevity]</p>
+    <form id="newsletterForm">
+        <input type="email" id="email" name="email" placeholder="Inserisci la tua email" required>
+        <button type="submit">Iscriviti</button>
+    </form>
 
-    <h2>Available from: April 15, 2025</h2>
-    <a href="https://www.amazon.it/dp/B0F22WH5KC?dplnkId=5b618c01-aff0-4f12-995f-48b314589573&nodl=1" 
-       style="background:#b31b1b; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;">Pre-order now on Amazon</a>
+    <p id="confirmationMessage" style="display:none; color: green;">Grazie per esserti iscritto!</p>
+</div>
 
-    <h2>Setting</h2>
-    <p>It is the year 847 Ab Urbe Condita... [truncated for brevity]</p>
+<script>
+    document.getElementById("newsletterForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        let email = document.getElementById("email").value;
 
-    <footer style="margin-top:40px; text-align:center; font-size:0.9em; color:#bbb;">
-        © 2025 Decimus Valerius Lupus - Aquila Rubra. All rights reserved.
-    </footer>
+        // Simulazione salvataggio email (in futuro collegabile a database)
+        localStorage.setItem("subscribedEmail", email);
+
+        // Mostra il messaggio di conferma
+        document.getElementById("confirmationMessage").style.display = "block";
+
+        // Tracciamento Google Analytics
+        gtag('event', 'newsletter_signup', {
+            'event_category': 'engagement',
+            'event_label': 'Newsletter Signup'
+        });
+
+        // Reset input
+        document.getElementById("email").value = "";
+    });
+</script>
+
+<style>
+    .newsletter-container {
+        text-align: center;
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+    }
+    .newsletter-container input {
+        padding: 10px;
+        width: 250px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+    .newsletter-container button {
+        padding: 10px 20px;
+        background-color: #b31b1b;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .newsletter-container button:hover {
+        background-color: #8b1111;
+    }
+</style>
+
+            <script>
+    function updateCountdown() {
+        let releaseDate = new Date("April 15, 2025 00:00:00").getTime();
+        let now = new Date().getTime();
+        let timeLeft = releaseDate - now;
+
+        let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+            "Uscita tra " + days + " giorni, " + hours + " ore, " + minutes + " minuti!";
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
+
+
+        <h2>Ambientazione</h2>
+        <p class="text">It is the year 847 Ab Urbe Condita. The Roman Empire still stretches vast and mighty, but the Germanic limes is a fragile frontier—a scar of stone and wood between civilization and the chaos of the barbarian world.
+
+Here, in the fortress of Argentorate, home of the XII Fulminata Legion, days are consumed by grueling drills, muddy patrols, and bloody skirmishes. Each night, the wind echoes with war drums and whispers of shadows lurking in the dense forests of the Agri Decumates.
+
+The castrum is a fortress of discipline and steel, a Roman outpost locked in a perpetual state of vigilance. Behind its wooden and stone walls, hardened legionaries sharpen their blades while tribunes and the Legate Valerius Rufo Celticus devise strategies to contain the inevitable advance of the Germanic hordes.
+
+But the frontier is not only a battlefield. It’s a crossroads of ambition, betrayal, and passion.
+In this world of iron and ashes, where honor is bought in blood and loyalty is sharper than a blade—each man and woman must choose: submit to the yoke of empire, or fight for their freedom.
+
+</p>
+        <p class="text">Welcome to the burning limes.
+Welcome to Aquila Rubra – The Oath of the Legate.</p>
+        <a href="mappa.html" class="button">Esplora il Mondo</a>
+        <a href="legione.html" class="button">Scopri la XII Legione</a>
+
+    </div>
+
+    <!-- Effetti sonori -->
+    <audio id="sword" src="sword.mp3"></audio>
+    <audio id="fire" src="fire.mp3"></audio>
+    <audio id="explore" src="explore.mp3"></audio>
+
+    <script>
+        function playSound(id) {
+            document.getElementById(id).play();
+        }
+    </script>
+    <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
+    <p>© 2025 Decimo Valerio Lupo - Aquila Rubra - Tutti i diritti riservati.</p>
+    <p>Effetti sonori da <a href="https://freesound.org/" target="_blank" style="color: #b31b1b;">Freesound</a> e <a href="https://pixabay.com/sound-effects/" target="_blank" style="color: #b31b1b;">Pixabay</a>.</p>
+    <p>
+        <a href="privacy.html" style="color: #b31b1b;">Privacy Policy</a> | 
+        <a href="cookies.html" style="color: #b31b1b;">Cookie Policy</a>
+    </p>
+    <p>Follow Us: 
+        <a href="https://www.instagram.com/aquilarubra_official?igsh=cjZuNGh1Nm80enBx&utm_source=qr" target="_blank" style="color: #b31b1b;">Instagram</a> | 
+        <a href="https://www.facebook.com/tua_pagina" target="_blank" style="color: #b31b1b;">Facebook</a>
+    </p>
+</footer>
 </body>
 </html>
