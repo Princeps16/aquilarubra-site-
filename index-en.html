@@ -188,6 +188,26 @@ But there are still those who dare to defy it.
     <p class="release-text">Available from <strong>April 15, 2025</strong></p>
     <p id="countdown"></p>
 </div>
+
+<script>
+    function updateCountdown() {
+        let releaseDate = new Date("April 15, 2025 00:00:00").getTime();
+        let now = new Date().getTime();
+        let timeLeft = releaseDate - now;
+
+        let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+            "Release in " + days + " days, " + hours + " hours, " + minutes + " minutes!";
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
 <a href="https://www.amazon.it/dp/B0F22WH5KC?dplnkId=5b618c01-aff0-4f12-995f-48b314589573&nodl=1" 
    class="button" target="_blank">Preorder Now on Amazon!</a>
 <div class="newsletter-container">
