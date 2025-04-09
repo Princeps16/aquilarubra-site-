@@ -194,7 +194,25 @@
 <div class="newsletter-container">
     <h3>Iscriviti alla nostra newsletter</h3>
     <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
-    
+    <script>
+    function updateCountdown() {
+        let releaseDate = new Date("April 21, 2025 00:00:00").getTime();
+        let now = new Date().getTime();
+        let timeLeft = releaseDate - now;
+
+        let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+            "Uscita tra " + days + " giorni, " + hours + " ore, " + minutes + " minuti!";
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
     <form id="newsletterForm">
         <input type="email" id="email" name="email" placeholder="Inserisci la tua email" required>
         <button type="submit">Iscriviti</button>
