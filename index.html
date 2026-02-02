@@ -25,16 +25,20 @@
 body::before{
   content: "";
   position: fixed;
-  inset: 0;
+
+  /* overscan: più grande dello schermo per evitare bordi bianchi */
+  inset: -10%;
 
   background: url("/assets/sfondo.jpg") no-repeat center center;
   background-size: cover;
 
-  transform: scale(0.88);          /* ← ZOOM INDIETRO */
+  /* zoom indietro */
+  transform: scale(0.9);
   transform-origin: center;
 
   z-index: -1;
 }
+
 
   /* niente pannello nero */
   main{
