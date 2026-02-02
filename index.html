@@ -2,129 +2,199 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
- <header class="hero">
-  <img src="AQUILARUBRA.png" 
-       alt="Aquila Rubra"
-       class="hero-logo">
+  <title>Aquila Rubra</title>
 
-  <p class="hero-subtitle">Aquila Rubra</p>
-</header>
   <meta name="description" content="Aquila Rubra è un universo narrativo ambientato nella Roma imperiale. Romanzi storici che raccontano il potere, la guerra e gli uomini dell’Impero.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
 
-<style>
-  :root{
-    --text: #eaeaea;
-    --muted: rgba(234,234,234,0.85);
-  }
+  <style>
+    :root{
+      --text: #eaeaea;
+      --muted: rgba(234,234,234,0.85);
+    }
 
+    /* niente pannello nero */
+    main{
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 64px 20px 80px;
+      background: transparent;
+    }
 
-  /* niente pannello nero */
-  main{
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 64px 20px 80px;
-    background: transparent;
-  }
+    /* leggibilità senza “rettangolo nero” */
+    h1, h2, h3, p, a{
+      text-shadow: 0 2px 14px rgba(0,0,0,0.85);
+    }
 
-  /* leggibilità senza “rettangolo nero” */
-  h1, h2, h3, p, a{
-    text-shadow: 0 2px 14px rgba(0,0,0,0.85);
-  }
+    /* HEADER GENERICO (testi) */
+    header{
+      text-align: center;
+      margin-bottom: 56px;
+    }
 
-  header{
-    text-align: center;
-    margin-bottom: 56px;
-  }
+    /* HERO LOGO (immagine al posto del titolo) */
+    .hero{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-  h1{
-    font-size: 56px;
-    margin: 0 0 14px;
-    font-weight: 400;
-  }
+      /* stacco dall'alto */
+      margin-top: 70px;
+      margin-bottom: 22px;
+      text-align: center;
+    }
 
-  header p{
-    margin: 10px 0;
-    font-size: 18px;
-    color: var(--muted);
-  }
+    .hero-logo{
+      display: block;
+      width: 100%;
+      max-width: 360px;   /* <-- qui lo ridimensioni (es: 340, 380) */
+      height: auto;
+      margin: 0 auto 14px;
+    }
 
-  section{
-    margin: 44px 0;
-  }
+    .hero-subtitle{
+      margin: 0;
+      font-size: 16px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
 
-  /* “scritte principali” centrali */
-  h2{
-    text-align: center;
-    font-size: 34px;
-    font-weight: 400;
-    margin: 0 0 18px;
-  }
+    /* testi header sotto il logo */
+    .site-intro{
+      text-align: center;
+      margin-bottom: 56px;
+    }
 
-  /* i titoli dei romanzi: centrati */
-  h3{
-    text-align: center;
-    font-size: 24px;
-    font-weight: 400;
-    margin: 0 0 10px;
-  }
+    .site-intro p{
+      margin: 10px 0;
+      font-size: 18px;
+      color: var(--muted);
+    }
 
-  /* testo centrato (se vuoi solo i titoli, dimmelo e tolgo questo) */
-  section p{
-    text-align: center;
-    line-height: 1.6;
-    max-width: 820px;
-    margin: 0 auto 14px;
-    color: var(--muted);
-    letter-spacing: 0.3px;
-  }
+    section{
+      margin: 44px 0;
+    }
 
-  /* blocchi romanzi */
-  .books{
-    display: grid;
-    gap: 30px;
-    margin-top: 18px;
-  }
+    /* “scritte principali” centrali */
+    h2{
+      text-align: center;
+      font-size: 34px;
+      font-weight: 400;
+      margin: 0 0 18px;
+    }
 
-  .book{
-    text-align: center;
-    padding: 18px 10px;
-    background: transparent; /* niente pannello */
-  }
+    /* i titoli dei romanzi: centrati */
+    h3{
+      text-align: center;
+      font-size: 24px;
+      font-weight: 400;
+      margin: 0 0 10px;
+    }
 
-  /* bottoni: placeholder, li allineiamo alla saga nel punto 4 */
-  .btn{
-    display: inline-block;
-    margin-top: 14px;
-    padding: 12px 18px;
-    border-radius: 10px;
-    text-decoration: none;
-    color: var(--text);
-    border: 1px solid rgba(255,255,255,0.35);
-    background: rgba(0,0,0,0.25);
-    backdrop-filter: blur(2px);
-    transition: transform .12s ease, background .12s ease, border-color .12s ease;
-  }
-  .btn:hover{
-    transform: translateY(-1px);
-    background: rgba(0,0,0,0.35);
-    border-color: rgba(255,255,255,0.55);
-  }
+    /* testo centrato */
+    section p{
+      text-align: center;
+      line-height: 1.6;
+      max-width: 820px;
+      margin: 0 auto 14px;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+    }
 
-  @media (min-width: 900px){
-    .books{ grid-template-columns: 1fr 1fr; }
-  }
-</style>
-<link rel="stylesheet" href="/assets/style.css">
+    /* blocchi romanzi */
+    .books{
+      display: grid;
+      gap: 30px;
+      margin-top: 18px;
+    }
+
+    .book{
+      text-align: center;
+      padding: 18px 10px;
+      background: transparent; /* niente pannello */
+    }
+
+    /* bottoni */
+    .btn{
+      display: inline-block;
+      margin-top: 14px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(2px);
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(0,0,0,0.35);
+      border-color: rgba(255,255,255,0.55);
+    }
+
+    @media (min-width: 900px){
+      .books{ grid-template-columns: 1fr 1fr; }
+    }
+
+    /* mobile: logo più piccolo e meno stacco */
+    @media (max-width: 768px){
+      .hero{
+        margin-top: 50px;
+      }
+      .hero-logo{
+        max-width: 260px;
+      }
+    }
+
+    /* newsletter (lasciata come nel tuo file) */
+    .newsletter-container {
+      text-align: center;
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+    .newsletter-container input {
+      padding: 10px;
+      width: 250px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+    .newsletter-container button {
+      padding: 10px 20px;
+      background-color: #b31b1b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .newsletter-container button:hover {
+      background-color: #8b1111;
+    }
+  </style>
+
+  <link rel="stylesheet" href="/assets/style.css">
 </head>
 
 <body>
 
-  <header>
-    <h1>Aquila Rubra</h1>
+  <!-- QUI DEVE STARE, NON NEL <head> -->
+  <header class="hero">
+    <img src="AQUILARUBRA.png"
+         alt="Aquila Rubra"
+         class="hero-logo">
+    <p class="hero-subtitle">Universo Aquila Rubra</p>
+  </header>
+
+  <!-- TESTI INTRO -->
+  <header class="site-intro">
     <p><strong>Un universo narrativo ambientato nella Roma imperiale</strong></p>
     <p>Legioni sul limes renano, pretoriani nella Subura, uomini schiacciati dal potere di Roma.</p>
   </header>
@@ -150,38 +220,38 @@
       </p>
     </section>
 
-<section>
-  <h2>I romanzi</h2>
+    <section>
+      <h2>I romanzi</h2>
 
-  <div class="books">
-    <div class="book">
-      <h3>Aquila Rubra – Il Giuramento del Legato.</h3>
-      <p>Il fronte del limes germanico. Le legioni di Roma. Il giuramento, la guerra e il tradimento.</p>
-      <a class="btn" href="/aquilarubrasaga/">Entra nella saga</a>
-    </div>
+      <div class="books">
+        <div class="book">
+          <h3>Aquila Rubra – Il Giuramento del Legato.</h3>
+          <p>Il fronte del limes germanico. Le legioni di Roma. Il giuramento, la guerra e il tradimento.</p>
+          <a class="btn" href="/aquilarubrasaga/">Entra nella saga</a>
+        </div>
 
-    <div class="book">
-      <h3>Le Volte del Palatino</h3>
-      <p>Roma, 793 ab Urbe Condita. Pretoriani, congiure e potere nell’ombra del Palatino.</p>
-      <a class="btn" href="/levoltedelpalatino/">Scopri il romanzo</a>
-    </div>
-  </div>
-</section>
+        <div class="book">
+          <h3>Le Volte del Palatino</h3>
+          <p>Roma, 793 ab Urbe Condita. Pretoriani, congiure e potere nell’ombra del Palatino.</p>
+          <a class="btn" href="/levoltedelpalatino/">Scopri il romanzo</a>
+        </div>
+      </div>
+    </section>
 
-<div class="newsletter-container">
-    <h3>Iscriviti alla nostra newsletter</h3>
-    <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
+    <div class="newsletter-container">
+      <h3>Iscriviti alla nostra newsletter</h3>
+      <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
 
-    <form id="newsletterForm">
+      <form id="newsletterForm">
         <input type="email" id="email" name="email" placeholder="Inserisci la tua email" required>
         <button type="submit">Iscriviti</button>
-    </form>
+      </form>
 
-    <p id="confirmationMessage" style="display:none; color: green;">Grazie per esserti iscritto!</p>
-</div>
+      <p id="confirmationMessage" style="display:none; color: green;">Grazie per esserti iscritto!</p>
+    </div>
 
-<script>
-    document.getElementById("newsletterForm").addEventListener("submit", function(event) {
+    <script>
+      document.getElementById("newsletterForm").addEventListener("submit", function(event) {
         event.preventDefault();
         let email = document.getElementById("email").value;
 
@@ -192,55 +262,33 @@
         document.getElementById("confirmationMessage").style.display = "block";
 
         // Tracciamento Google Analytics
-        gtag('event', 'newsletter_signup', {
+        if (typeof gtag === "function") {
+          gtag('event', 'newsletter_signup', {
             'event_category': 'engagement',
             'event_label': 'Newsletter Signup'
-        });
+          });
+        }
 
         // Reset input
         document.getElementById("email").value = "";
-    });
-</script>
+      });
+    </script>
 
-<style>
-    .newsletter-container {
-        text-align: center;
-        background: #1a1a1a;
-        padding: 20px;
-        border-radius: 10px;
-        margin-top: 30px;
-    }
-    .newsletter-container input {
-        padding: 10px;
-        width: 250px;
-        margin-right: 10px;
-        border: none;
-        border-radius: 5px;
-    }
-    .newsletter-container button {
-        padding: 10px 20px;
-        background-color: #b31b1b;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .newsletter-container button:hover {
-        background-color: #8b1111;
-    }
-</style>
   </main>
-    <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
+
+  <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
     <p>© 2025 Decimo Valerio Lupo - Aquila Rubra - Tutti i diritti riservati.</p>
     <p>Effetti sonori da <a href="https://freesound.org/" target="_blank" style="color: #b31b1b;">Freesound</a> e <a href="https://pixabay.com/sound-effects/" target="_blank" style="color: #b31b1b;">Pixabay</a>.</p>
     <p>
-        <a href="privacy.html" style="color: #b31b1b;">Privacy Policy</a> | 
-        <a href="cookies.html" style="color: #b31b1b;">Cookie Policy</a>
+      <a href="privacy.html" style="color: #b31b1b;">Privacy Policy</a> |
+      <a href="cookies.html" style="color: #b31b1b;">Cookie Policy</a>
     </p>
-    <p>Seguici su: 
-        <a href="https://www.instagram.com/aquilarubra_official?igsh=cjZuNGh1Nm80enBx&utm_source=qr" target="_blank" style="color: #b31b1b;">Instagram</a> | 
-        <a href="https://www.facebook.com/JuliusAquila16" target="_blank" style="color: #b31b1b;">Facebook</a>
+    <p>Seguici su:
+      <a href="https://www.instagram.com/aquilarubra_official?igsh=cjZuNGh1Nm80enBx&utm_source=qr" target="_blank" style="color: #b31b1b;">Instagram</a> |
+      <a href="https://www.facebook.com/JuliusAquila16" target="_blank" style="color: #b31b1b;">Facebook</a>
     </p>
-</footer>
+  </footer>
+
 </body>
 </html>
+
