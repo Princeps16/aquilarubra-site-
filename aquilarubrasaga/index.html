@@ -76,24 +76,57 @@
             animation: fadeIn 2.5s ease-in-out forwards;
         }
 
-        .button {
-            display: inline-block;
-            background-color: #b31b1b;
-            color: #ffffff;
-            padding: 12px 24px;
-            text-decoration: none;
-            font-size: 1.2em;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: 0.3s ease-in-out;
-            opacity: 0;
-            animation: fadeIn 3s ease-in-out forwards;
-        }
+    .button {
+  display: inline-block;
+  margin: 20px 10px 0;
+  padding: 12px 24px;
 
-        .button:hover {
-            background-color: #8b1111;
-            box-shadow: 0 0 15px rgba(179, 27, 27, 0.8);
-        }
+  font-family: "Julius Sans One", system-ui, sans-serif;
+  font-size: 0.95em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  color: #f0f0f0;
+  text-decoration: none;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 6px 18px rgba(0,0,0,0.6);
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  opacity: 0;
+  animation: fadeIn 3s ease-in-out forwards;
+}
+
+.button:hover {
+  background: rgba(0, 0, 0, 0.75);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.1),
+    0 10px 24px rgba(0,0,0,0.75);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.15),
+    0 4px 10px rgba(0,0,0,0.7);
+}
+
 
         h2 {
             font-size: 2.2em;
@@ -188,7 +221,7 @@ Nata nell’aristocrazia romana, è attratta dal disordine, dal desiderio, e da 
 Sullo sfondo, le trame della Roma imperiale si intrecciano con le battaglie quotidiane.
 Ma oltre il confine, una figura di fuoco e vendetta si muove tra le ombre: una donna che ha giurato di annientare tutto ciò che porta l’aquila sulle insegne.    
         </p>
-            <a class="btn" href="personaggi.html">Scopri i Personaggi</a>
+        
         <a href="personaggi.html" class="button">Scopri i Personaggi</a>
         <a href="prologo.html" class="button" onclick="playSound('sword')">Leggi un Estratto</a>
       <div class="release-info">
