@@ -252,6 +252,16 @@ body:not(.splash) #content{
     max-width: 260px;
   }
 }
+/* SPLASH: mostra SOLO il logo */
+body.splash .hero-subtitle,
+body.splash .hero p,
+body.splash .hero span,
+body.splash .hero h1,
+body.splash .hero h2 {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+}
 
   </style>
 
