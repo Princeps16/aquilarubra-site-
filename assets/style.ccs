@@ -1,21 +1,11 @@
-html, body{
-  margin: 0;
-  background: #000;
-}
-
-body{
-  color: var(--text);
-  font-family: "Julius Sans One", system-ui, sans-serif;
-  letter-spacing: 0.5px;
-  background: none;
-}
-
 body::before{
   content: "";
   position: fixed;
   inset: -30%;
 
-  background: url("/assets/sfondo.jpg") no-repeat center center;
+  background-image: url("/assets/sfondo.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
   background-size: cover;
 
   transform: scale(0.7);
@@ -23,3 +13,4 @@ body::before{
 
   z-index: -1;
 }
+
