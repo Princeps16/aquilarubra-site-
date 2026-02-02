@@ -1,3 +1,14 @@
+html, body{
+  margin: 0;
+  background: #000;
+}
+
+body{
+  color: var(--text);
+  font-family: "Julius Sans One", system-ui, sans-serif;
+  letter-spacing: 0.5px;
+  background: none;
+}
 body::before{
   content: "";
   position: fixed;
