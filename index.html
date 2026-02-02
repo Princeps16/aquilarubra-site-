@@ -152,28 +152,85 @@
       </p>
     </section>
 
-    <section>
-      <h2>I romanzi</h2>
+<section>
+  <h2>I romanzi</h2>
 
-      <div>
-        <h3>Aquila Rubra – La Saga</h3>
-        <p>
-          Il fronte del limes germanico. Le legioni di Roma. Il giuramento,
-          la guerra e il tradimento.
-        </p>
-        <a href="/aquilarubrasaga/">Entra nella saga</a>
-      </div>
+  <div class="books">
+    <div class="book">
+      <h3>Aquila Rubra – La Saga</h3>
+      <p>Il fronte del limes germanico. Le legioni di Roma. Il giuramento, la guerra e il tradimento.</p>
+      <a class="btn" href="/aquilarubrasaga/">Entra nella saga</a>
+    </div>
 
-      <div>
-        <h3>Le Volte del Palatino</h3>
-        <p>
-          Roma, 39–41 d.C. Pretoriani, congiure e potere nell’ombra del Palatino.
-        </p>
-        <a href="/levoltedelpalatino/">Scopri il romanzo</a>
-      </div>
+    <div class="book">
+      <h3>Le Volte del Palatino</h3>
+      <p>Roma, 39–41 d.C. Pretoriani, congiure e potere nell’ombra del Palatino.</p>
+      <a class="btn" href="/levoltedelpalatino/">Scopri il romanzo</a>
+    </div>
+  </div>
+</section>
 
-    </section>
+<div class="newsletter-container">
+    <h3>Iscriviti alla nostra newsletter</h3>
+    <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
 
+    <form id="newsletterForm">
+        <input type="email" id="email" name="email" placeholder="Inserisci la tua email" required>
+        <button type="submit">Iscriviti</button>
+    </form>
+
+    <p id="confirmationMessage" style="display:none; color: green;">Grazie per esserti iscritto!</p>
+</div>
+
+<script>
+    document.getElementById("newsletterForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        let email = document.getElementById("email").value;
+
+        // Simulazione salvataggio email (in futuro collegabile a database)
+        localStorage.setItem("subscribedEmail", email);
+
+        // Mostra il messaggio di conferma
+        document.getElementById("confirmationMessage").style.display = "block";
+
+        // Tracciamento Google Analytics
+        gtag('event', 'newsletter_signup', {
+            'event_category': 'engagement',
+            'event_label': 'Newsletter Signup'
+        });
+
+        // Reset input
+        document.getElementById("email").value = "";
+    });
+</script>
+
+<style>
+    .newsletter-container {
+        text-align: center;
+        background: #1a1a1a;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+    }
+    .newsletter-container input {
+        padding: 10px;
+        width: 250px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+    }
+    .newsletter-container button {
+        padding: 10px 20px;
+        background-color: #b31b1b;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .newsletter-container button:hover {
+        background-color: #8b1111;
+    }
+</style>
   </main>
 
 </body>
