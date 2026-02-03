@@ -1,14 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Julius+Sans+One&display=swap");
+
+/* VARIABILI GLOBALI */
+:root{
+  --text: #eaeaea;
+
+  --title-font: "Julius Sans One", system-ui, sans-serif;
+  --body-font: "Libre Baskerville", serif;
+}
+
+/* RESET BASE */
 html, body{
   margin: 0;
   background: #000;
 }
 
+/* TESTO GENERALE */
 body{
   color: var(--text);
-  font-family: "Julius Sans One", system-ui, sans-serif;
-  letter-spacing: 0.5px;
+  font-family: var(--body-font);
+  font-size: 17px;
+  line-height: 1.7;
+  letter-spacing: 0.2px;
   background: none;
 }
+
+/* TITOLI */
+h1,
+h2,
+h3,
+.hero-subtitle,
+.saga-subtitle{
+  font-family: var(--title-font);
+  font-weight: 400;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+/* SFONDO */
 body::before{
   content: "";
   position: fixed;
@@ -24,4 +52,3 @@ body::before{
 
   z-index: -1;
 }
-
