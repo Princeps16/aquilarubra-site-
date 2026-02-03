@@ -235,14 +235,50 @@ body.splash #content{
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
 
-/* dopo click: contenuto visibile */
+/* =========================
+   SPLASH MODE – FIX SCROLL
+   ========================= */
+
+/* In splash: niente scroll */
+body.splash{
+  overflow: hidden;
+}
+
+/* In splash: header a pieno schermo (niente “vuoto” sotto) */
+body.splash .hero{
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* In splash: mostra SOLO il logo */
+body.splash .hero-subtitle,
+body.splash .hero p,
+body.splash .hero span,
+body.splash .hero h1,
+body.splash .hero h2{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+}
+
+/* In splash: il contenuto NON occupa spazio */
+body.splash #content{
+  display: none;
+}
+
+/* Dopo click: contenuto visibile */
 body:not(.splash) #content{
+  display: block;
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
 
-/* mobile: splash non troppo gigante */
+/* Mobile: splash non troppo gigante */
 @media (max-width: 768px){
   body.splash .hero-logo{
     max-width: 320px;
@@ -251,16 +287,6 @@ body:not(.splash) #content{
   .hero-logo{
     max-width: 260px;
   }
-}
-/* SPLASH: mostra SOLO il logo */
-body.splash .hero-subtitle,
-body.splash .hero p,
-body.splash .hero span,
-body.splash .hero h1,
-body.splash .hero h2 {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
 }
 
   </style>
