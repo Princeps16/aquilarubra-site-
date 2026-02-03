@@ -11,77 +11,69 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
 
+  <!-- Se questo file contiene lo sfondo (body::before), lascialo -->
+  <link rel="stylesheet" href="/assets/style.css">
+
   <style>
     :root{
       --text: #eaeaea;
       --muted: rgba(234,234,234,0.85);
     }
 
-    /* niente pannello nero */
-    main{
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 64px 20px 80px;
-      background: transparent;
+    html, body{
+      margin: 0;
+      padding: 0;
+      color: var(--text);
+      font-family: "Julius Sans One", system-ui, sans-serif;
     }
 
-    /* leggibilità senza “rettangolo nero” */
-    h1, h2, h3, p, a{
+    /* leggibilità senza pannello */
+    h1, h2, h3, p, a, .enter-hint{
       text-shadow: 0 2px 14px rgba(0,0,0,0.85);
     }
 
-    /* HEADER GENERICO (testi) */
-    header{
-      text-align: center;
-      margin-bottom: 56px;
-    }
-
-    /* HERO LOGO (immagine al posto del titolo) */
-    .hero{
+    /* ===== HERO ===== */
+    header.hero{
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-
-      /* stacco dall'alto */
-      margin-top: 70px;
-      margin-bottom: 22px;
       text-align: center;
+      margin: 70px 0 22px;
     }
 
     .hero-logo{
-  display: block;
-  width: 100%;
-  max-width: 900px;   /* DESKTOP: arriva alle greche */
-  height: auto;
-  margin: 0 auto 18px;
-}
+      display: block;
+      width: 92vw;
+      max-width: 900px; /* normale dopo ingresso */
+      height: auto;
+      margin: 0 auto 14px;
+      transition: max-width 0.7s ease, transform 0.7s ease, opacity 0.7s ease;
+    }
 
-
-    .hero-subtitle{
-      margin: 0;
-      font-size: 16px;
+    .enter-hint{
+      margin-top: 10px;
+      font-size: 14px;
+      letter-spacing: 3px;
       color: var(--muted);
-      letter-spacing: 1px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(0,0,0,0.35);
+      padding: 10px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      user-select: none;
     }
 
-    /* testi header sotto il logo */
-    .site-intro{
-      text-align: center;
-      margin-bottom: 56px;
+    /* ===== CONTENUTO ===== */
+    main{
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px 80px;
+      background: transparent;
     }
 
-    .site-intro p{
-      margin: 10px 0;
-      font-size: 18px;
-      color: var(--muted);
-    }
+    section{ margin: 44px 0; }
 
-    section{
-      margin: 44px 0;
-    }
-
-    /* “scritte principali” centrali */
     h2{
       text-align: center;
       font-size: 34px;
@@ -89,7 +81,6 @@
       margin: 0 0 18px;
     }
 
-    /* i titoli dei romanzi: centrati */
     h3{
       text-align: center;
       font-size: 24px;
@@ -97,7 +88,6 @@
       margin: 0 0 10px;
     }
 
-    /* testo centrato */
     section p{
       text-align: center;
       line-height: 1.6;
@@ -107,7 +97,6 @@
       letter-spacing: 0.3px;
     }
 
-    /* blocchi romanzi */
     .books{
       display: grid;
       gap: 30px;
@@ -117,10 +106,8 @@
     .book{
       text-align: center;
       padding: 18px 10px;
-      background: transparent; /* niente pannello */
     }
 
-    /* bottoni */
     .btn{
       display: inline-block;
       margin-top: 14px;
@@ -143,17 +130,7 @@
       .books{ grid-template-columns: 1fr 1fr; }
     }
 
-    /* mobile: logo più piccolo e meno stacco */
-    @media (max-width: 768px){
-      .hero{
-        margin-top: 50px;
-      }
-      .hero-logo{
-        max-width: 260px;
-      }
-    }
-
-    /* newsletter (lasciata come nel tuo file) */
+    /* ===== NEWSLETTER ===== */
     .newsletter-container {
       text-align: center;
       background: #1a1a1a;
@@ -180,154 +157,77 @@
       background-color: #8b1111;
     }
 
-    /* ====== OPZIONE B: SPLASH MODE ====== */
+    /* ====== SPLASH MODE ====== */
 
-/* hero base (sempre centrato) */
-.hero{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-top: 70px;
-  margin-bottom: 22px;
-}
+    /* In splash: niente scroll e SOLO hero visibile */
+    body.splash{
+      overflow: hidden;
+    }
 
-/* logo base (modalità normale dopo click) */
-.hero-logo{
-  width: 100%;
-  max-width: 900px;     /* normale: grande ma non enorme */
-  height: auto;
-  margin: 0 auto 14px;
-  transition: max-width 0.7s ease, transform 0.7s ease, opacity 0.7s ease;
-}
+    body.splash header.hero{
+      height: 100vh;
+      margin: 0;
+      cursor: pointer;
+    }
 
-.hero-subtitle{
-  margin: 0;
-  font-size: 16px;
-  color: var(--muted);
-  letter-spacing: 1px;
-}
+    /* In splash: logo enorme */
+    body.splash .hero-logo{
+      max-width: 1200px; /* enorme desktop */
+      width: 92vw;
+      transform: translateY(-10px);
+    }
 
-/* stato SPLASH: pagina “solo logo” */
-body.splash .hero{
-  height: 100vh;
-  margin: 0;
-  cursor: pointer;
-}
+    /* In splash: il contenuto non esiste (niente spazio vuoto) */
+    body.splash #content{
+      display: none;
+    }
 
-/* SPLASH: logo enorme */
-body.splash .hero-logo{
-  max-width: 1200px;  /* ENORME desktop */
-  width: 92vw;        /* responsivo */
-  transform: translateY(-10px);
-}
+    /* Dopo ingresso: contenuto visibile */
+    body:not(.splash) #content{
+      display: block;
+    }
 
-/* SPLASH: nascondi il contenuto */
-body.splash #content{
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(20px);
-}
+    /* Dopo ingresso: “ENTRA” sparisce */
+    body:not(.splash) .enter-hint{
+      display: none !important;
+    }
 
-/* transizione content */
-#content{
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-/* =========================
-   SPLASH MODE – FIX SCROLL
-   ========================= */
-
-/* In splash: niente scroll */
-body.splash{
-  overflow: hidden;
-}
-
-/* In splash: header a pieno schermo (niente “vuoto” sotto) */
-body.splash .hero{
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-/* In splash: mostra SOLO il logo */
-body.splash .hero-subtitle,
-body.splash .hero p,
-body.splash .hero span,
-body.splash .hero h1,
-body.splash .hero h2{
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
-}
-
-/* In splash: il contenuto NON occupa spazio */
-body.splash #content{
-  display: none;
-}
-
-/* Dopo click: contenuto visibile */
-body:not(.splash) #content{
-  display: block;
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
-/* Mobile: splash non troppo gigante */
-@media (max-width: 768px){
-  body.splash .hero-logo{
-    max-width: 320px;
-    width: 82vw;
-  }
-  .hero-logo{
-    max-width: 260px;
-  }
-}
-
+    /* Mobile: logo più piccolo */
+    @media (max-width: 768px){
+      .hero-logo{ max-width: 260px; }
+      body.splash .hero-logo{
+        max-width: 320px;
+        width: 82vw;
+      }
+    }
   </style>
-
-  <link rel="stylesheet" href="/assets/style.css">
 </head>
 
 <body class="splash">
 
-  <!-- QUI DEVE STARE, NON NEL <head> -->
   <header class="hero" id="hero">
-  <img src="AQUILARUBRA.png"
-       alt="Aquila Rubra"
-       class="hero-logo"
-       id="logo">
-
-    <div class="enter-hint">ENTRA</div>
-
-</header>
+    <img src="AQUILARUBRA.png" alt="Aquila Rubra" class="hero-logo" id="logo">
+    <div class="enter-hint" id="enterBtn">ENTRA</div>
+  </header>
 
   <main id="content">
-
     <section>
+      <p><strong>Un universo narrativo ambientato nella Roma imperiale</strong></p>
+      <p>Legioni sul limes renano, pretoriani nella Subura, uomini chiamati a prendere delle decisioni che cambieranno il destino di Roma.</p>
 
-<p><strong>Un universo narrativo ambientato nella Roma imperiale</strong></p>
-    <p>Legioni sul limes renano, pretoriani nella Subura, uomini chiamati a prendere delle decisioni che cambieranno il destino di Roma.</p>
-      
       <h2>L’autore</h2>
       <p>
-        Valerio Lupo nasce a Roma nel 1988. Ha sempre avuto una grande passione per la storia, in particolare per quella riguardante l'età imperiale di Roma. Per anni ha studiato le fonti classiche, visitato i luoghi dell'impero e approfondito l'arte militare antica. 
+        Valerio Lupo nasce a Roma nel 1988. Ha sempre avuto una grande passione per la storia, in particolare per quella riguardante l'età imperiale di Roma.
+        Per anni ha studiato le fonti classiche, visitato i luoghi dell'impero e approfondito l'arte militare antica.
         Aquila Rubra è un progetto ambizioso di narrativa storica ambientato nella Roma imperiale.
-        Le storie esplorano il potere, la violenza istituzionale e il destino degli uomini
-        all’interno dell’Impero, attraverso epoche, luoghi e protagonisti diversi.
+        Le storie esplorano il potere, la violenza istituzionale e il destino degli uomini all’interno dell’Impero, attraverso epoche, luoghi e protagonisti diversi.
       </p>
     </section>
 
     <section>
       <h2>L’Universo di Aquila Rubra</h2>
       <p>
-        Roma non è solo uno sfondo, ma un sistema.
-        Ogni romanzo racconta una parte diversa dello stesso mondo:
+        Roma non è solo uno sfondo, ma un sistema. Ogni romanzo racconta una parte diversa dello stesso mondo:
         il conflitto con le popolazioni barbare, l'Urbe, il Palatino, i vicoli, storie di vite comuni.
         Le vicende sono autonome, ma condividono un’unica visione, e, a volte, personaggi conosciuti.
       </p>
@@ -338,18 +238,14 @@ body:not(.splash) #content{
 
       <div class="books">
         <div class="book">
-          <h3>Aquila Rubra
-            - Il Giuramento del Legato.</h3>
-          <p>Il fronte del limes germanico. 
-            Le legioni di Roma. 
-            Un giuramento, la guerra e il tradimento.</p>
+          <h3>Aquila Rubra - Il Giuramento del Legato</h3>
+          <p>Il fronte del limes germanico. Le legioni di Roma. Un giuramento, la guerra e il tradimento.</p>
           <a class="btn" href="/aquilarubrasaga/">Entra nella saga</a>
         </div>
 
         <div class="book">
           <h3>Le Volte del Palatino</h3>
-          <p>Roma, 793 ab Urbe Condita. 
-            Pretoriani, congiure e potere nell’ombra del Palatino.</p>
+          <p>Roma, 793 ab Urbe Condita. Pretoriani, congiure e potere nell’ombra del Palatino.</p>
           <a class="btn" href="/levoltedelpalatino/">Scopri il romanzo</a>
         </div>
       </div>
@@ -371,26 +267,18 @@ body:not(.splash) #content{
       document.getElementById("newsletterForm").addEventListener("submit", function(event) {
         event.preventDefault();
         let email = document.getElementById("email").value;
-
-        // Simulazione salvataggio email (in futuro collegabile a database)
         localStorage.setItem("subscribedEmail", email);
-
-        // Mostra il messaggio di conferma
         document.getElementById("confirmationMessage").style.display = "block";
 
-        // Tracciamento Google Analytics
         if (typeof gtag === "function") {
           gtag('event', 'newsletter_signup', {
             'event_category': 'engagement',
             'event_label': 'Newsletter Signup'
           });
         }
-
-        // Reset input
         document.getElementById("email").value = "";
       });
     </script>
-
   </main>
 
   <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
@@ -405,18 +293,19 @@ body:not(.splash) #content{
       <a href="https://www.facebook.com/JuliusAquila16" target="_blank" style="color: #b31b1b;">Facebook</a>
     </p>
   </footer>
-<script>
-  document.getElementById("hero").addEventListener("click", function () {
-    document.body.classList.remove("splash");
-    // scrolla su, così l'utente non resta in mezzo al nulla
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-</script>
 
-body:not(.splash) .enter-hint{
-  display: none !important;
-}
-  
+  <script>
+    function enterSite(){
+      document.body.classList.remove("splash");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.getElementById("hero").addEventListener("click", enterSite);
+    document.getElementById("enterBtn").addEventListener("click", function(e){
+      e.stopPropagation(); // evita doppio trigger
+      enterSite();
+    });
+  </script>
+
 </body>
 </html>
-
