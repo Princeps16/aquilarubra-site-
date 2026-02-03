@@ -13,24 +13,25 @@
     <meta name="author" content="Decimo Valerio Lupo">
     <meta name="description" content="Aquila Rubra - Un romanzo epico scritto da Valerio Lupo">
     <meta name="keywords" content="Roman historical novel, Roman legion story, epic historical fiction, Ancient Rome book, Rome, Ancient Rome, Legion, Narrativa, Romanzo, Legione, Antica Roma, Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, DVL, Roma, Impero Romano">
-    <meta property="og:title" content="Aquila Rubra - The Oath of the Legate">
+    <meta property="og:title" content="Aquila Rubra - Il Giuramento del Legato">
     <meta property="og:description" content="Scopri il nuovo romanzo epico di Decimo Valerio Lupo, ambientato ai confini dell'Impero.">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aquila Rubra - The Oath of the Legate</title>
+    <title>Aquila Rubra - Il Giuramento del Legato</title>
     <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background: url('sfondo.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #ffffff;
-            font-family: 'Julius Sans One', sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            animation: fadeIn 1.5s ease-in-out;
-        }
+    <link rel="stylesheet" href="/assets/style.css">
+<style>
+       body {
+  background: none;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+
 
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -75,24 +76,67 @@
             animation: fadeIn 2.5s ease-in-out forwards;
         }
 
-        .button {
-            display: inline-block;
-            background-color: #b31b1b;
-            color: #ffffff;
-            padding: 12px 24px;
-            text-decoration: none;
-            font-size: 1.2em;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: 0.3s ease-in-out;
-            opacity: 0;
-            animation: fadeIn 3s ease-in-out forwards;
-        }
+    .button {
+  display: inline-block;
+width: auto;
+max-width: fit-content;
+white-space: nowrap;
 
-        .button:hover {
-            background-color: #8b1111;
-            box-shadow: 0 0 15px rgba(179, 27, 27, 0.8);
-        }
+  margin: 20px 10px 0;
+  padding: 12px 24px;
+
+  font-family: "Julius Sans One", system-ui, sans-serif;
+  font-size: 0.95em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  color: #f0f0f0;
+  text-decoration: none;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 6px 18px rgba(0,0,0,0.6);
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  opacity: 0;
+  animation: fadeIn 3s ease-in-out forwards;
+}
+
+.button:hover {
+  background: rgba(0, 0, 0, 0.75);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.1),
+    0 10px 24px rgba(0,0,0,0.75);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.15),
+    0 4px 10px rgba(0,0,0,0.7);
+}
+.button-group{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;        /* distanza tra i bottoni */
+  margin: 28px 0 40px;
+}
 
         h2 {
             font-size: 2.2em;
@@ -158,16 +202,82 @@
     font-weight: bold;
     animation: fadeIn 3.2s ease-in-out forwards;
 }
+        /* ===== SAGA HERO ===== */
+
+.saga-hero{
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+/* AQUILA: simbolo, non protagonista */
+.saga-eagle{
+  width: 100%;
+  max-width: 260px;     /* dimensione controllata */
+  height: auto;
+  margin: 0 auto 18px;
+}
+
+/* TITOLO IMMAGINE: protagonista */
+.saga-title-img{
+  width: 100%;
+  max-width: 720px;     /* qui sta la forza visiva */
+  height: auto;
+  margin: 0 auto 14px;
+}
+
+/* Sottotitolo */
+.saga-subtitle{
+  font-family: 'Julius Sans One', sans-serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: rgba(234,234,234,0.75);
+  margin: 0;
+}
+
+/* Desktop grande */
+@media (min-width: 1024px){
+  .saga-eagle{
+    max-width: 300px;
+  }
+  .saga-title-img{
+    max-width: 860px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px){
+  .saga-eagle{
+    max-width: 200px;
+  }
+  .saga-title-img{
+    max-width: 90vw;
+  }
+}
 
     </style>
 </head>
 <body>
-        <div style="position: absolute; top: 20px; right: 20px;">
-  <a href="index.html" style="color: #ffcc00; font-weight: bold; text-decoration: none;">🇮🇹 Italiano</a>
+        <!-- Selettore Lingua in alto a destra -->
+<div style="position: fixed; top: 15px; right: 20px; z-index: 999;">
+    <a href="index-en.html" style="color: #ffcc00; font-weight: bold; text-decoration: none; font-size: 1em;">
+        🇬🇧 English
+    </a>
 </div>
-    <div class="container">
-        <p class="quote">"Where the Eagle of the XII Fulminata rises among flames and ash, Rome carves its fate in iron and blood."</p>
-        <img src="titolo.png" alt="Aquila Rubra" class="logo">
+
+<header class="saga-hero">
+
+  <!-- AQUILA (simbolo) -->
+  <img src="/assets/aquilaimperialefulminata2.0.png"
+       alt="Aquila Rubra"
+       class="saga-eagle">
+
+  <!-- TITOLO COME IMMAGINE -->
+  <img src="/aquilarubrasaga/titolo.png"
+       alt="Aquila Rubra"
+       class="saga-title-img">
+
+</header>
 
         <p class="text">
             The northern wind howls through the legion’s tents, carrying the scent of rain and blood. In the shadowed forests, watchful eyes stalk the frontier, where the reach of Rome clashes against the fury of barbarian tribes.
