@@ -203,6 +203,58 @@ white-space: nowrap;
     font-weight: bold;
     animation: fadeIn 3.2s ease-in-out forwards;
 }
+        /* ===== SAGA HERO ===== */
+
+.saga-hero{
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+/* AQUILA: simbolo, non protagonista */
+.saga-eagle{
+  width: 100%;
+  max-width: 260px;     /* dimensione controllata */
+  height: auto;
+  margin: 0 auto 18px;
+}
+
+/* TITOLO IMMAGINE: protagonista */
+.saga-title-img{
+  width: 100%;
+  max-width: 720px;     /* qui sta la forza visiva */
+  height: auto;
+  margin: 0 auto 14px;
+}
+
+/* Sottotitolo */
+.saga-subtitle{
+  font-family: 'Julius Sans One', sans-serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: rgba(234,234,234,0.75);
+  margin: 0;
+}
+
+/* Desktop grande */
+@media (min-width: 1024px){
+  .saga-eagle{
+    max-width: 300px;
+  }
+  .saga-title-img{
+    max-width: 860px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px){
+  .saga-eagle{
+    max-width: 200px;
+  }
+  .saga-title-img{
+    max-width: 90vw;
+  }
+}
 
     </style>
 </head>
@@ -215,7 +267,20 @@ white-space: nowrap;
 </div>
 
 <header class="saga-hero">
-  <img src="/assets/aquilaimperialefulminata2.0.png" alt="Aquila Rubra" class="saga-aquila">
+
+  <!-- AQUILA (simbolo) -->
+  <img src="/assets/aquilaimperialefulminata2.0.png"
+       alt="Aquila Rubra"
+       class="saga-eagle">
+
+  <!-- TITOLO COME IMMAGINE -->
+  <img src="/assets/titolo.png"
+       alt="Aquila Rubra"
+       class="saga-title-img">
+
+  <!-- SOTTOTITOLO TESTUALE -->
+  <p class="saga-subtitle">Il Giuramento del Legato</p>
+
 </header>
         
         <p class="text">
