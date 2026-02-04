@@ -1,141 +1,252 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta name="author" content="Decimo Valerio Lupo">
-    <meta name="description" content="Aquila Rubra - Un romanzo epico scritto da Valerio Lupo">
-    <meta name="keywords" content="Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, DVL, Roma, Impero Romano">
-    <meta property="og:title" content="Aquila Rubra - Il Giuramento del Legato">
-    <meta property="og:description" content="Scopri il nuovo romanzo epico di Decimo Valerio Lupo, ambientato ai confini dell'Impero.">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La XII Legione Fulminata</title>
-    <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="/assets/buttons.css">
-    <style>
-         body{
-  background: none;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Decimo Valerio Lupo">
+  <meta name="description" content="La XII Legione Fulminata - Aquila Rubra">
+  <meta name="keywords" content="Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, Roma, Impero Romano">
+  <meta property="og:title" content="La XII Legione Fulminata">
+  <meta property="og:description" content="Struttura e gerarchia della XII Legione Fulminata.">
 
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 30px;
-            background: rgba(0, 0, 0, 0);
-            animation: fadeIn 2s ease-in;
-        }
+  <title>La XII Legione Fulminata</title>
 
-        .content {
-            width: 80%;
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
-        }
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/buttons.css">
 
-        h1, h2 {
-            color: #ffcc00;
-            text-transform: uppercase;
-            margin-top: 20px;
-        }
+  <style>
+    /* pagina pulita: lo sfondo lo gestisce /assets/style.css */
+    body{
+      background: none;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
 
-        h2 {
-            border-bottom: 2px solid #b31b1b;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
+    .container{
+      width: 88%;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
 
-        .section-title {
-            color: #ffcc00;
-            font-size: 1.6em;
-            margin-top: 40px;
-            text-transform: uppercase;
-            text-decoration: underline;
-        }
+    /* Titolo pagina: più piccolo e più “premium” */
+    h1{
+      margin: 34px 0 18px;
+      font-size: 1.9em;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.85);
+    }
 
-        .role {
-            font-size: 1.4em;
-            color: #b31b1b;
-            font-weight: bold;
-            margin-top: 20px;
-        }
+    .intro{
+      max-width: 860px;
+      margin: 0 auto 26px;
+      font-size: 1.05em;
+      line-height: 1.55;
+      letter-spacing: 0.2px;
+      color: rgba(234,234,234,0.88);
+      text-shadow: 0 2px 14px rgba(0,0,0,0.85);
+    }
 
-        .description {
-            font-size: 1.1em;
-            line-height: 1.6;
-            text-align: justify;
-            margin: 10px auto;
-        }
-    </style>
+    /* Sezioni (Comando Centrale, ecc.) */
+    .section-title{
+      margin: 36px auto 14px;
+      font-size: 1.15em;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(234,234,234,0.9);
+      text-shadow: 0 2px 14px rgba(0,0,0,0.85);
+    }
+
+    /* Blocco stile “personaggi” */
+    .block{
+      background: rgba(0,0,0,0.78);
+      padding: 18px 18px 16px;
+      margin: 14px auto;
+      border-left: 4px solid rgba(234,234,234,0.18);
+      border-radius: 8px;
+      transition: 0.25s ease;
+      text-align: left; /* dentro il box è più leggibile */
+      box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+    }
+
+    .block:hover{
+      transform: translateX(4px);
+      border-left-color: rgba(234,234,234,0.35);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.55);
+    }
+
+    .block h3{
+      margin: 0 0 8px;
+      font-size: 1.15em;
+      font-weight: 400;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(234,234,234,0.92);
+    }
+
+    /* Sottoriga “ruolo | nome” */
+    .meta{
+      margin: 0 0 10px;
+      font-size: 0.95em;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      color: rgba(234,234,234,0.7);
+    }
+
+    /* descrizione: font “testo” (quello che hai messo come secondario in style.css) */
+    .desc{
+      margin: 0;
+      font-size: 1.02em;
+      line-height: 1.6;
+      color: rgba(234,234,234,0.88);
+      letter-spacing: 0.2px;
+      font-family: var(--font-body, inherit);
+    }
+
+    /* lista compatta dentro un box */
+    .desc strong{
+      color: rgba(255,255,255,0.95);
+      font-weight: 600;
+    }
+
+    .btn-wrap{
+      margin-top: 26px;
+    }
+
+    /* mobile */
+    @media (max-width: 768px){
+      h1{ font-size: 1.55em; }
+      .intro{ font-size: 1em; }
+      .block{ padding: 16px 14px; }
+      .block h3{ font-size: 1.05em; }
+      .desc{ font-size: 0.98em; }
+    }
+  </style>
 </head>
+
 <body>
+  <div class="container">
 
-    <div class="content">
-        <h1>La XII Legione Fulminata</h1>
-        <p class="description">
-            La <strong>XII Legione Fulminata</strong> è un'unità d’élite dell'Impero Romano, forgiata nel ferro e temprata dal sangue.  
-            Comandata da <span class="role">Valerio Rufo Celtico</span>, la legione rappresenta l’ultimo baluardo della civiltà contro il caos delle tribù germaniche.
-        </p>
+    <h1>La XII Legione Fulminata</h1>
 
-        <h2 class="section-title">Comando Centrale</h2>
+    <p class="intro">
+      Un’unità d’élite forgiata nel ferro e temprata dal sangue. Sul limes non basta essere soldati:
+      bisogna essere ingranaggi. E la XII non perdona.
+    </p>
 
-        <p class="role">Legatus Legionis | Valerio Rufo Celtico</p>
-        <p class="description">Stratega freddo e razionale, ossessionato da Roma e dal dovere. Un comandante che non ammette debolezze.</p>
+    <div class="section-title">Comando Centrale</div>
 
-        <p class="role">Tribunus Laticlavius | Lucio Domizio Corvino</p>
-        <p class="description">Ambizioso, ma inesperto. Proveniente da famiglia aristocratica, lotta per dimostrare il proprio valore sul campo.</p>
-
-        <p class="role">Tribuni Angusticlavi</p>
-
-        <p class="description"><strong>Marco Vibio Sabino</strong> (Amministrazione) – Freddo e metodico, pragmatico e calcolatore.</p>
-        <p class="description"><strong>Gaio Cassio Longino</strong> (Strategia) – Inflessibile e sospettoso, crede nella disciplina assoluta.</p>
-        <p class="description"><strong>Publio Sestio Rufio</strong> (Logistica) – Esegue ordini con efficienza, senza ambizioni personali.</p>
-        <p class="description"><strong>Decimo Annio Terenzio</strong> (Carismatico) – Amato dai soldati, ma troppo impulsivo.</p>
-
-        <p class="role">Praefectus Castrorum | Sesto Fabio Lucano</p>
-        <p class="description">Burbero e realista, veterano rispettato dai soldati. Il vero cuore della disciplina nel castrum.</p>
-
-        <h2 class="section-title">Struttura Operativa</h2>
-
-        <p class="role">Primus Pilus | Tito Flavio Macro</p>
-        <p class="description">Veterano temprato dalla guerra, conosce il valore degli uomini meglio di chiunque altro.</p>
-
-        <h3>Centurioni della II - X Coorte</h3>
-
-        <p class="description"><strong>Gaio Marcio Vero</strong> (Difesa e Fortificazioni) – Esperto negli assedi.</p>
-        <p class="description"><strong>Lucio Postumo Albino</strong> (Disciplina) – Rigido e tradizionalista, non ammette insubordinazioni.</p>
-        <p class="description"><strong>Quinto Valerio Crispo</strong> (Veterano) – Forte senso della giustizia, ma la guerra non sempre lo permette.</p>
-
-        <h2 class="section-title">Unità Specializzate</h2>
-
-        <p class="role">Equites Legionis | Decurio Lucio Settimo Frontone</p>
-        <p class="description">Comanda la cavalleria legionaria con scaltrezza e velocità di decisione.</p>
-
-        <p class="role">Ballistarii | Praefectus Ballistariorum Quinto Servilio Varo</p>
-        <p class="description">Responsabile dell’artiglieria, calcolatore delle traiettorie di morte.</p>
-
-        <p class="role">Exploratores e Speculatores | Tito Cornelio Silano</p>
-        <p class="description">Esperto nelle ricognizioni, sempre un passo avanti ai nemici.</p>
-
-        <h2 class="section-title">Guardia d’Elite e Truppe Ausiliarie</h2>
-
-        <p class="role">Evocati | Manio Furio Rufino</p>
-        <p class="description">Ex centurione, veterano rispettato e fedele alla legione.</p>
-
-        <p class="role">Aquilifer | Lucio Cassio Felice</p>
-        <p class="description">Portatore dell’Aquila, simbolo sacro della legione.</p>
-
-        <p class="role">Cohortes Auxiliares | Cneo Domizio Regolo</p>
-        <p class="description">Comanda arcieri e cavalleria leggera, uomo che disprezza i legionari troppo rigidi.</p>
-
-        <h2 class="section-title">L’Ingranaggio Perfetto della Guerra</h2>
-        <p class="description">
-            La XII Legione Fulminata non è solo un esercito, è una macchina letale. Ogni uomo ha il suo posto, ogni ruolo è essenziale.  
-            Qui, il fallimento significa la morte. Solo i più forti sopravvivono.
-        </p>
-
-        <a href="index.html" class="button">Torna indietro</a>
+    <div class="block">
+      <h3>Legatus Legionis</h3>
+      <p class="meta">Valerio Rufo Celtico</p>
+      <p class="desc">Comandante inflessibile, stratega freddo e razionale. Per lui il dovere viene prima della vita, e la disciplina prima della pietà.</p>
     </div>
 
+    <div class="block">
+      <h3>Tribunus Laticlavius</h3>
+      <p class="meta">Lucio Domizio Corvino</p>
+      <p class="desc">Aristocratico ambizioso ma inesperto. Sul confine scopre presto che il rango non ferma i pugnali né la paura.</p>
+    </div>
+
+    <div class="block">
+      <h3>Praefectus Castrorum</h3>
+      <p class="meta">Sesto Fabio Lucano</p>
+      <p class="desc">Veterano ruvido, pratico, temuto e rispettato. È lui che tiene in piedi il castrum quando gli uomini crollano.</p>
+    </div>
+
+    <div class="section-title">Tribuni Angusticlavi</div>
+
+    <div class="block">
+      <h3>Amministrazione</h3>
+      <p class="meta">Marco Vibio Sabino</p>
+      <p class="desc">Metodico e glaciale. Tiene i conti, le razioni, e i nervi degli uomini sotto lo stesso tipo di controllo.</p>
+    </div>
+
+    <div class="block">
+      <h3>Strategia</h3>
+      <p class="meta">Gaio Cassio Longino</p>
+      <p class="desc">Inflessibile, sospettoso, ossessionato dall’ordine. Vede traditori dove gli altri vedono stanchezza.</p>
+    </div>
+
+    <div class="block">
+      <h3>Logistica</h3>
+      <p class="meta">Publio Sestio Rufio</p>
+      <p class="desc">Efficiente e silenzioso. Fa arrivare ciò che serve, quando serve. Non fa domande, e proprio per questo è pericoloso.</p>
+    </div>
+
+    <div class="block">
+      <h3>Morale e coesione</h3>
+      <p class="meta">Decimo Annio Terenzio</p>
+      <p class="desc">Carismatico e amato dai soldati. Troppo impulsivo per un confine dove un errore si paga in sangue.</p>
+    </div>
+
+    <div class="section-title">Struttura Operativa</div>
+
+    <div class="block">
+      <h3>Primus Pilus</h3>
+      <p class="meta">Tito Flavio Macro</p>
+      <p class="desc">Veterano temprato dalla guerra. Conosce il valore degli uomini meglio di qualsiasi discorso in Senato.</p>
+    </div>
+
+    <div class="block">
+      <h3>Centurioni</h3>
+      <p class="meta">II–X coorte</p>
+      <p class="desc">
+        <strong>Gaio Marcio Vero</strong> – Difesa e fortificazioni, esperto negli assedi.<br>
+        <strong>Lucio Postumo Albino</strong> – Disciplina, tradizionalista, non ammette insubordinazioni.<br>
+        <strong>Quinto Valerio Crispo</strong> – Veterano, senso della giustizia che si scontra con la realtà del limes.
+      </p>
+    </div>
+
+    <div class="section-title">Unità Specializzate</div>
+
+    <div class="block">
+      <h3>Equites Legionis</h3>
+      <p class="meta">Decurio Lucio Settimo Frontone</p>
+      <p class="desc">Comanda la cavalleria legionaria con rapidità e decisione. Sul confine, chi esita muore.</p>
+    </div>
+
+    <div class="block">
+      <h3>Ballistarii</h3>
+      <p class="meta">Praefectus Quinto Servilio Varo</p>
+      <p class="desc">Responsabile dell’artiglieria. Calcola traiettorie e condanne con la stessa freddezza.</p>
+    </div>
+
+    <div class="block">
+      <h3>Exploratores e Speculatores</h3>
+      <p class="meta">Tito Cornelio Silano</p>
+      <p class="desc">Ricognizione, infiltrazione, informazioni. È sempre un passo avanti… o un passo più vicino alla tomba.</p>
+    </div>
+
+    <div class="section-title">Guardia d’Elite e Ausiliari</div>
+
+    <div class="block">
+      <h3>Evocati</h3>
+      <p class="meta">Manio Furio Rufino</p>
+      <p class="desc">Ex centurione richiamato in servizio. La sua fedeltà non è romantica: è un patto di ferro.</p>
+    </div>
+
+    <div class="block">
+      <h3>Aquilifer</h3>
+      <p class="meta">Lucio Cassio Felice</p>
+      <p class="desc">Portatore dell’Aquila. Se cade lui, cade la legione intera.</p>
+    </div>
+
+    <div class="block">
+      <h3>Truppe ausiliarie</h3>
+      <p class="meta">Cneo Domizio Regolo</p>
+      <p class="desc">Comanda arcieri e cavalleria leggera. Disprezza i legionari troppo rigidi, ma sa usarli come scudi.</p>
+    </div>
+
+    <div class="btn-wrap">
+      <a href="index.html" class="button">Torna indietro</a>
+    </div>
+
+  </div>
 </body>
 </html>
