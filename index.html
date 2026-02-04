@@ -167,47 +167,71 @@
 
     /* ====== SPLASH MODE ====== */
 
-    /* In splash: niente scroll e SOLO hero visibile */
-    body.splash{
-      overflow: hidden;
-    }
+body.splash{
+  overflow: hidden;
+}
 
-    body.splash header.hero{
-      height: 100vh;
-      margin: 0;
-      cursor: pointer;
-    }
+body.splash header.hero{
+  height: 100vh;
+  margin: 0;
+  cursor: pointer;
+}
 
-    /* In splash: logo enorme */
-    body.splash .hero-logo{
-      max-width: 1200px; /* enorme desktop */
-      width: 92vw;
-      transform: translateY(-10px);
-    }
+body.splash .hero-logo{
+  max-width: 1200px;
+  width: 92vw;
+  transform: translateY(-10px);
+}
 
-    /* In splash: il contenuto non esiste (niente spazio vuoto) */
-    body.splash #content{
-      display: none;
-    }
+/* contenuto: nascosto SOLO in splash */
+body.splash #content{
+  display: none;
+}
 
-    /* Dopo ingresso: contenuto visibile */
-    body:not(.splash) #content{
-      display: block;
-    }
+/* fuori da splash: content visibile */
+body:not(.splash) #content{
+  display: block;
+}
 
-    /* Dopo ingresso: “ENTRA” sparisce */
-    body:not(.splash) .enter-hint{
-      display: none !important;
-    }
+/* ENTRA sparisce dopo ingresso */
+body:not(.splash) .enter-hint{
+  display: none !important;
+}
 
-    /* Mobile: logo più piccolo */
-    @media (max-width: 768px){
-      .hero-logo{ max-width: 260px; }
-      body.splash .hero-logo{
-        max-width: 320px;
-        width: 82vw;
-      }
-    }
+/* ====== TRANSIZIONE SOFT ====== */
+
+body.is-entering .hero-logo{
+  opacity: 0;
+  transform: translateY(-6px);
+  filter: blur(1px);
+}
+
+body.is-entering .enter-hint{
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+/* durante is-entering, prepariamo il contenuto invisibile ma presente */
+body.is-entering #content{
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* quando ready, lo facciamo apparire */
+body.ready #content{
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+/* Mobile */
+@media (max-width: 768px){
+  .hero-logo{ max-width: 260px; }
+  body.splash .hero-logo{
+    max-width: 320px;
+    width: 82vw;
+  }
+}
 
     /* ====== TRANSIZIONE SOFT ENTRA ====== */
     /* 1) mentre "sta entrando" il logo e la pill si ammorbidiscono */
