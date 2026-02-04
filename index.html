@@ -229,11 +229,40 @@
       transition: opacity 520ms ease, transform 520ms ease;
     }
 
-    /* stato "prima" del fade-in contenuto */
-    body:not(.ready) #content{
-      opacity: 0;
-      transform: translateY(10px);
-    }
+/* ====== TRANSIZIONE SOFT ENTRA (ANTI-SPARIZIONE) ====== */
+
+/* In splash: contenuto nascosto */
+body.splash #content{
+  display: none;
+}
+
+/* Durante ingresso: il contenuto esiste ma resta trasparente (no flicker) */
+body.is-entering #content{
+  display: block;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+/* Dopo ingresso: contenuto visibile con fade-in */
+body.ready #content{
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+/* Fade soft del logo e pill */
+body.is-entering .hero-logo{
+  opacity: 0;
+  transform: translateY(-6px);
+  filter: blur(1px);
+}
+
+body.is-entering .enter-hint{
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
   </style>
 </head>
 
