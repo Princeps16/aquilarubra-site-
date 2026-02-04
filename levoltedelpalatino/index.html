@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Le Volte del Palatino</title>
 
+  <meta name="description" content="Le Volte del Palatino: Roma, 793 ab Urbe Condita. Pretoriani, congiure e potere nell’ombra del Palatino.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS globale (con i font già gestiti lì) -->
+  <link rel="stylesheet" href="/assets/style.css">
+
+  <!-- Favicon (se già impostata in root) -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  <!-- Piccoli stili specifici SOLO per questa pagina -->
+  <style>
+    /* HERO Palatino */
+    .palatino-hero{
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 50px;
+    }
+
+    .palatino-emblem{
+      width: 100%;
+      max-width: 240px;   /* più piccolo dell’aquila saga */
+      height: auto;
+      margin: 0 auto 16px;
+    }
+
+    .palatino-title-img{
+      width: 100%;
+      max-width: 760px;   /* qui “spinge” il titolo immagine */
+      height: auto;
+      margin: 0 auto 14px;
+    }
+
+    .palatino-subtitle{
+      font-family: var(--title-font);
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(234,234,234,0.78);
+      margin: 0;
+    }
+
+    @media (min-width: 1024px){
+      .palatino-emblem{ max-width: 260px; }
+      .palatino-title-img{ max-width: 900px; }
+    }
+
+    @media (max-width: 768px){
+      .palatino-emblem{ max-width: 190px; }
+      .palatino-title-img{ max-width: 92vw; }
+    }
+
+    /* Bottoni in colonna, come avevi in saga (se già hai .button-group globale puoi togliere questo) */
+    .button-group{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin: 28px 0 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO: simbolo + titolo immagine -->
+  <header class="palatino-hero">
+
+    <!-- 1) Emblema (opzionale): metti qui un simbolo del Palatino/criptoportico -->
+    <!-- Se non ce l’hai ancora, puoi commentare questo img -->
+    <img src="/assets/palatino-emblema.png"
+         alt="Le Volte del Palatino"
+         class="palatino-emblem">
+
+    <!-- 2) Titolo come immagine -->
+    <img src="/assets/titolo-le-volte-del-palatino.png"
+         alt="Le Volte del Palatino"
+         class="palatino-title-img">
+
+    <!-- 3) Sottotitolo -->
+    <p class="palatino-subtitle">Roma, 793 ab Urbe Condita</p>
+  </header>
+
+  <main class="content">
+
+    <section>
+      <p><strong>Pretoriani, congiure e potere nell’ombra del Palatino.</strong></p>
+      <p>
+        Roma non dorme mai. Sotto i portici, nei corridoi interdetti, tra le volte che sorreggono il colle imperiale,
+        il potere si muove senza toga e senza legge. Qui la fedeltà è merce. E la paura, un ordine.
+      </p>
+    </section>
+
+    <section class="button-group">
+      <a class="btn" href="/aquilarubrasaga/">Vai alla Saga di Aquila Rubra</a>
+      <a class="btn" href="/">Torna alla Home</a>
+      <!-- Quando vuoi: pagina estratto/prologo -->
+      <a class="btn" href="/levoltedelpalatino/prologo.html">Leggi un Estratto</a>
+    </section>
+
+    <section>
+      <h2>Cosa trovi qui</h2>
+      <p>
+        Personaggi, ambientazioni, cronologia e contenuti extra legati al romanzo.
+        Una guida per entrare nel cuore dell’intrigo senza spoilerare tutto come fanno i trailer moderni.
+      </p>
+    </section>
+
+    <!-- Se vuoi, qui ci metti blocchi: Personaggi / Ambientazioni / Cronologia / Dietro le quinte -->
+    <section class="books">
+      <div class="book">
+        <h3>Personaggi</h3>
+        <p>Pretoriani, liberti, patrizi: chi comanda e chi paga.</p>
+        <a class="btn" href="/levoltedelpalatino/personaggi.html">Scopri i personaggi</a>
+      </div>
+
+      <div class="book">
+        <h3>Ambientazioni</h3>
+        <p>Palatino, Subura, Castra Praetoria: la città come trappola.</p>
+        <a class="btn" href="/levoltedelpalatino/ambientazioni.html">Esplora Roma</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
+    <p>© 2025 Decimo Valerio Lupo - Tutti i diritti riservati.</p>
+    <p>
+      <a href="/privacy.html" style="color: #b31b1b;">Privacy Policy</a> |
+      <a href="/cookies.html" style="color: #b31b1b;">Cookie Policy</a>
+    </p>
+  </footer>
+
+</body>
+</html>
