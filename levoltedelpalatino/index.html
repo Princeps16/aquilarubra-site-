@@ -1,328 +1,330 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-        <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLHJY4Z7FQ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLHJY4Z7FQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WLHJY4Z7FQ');
+  </script>
 
-      gtag('config', 'G-WLHJY4Z7FQ');
-    </script>
-    <meta name="author" content="Decimo Valerio Lupo">
-    <meta name="description" content="Le Volte del Palatino - Un romanzo epico scritto da Valerio Lupo">
-    <meta name="keywords" content="Roman historical novel, Roman legion story, epic historical fiction, Ancient Rome book, Rome, Ancient Rome, Legion, Narrativa, Romanzo, Legione, Antica Roma, Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, DVL, Roma, Impero Romano">
-    <meta property="og:title" content="Le Volte del Palatino">
-    <meta property="og:description" content="Scopri il nuovo romanzo epico di Decimo Valerio Lupo, ambientato nell'Urbe.">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Le Volte del Palatino</title>
-    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/style.css">
-<style>
-       body {
-  background: none;
-  color: #ffffff;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  animation: fadeIn 1.5s ease-in-out;
-}
+  <meta name="author" content="Decimo Valerio Lupo">
+  <meta name="description" content="Le Volte del Palatino - Un romanzo epico scritto da Valerio Lupo">
+  <meta name="keywords" content="Roman historical novel, Roman legion story, epic historical fiction, Ancient Rome book, Rome, Ancient Rome, Legion, Narrativa, Romanzo, Legione, Antica Roma, Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, DVL, Roma, Impero Romano">
+  <meta property="og:title" content="Le Volte del Palatino">
+  <meta property="og:description" content="Scopri il nuovo romanzo epico di Decimo Valerio Lupo, ambientato nell'Urbe.">
 
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Le Volte del Palatino</title>
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+  <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
 
-        .container {
-            width: 90%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0);
-        }
-
-        .quote {
-            font-size: 1.8em;
-            font-style: italic;
-            margin-top: 30px;
-            opacity: 0;
-            animation: slideIn 1.5s ease-in-out forwards;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo {
-            width: 100%;
-            max-width: 750px; /* Ancora più grande */
-            margin-top: 50px;
-            margin-bottom: 50px;
-            opacity: 0;
-            animation: fadeIn 2s ease-in-out forwards;
-        }
-
-        .text {
-            font-size: 1.4em;
-            line-height: 1.8;
-            text-align: justify;
-            opacity: 0;
-            animation: fadeIn 2.5s ease-in-out forwards;
-        }
-
-    .button {
-  display: inline-block;
-width: auto;
-max-width: fit-content;
-white-space: nowrap;
-
-  margin: 20px 10px 0;
-  padding: 12px 24px;
-
-  font-family: "Julius Sans One", system-ui, sans-serif;
-  font-size: 0.95em;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-
-  color: #f0f0f0;
-  text-decoration: none;
-
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 10px;
-
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.05),
-    0 6px 18px rgba(0,0,0,0.6);
-
-  transition:
-    transform 0.15s ease,
-    background 0.15s ease,
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
-
-  opacity: 0;
-  animation: fadeIn 3s ease-in-out forwards;
-}
-
-.button:hover {
-  background: rgba(0, 0, 0, 0.75);
-  border-color: rgba(255, 255, 255, 0.6);
-  transform: translateY(-1px);
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.1),
-    0 10px 24px rgba(0,0,0,0.75);
-}
-
-.button:active {
-  transform: translateY(0);
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.15),
-    0 4px 10px rgba(0,0,0,0.7);
-}
-.button-group{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;        /* distanza tra i bottoni */
-  margin: 28px 0 40px;
-}
-
-        h2 {
-            font-size: 2.2em;
-            margin-top: 50px;
-            opacity: 0;
-            animation: fadeIn 3.5s ease-in-out forwards;
-        }
-
-        /* Effetti sonori (facoltativi) */
-        .button:hover::after {
-            content: "";
-            display: block;
-            width: 0;
-            height: 0;
-        }
-/* 📱 Ottimizzazioni per mobile */
-@media screen and (max-width: 768px) {
-    body {
-        padding: 10px;
+  <style>
+    body{
+      background: none;
+      color: #ffffff;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      animation: fadeIn 1.5s ease-in-out;
     }
 
-    .container {
-        width: 95vw; /* Adatta il contenuto alla larghezza dello schermo */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ===== WRAPPER CENTRALE TRA LE GRECHE ===== */
+    .container{
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      padding: 20px 56px;
+      box-sizing: border-box;
+      background: rgba(0,0,0,0);
+    }
+
+    /* ===== HERO ===== */
+    .saga-hero{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      text-align: center;
+      margin: 40px auto 40px;
+    }
+
+    .saga-hero img{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .saga-eagle{
+      width: 100%;
+      max-width: 260px;
+      height: auto;
+    }
+
+    .saga-title-img{
+      width: 100%;
+      max-width: 720px;
+      height: auto;
+    }
+
+    @media (min-width: 1024px){
+      .saga-eagle{ max-width: 300px; }
+      .saga-title-img{ max-width: 860px; }
+    }
+
+    @media (max-width: 768px){
+      .saga-eagle{ max-width: 200px; }
+      .saga-title-img{ max-width: 90vw; }
+    }
+
+    /* ===== INTRO (impaginazione pulita) ===== */
+    .intro{
+      max-width: 900px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeIn 2.2s ease-in-out forwards;
+    }
+
+    .intro-lead{
+      font-size: 1.55em;
+      line-height: 1.45;
+      text-align: center;
+      margin: 0 0 18px;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .intro-body{
+      font-size: 1.15em;
+      line-height: 1.85;
+      text-align: left;
+      margin: 0 0 16px;
+      color: rgba(255,255,255,0.88);
+    }
+
+    @media (min-width: 1100px){
+      .intro-body{
+        text-align: justify;
+        text-justify: inter-word;
+      }
+    }
+
+    /* ===== TESTI GENERALI ===== */
+    .text{
+      font-size: 1.15em;
+      line-height: 1.85;
+      text-align: left;
+      opacity: 0;
+      animation: fadeIn 2.5s ease-in-out forwards;
+      color: rgba(255,255,255,0.9);
+    }
+
+    @media (min-width: 1100px){
+      .text{
+        text-align: justify;
+        text-justify: inter-word;
+      }
+    }
+
+    /* ===== BOTTONI ===== */
+    .button{
+      display: inline-block;
+      width: auto;
+      max-width: fit-content;
+      white-space: nowrap;
+
+      margin: 20px 10px 0;
+      padding: 12px 24px;
+
+      font-family: "Julius Sans One", system-ui, sans-serif;
+      font-size: 0.95em;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+
+      color: #f0f0f0;
+      text-decoration: none;
+
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 10px;
+
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.05),
+        0 6px 18px rgba(0,0,0,0.6);
+
+      transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+
+      opacity: 0;
+      animation: fadeIn 3s ease-in-out forwards;
+    }
+
+    .button:hover{
+      background: rgba(0, 0, 0, 0.75);
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.1),
+        0 10px 24px rgba(0,0,0,0.75);
+    }
+
+    .button:active{
+      transform: translateY(0);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.15),
+        0 4px 10px rgba(0,0,0,0.7);
+    }
+
+    .button-group{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin: 28px 0 40px;
+    }
+
+    h2{
+      font-size: 2.2em;
+      margin-top: 50px;
+      opacity: 0;
+      animation: fadeIn 3.5s ease-in-out forwards;
+    }
+
+    /* ===== MOBILE ===== */
+    @media screen and (max-width: 768px){
+      body{ padding: 10px; }
+      .container{
+        width: 100%;
         max-width: none;
+        padding: 10px 16px;
+      }
+      .intro-lead{ font-size: 1.2em; }
+      .intro-body{
+        font-size: 1em;
+        line-height: 1.6;
+        text-align: left;
+      }
+      .text{
+        font-size: 1em;
+        line-height: 1.6;
+        text-align: left;
+      }
+      .button{
+        width: 90%;
+        font-size: 1.05em;
         padding: 10px;
+      }
+      h2{ font-size: 1.6em; }
     }
-
-    .quote {
-        font-size: 1.2em; /* Riduci la dimensione della citazione */
-        line-height: 1.4;
-        margin-top: 20px;
-    }
-
-    .logo {
-        max-width: 300px; /* Riduci il logo per evitare che occupi troppo spazio */
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .text {
-        font-size: 1em; /* Migliora la leggibilità del testo */
-        line-height: 1.5;
-        text-align: left; /* Migliore leggibilità su mobile */
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .button {
-        width: 90%; /* Rendi i pulsanti più accessibili */
-        font-size: 1.1em;
-        padding: 10px;
-    }
-
-    h2 {
-        font-size: 1.6em; /* Riduci leggermente la dimensione del titolo */
-    }
-}
-.release-info {
-    margin-top: 10px;
-    font-size: 1.3em;
-    color: #ffcc00; /* Giallo dorato per farla risaltare */
-    text-align: center;
-    font-weight: bold;
-    animation: fadeIn 3.2s ease-in-out forwards;
-}
-        /* ===== SAGA HERO ===== */
-
-.saga-hero{
-  text-align: center;
-  margin-top: 40px;
-  margin-bottom: 50px;
-}
-
-/* AQUILA: simbolo, non protagonista */
-.saga-eagle{
-  width: 100%;
-  max-width: 260px;     /* dimensione controllata */
-  height: auto;
-  margin: 0 auto 18px;
-}
-
-/* TITOLO IMMAGINE: protagonista */
-.saga-title-img{
-  width: 100%;
-  max-width: 720px;     /* qui sta la forza visiva */
-  height: auto;
-  margin: 0 auto 14px;
-}
-
-/* Sottotitolo */
-.saga-subtitle{
-  font-family: 'Julius Sans One', sans-serif;
-  font-size: 15px;
-  letter-spacing: 2px;
-  color: rgba(234,234,234,0.75);
-  margin: 0;
-}
-
-/* Desktop grande */
-@media (min-width: 1024px){
-  .saga-eagle{
-    max-width: 300px;
-  }
-  .saga-title-img{
-    max-width: 860px;
-  }
-}
-
-/* Mobile */
-@media (max-width: 768px){
-  .saga-eagle{
-    max-width: 200px;
-  }
-  .saga-title-img{
-    max-width: 90vw;
-  }
-}
-
-    </style>
+  </style>
 </head>
+
 <body>
-        <!-- Selettore Lingua in alto a destra -->
-<div style="position: fixed; top: 15px; right: 20px; z-index: 999;">
+  <!-- Selettore Lingua in alto a destra -->
+  <div style="position: fixed; top: 15px; right: 20px; z-index: 999;">
     <a href="index-en.html" style="color: #ffcc00; font-weight: bold; text-decoration: none; font-size: 1em;">
-        🇬🇧 English
+      🇬🇧 English
     </a>
-</div>
+  </div>
 
-<header class="saga-hero">
+  <header class="saga-hero">
+    <img src="/levoltedelpalatino/aquilaimperialealloro2.0arancio.png"
+         alt="Le Volte del Palatino"
+         class="saga-eagle">
 
-  <!-- AQUILA (simbolo) -->
-  <img src="/levoltedelpalatino/aquilaimperialealloro2.0arancio.png"
-       alt="Aquila Rubra"
-       class="saga-eagle">
+    <img src="/levoltedelpalatino/titolo.png"
+         alt="Le Volte del Palatino"
+         class="saga-title-img">
+  </header>
 
-  <!-- TITOLO COME IMMAGINE -->
-  <img src="/levoltedelpalatino/titolo.png"
-       alt="Le Volte del Palatino"
-       class="saga-title-img">
+  <main class="container">
 
-</header>
+    <section class="intro">
+      <p class="intro-lead">
+        L'Urbe si trova stretta nella morsa di Caligola.<br>
+        Pretoriani, congiure e potere nell’ombra del Palatino.
+      </p>
 
-<div class="container">
-        <p class="text"> L'Urbe si trova stretta nella morsa di Caligola. Pretoriani, congiure e potere nell’ombra del Palatino. </p>
-        <p>Roma non dorme mai. Sotto i portici, nei corridoi interdetti, tra le volte che sorreggono il colle imperiale, il potere si muove senza toga e senza legge. Qui la fedeltà è merce. E la paura, un ordine.</p>
-        <p>Due uomini agli antipodi in fatto di morale, stile di vita e visione della vita si ritroveranno coinvolti, loro malgrado, in qualcosa di nettamente piu grande di loro e le loro esistenze.</p>
-<div class="button-group">
-  <a href="personaggi.html" class="button">Scopri i Personaggi</a>
-  <a href="prologo.html" class="button" onclick="playSound('sword')">Leggi un Estratto</a>
-  <a href="https://www.amazon.it/dp/B0GK37S6YG?ref_=ast_author_dp_aw&th=1&psc=1&dib=eyJ2IjoiMSJ9.v0CF4hwIDRWzcn-lpAW0tzG968zZFlW80uAu7gRQcAc.1wRmQrjBpQLmDjw9sh-ZsAIpNDRsk9MgPgOqNbxQ-yM&dib_tag=AUTHOR"
-     class="button" target="_blank">
-     Acquistalo su Amazon
-  </a>
-  <a href="/" class="button button--small">Torna alla Home</a>
-</div>
+      <p class="intro-body">
+        Roma non dorme mai. Sotto i portici, nei corridoi interdetti, tra le volte che sorreggono il colle imperiale,
+        il potere si muove senza toga e senza legge. Qui la fedeltà è merce. E la paura, un ordine.
+      </p>
 
-        <h2>Ambientazione</h2>
-        <p class="text">Roma, 793 ab Urbe Condita. Sotto il Palatino, tra criptoportici, volte umide e passaggi interdetti, il potere agisce lontano dalla luce. Qui le decisioni non vengono proclamate: si sussurrano, e spesso si pagano col sangue.</p>
-        <p class="text">Benvenuti nell'Urbe. 
-                Benvenuti sotto <strong>Le Volte del Palatino.</strong></p>
-        <a href="urbe.html" class="button">Esplora l'Urbe</a>
-        <a href="potere.html" class="button">Scopri il Potere</a>
+      <p class="intro-body">
+        Due uomini agli antipodi in fatto di morale, stile di vita e visione della vita si ritroveranno coinvolti, loro malgrado,
+        in qualcosa di nettamente più grande di loro e delle loro esistenze.
+      </p>
+    </section>
 
+    <div class="button-group">
+      <a href="personaggi.html" class="button">Scopri i Personaggi</a>
+      <a href="prologo.html" class="button" onclick="playSound('sword')">Leggi un Estratto</a>
+      <a href="https://www.amazon.it/dp/B0GK37S6YG?ref_=ast_author_dp_aw&th=1&psc=1&dib=eyJ2IjoiMSJ9.v0CF4hwIDRWzcn-lpAW0tzG968zZFlW80uAu7gRQcAc.1wRmQrjBpQLmDjw9sh-ZsAIpNDRsk9MgPgOqNbxQ-yM&dib_tag=AUTHOR"
+         class="button" target="_blank">
+        Acquistalo su Amazon
+      </a>
+      <a href="/" class="button button--small">Torna alla Home</a>
     </div>
 
-    <!-- Effetti sonori -->
-    <audio id="sword" src="sword.mp3"></audio>
-    <audio id="fire" src="fire.mp3"></audio>
-    <audio id="explore" src="explore.mp3"></audio>
+    <h2>Ambientazione</h2>
 
-    <script>
-        function playSound(id) {
-            document.getElementById(id).play();
-        }
-    </script>
-    <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
+    <p class="text">
+      Roma, 793 ab Urbe Condita. Sotto il Palatino, tra criptoportici, volte umide e passaggi interdetti, il potere agisce lontano dalla luce.
+      Qui le decisioni non vengono proclamate: si sussurrano, e spesso si pagano col sangue.
+    </p>
+
+    <p class="text">
+      Benvenuti nell'Urbe.<br>
+      Benvenuti sotto <strong>Le Volte del Palatino.</strong>
+    </p>
+
+    <div class="button-group" style="margin-top: 10px;">
+      <a href="urbe.html" class="button">Esplora l'Urbe</a>
+      <a href="potere.html" class="button">Scopri il Potere</a>
+    </div>
+
+  </main>
+
+  <!-- Effetti sonori -->
+  <audio id="sword" src="sword.mp3"></audio>
+  <audio id="fire" src="fire.mp3"></audio>
+  <audio id="explore" src="explore.mp3"></audio>
+
+  <script>
+    function playSound(id) {
+      var el = document.getElementById(id);
+      if (el) el.play();
+    }
+  </script>
+
+  <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
     <p>© 2025 Decimo Valerio Lupo - Aquila Rubra - Tutti i diritti riservati.</p>
     <p>Effetti sonori da <a href="https://freesound.org/" target="_blank" style="color: #b31b1b;">Freesound</a> e <a href="https://pixabay.com/sound-effects/" target="_blank" style="color: #b31b1b;">Pixabay</a>.</p>
     <p>
-        <a href="privacy.html" style="color: #b31b1b;">Privacy Policy</a> | 
-        <a href="cookies.html" style="color: #b31b1b;">Cookie Policy</a>
+      <a href="privacy.html" style="color: #b31b1b;">Privacy Policy</a> |
+      <a href="cookies.html" style="color: #b31b1b;">Cookie Policy</a>
     </p>
-    <p>Seguici su: 
-        <a href="https://www.instagram.com/aquilarubra_official?igsh=cjZuNGh1Nm80enBx&utm_source=qr" target="_blank" style="color: #b31b1b;">Instagram</a> | 
-        <a href="https://www.facebook.com/JuliusAquila16" target="_blank" style="color: #b31b1b;">Facebook</a>
+    <p>Seguici su:
+      <a href="https://www.instagram.com/aquilarubra_official?igsh=cjZuNGh1Nm80enBx&utm_source=qr" target="_blank" style="color: #b31b1b;">Instagram</a> |
+      <a href="https://www.facebook.com/JuliusAquila16" target="_blank" style="color: #b31b1b;">Facebook</a>
     </p>
-</footer>
+  </footer>
+
 </body>
 </html>
