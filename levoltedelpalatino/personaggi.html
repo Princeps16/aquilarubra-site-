@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Decimo Valerio Lupo">
+  <meta name="description" content="I protagonisti di Le Volte del Palatino">
+  <title>Personaggi – Le Volte del Palatino</title>
+
+  <link rel="stylesheet" href="/assets/style.css">
+  <link rel="stylesheet" href="/assets/buttons.css">
+
+  <!-- Font testo -->
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      background: none;
+      color: #ffffff;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .container{
+      width: 88%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px 0 60px;
+    }
+
+    /* TITOLO PAGINA */
+    h1{
+      font-size: 1.9em;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
+      opacity: 0.9;
+    }
+
+    /* RIQUADRO PERSONAGGIO */
+    .character-block{
+      background: rgba(0,0,0,0.78);
+      padding: 26px 22px;
+      margin-bottom: 26px;
+      border-left: 4px solid #b31b1b;
+      transition: 0.3s ease;
+    }
+
+    .character-block:hover{
+      border-left-color: #ff3b3b;
+      transform: translateX(4px);
+      box-shadow: 0 0 18px rgba(255,255,255,0.15);
+    }
+
+    /* NOME PERSONAGGIO */
+    .character-block h2{
+      font-family: "Julius Sans One", sans-serif;
+      font-size: 1.35em;
+      letter-spacing: 2px;
+      color: #b31b1b;
+      text-align: left;
+      margin: 0 0 10px;
+    }
+
+    /* DESCRIZIONE */
+    .character-block p{
+      font-family: "Libre Baskerville", serif;
+      font-size: 1.05em;
+      line-height: 1.7;
+      text-align: left;
+      margin: 0;
+      color: rgba(234,234,234,0.95);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px){
+      h1{
+        font-size: 1.5em;
+      }
+
+      .character-block{
+        padding: 22px 18px;
+      }
+
+      .character-block h2{
+        font-size: 1.2em;
+      }
+
+      .character-block p{
+        font-size: 0.98em;
+        line-height: 1.6;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>Protagonisti de Le Volte del Palatino</h1>
+
+    <div class="character-block">
+      <h2>Publio Vibullio Firmo</h2>
+      <p>
+        Liberto romano, uomo colto e silenzioso, abituato a muoversi ai margini del potere.
+        Sopravvive grazie all’osservazione, alla pazienza e a una mente allenata alla prudenza.
+        Sa leggere gli uomini meglio delle leggi e conosce il prezzo della libertà,
+        perché l’ha conquistata una volta sola e potrebbe perderla di nuovo.
+      </p>
+    </div>
+
+    <div class="character-block">
+      <h2>Sesto Sulpicio Denso</h2>
+      <p>
+        Pretoriano brutale e diretto, forgiato dalla violenza e dalla Subura.
+        Non crede negli ideali, ma nella forza e nel potere.
+        Vive nel presente, tra ordini eseguiti e sangue versato,
+        convinto che sotto il Palatino la sopravvivenza conti più dell’onore.
+      </p>
+    </div>
+
+    <div class="character-block">
+      <h2>Gaio Cesare Germanico – Caligola</h2>
+      <p>
+        Princeps di Roma, padrone dell’Impero e schiavo dei propri deliri.
+        Pazzo, imprevedibile, crudele.
+        Sotto le volte del Palatino governa attraverso la paura,
+        trasformando il potere in un gioco mortale dove nessuno è al sicuro.
+      </p>
+    </div>
+
+    <div class="character-block">
+      <h2>Cassio Cherea</h2>
+      <p>
+        Tribuno dei pretoriani, uomo di disciplina e rancore trattenuto.
+        Umiliato dal princeps, fedele solo all’idea di Roma che Caligola sta distruggendo.
+        Silenzioso, rigido, letale.
+        Sotto l’armatura cresce una decisione che cambierà la storia.
+      </p>
+    </div>
+
+    <a href="index.html" class="button">Torna indietro</a>
+
+  </div>
+</body>
+</html>
