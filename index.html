@@ -3,7 +3,7 @@
 <head>
   <link rel="apple-touch-icon" sizes="180x180" href="/aquilaimperiale2.0.png">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
-<link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
   <meta charset="UTF-8">
   <title>Aquila Rubra</title>
 
@@ -50,7 +50,10 @@
       max-width: 900px; /* normale dopo ingresso */
       height: auto;
       margin: 0 auto 14px;
-      transition: max-width 0.7s ease, transform 0.7s ease, opacity 0.7s ease;
+
+      /* transizione base (già l’avevi) */
+      transition: max-width 0.7s ease, transform 0.7s ease, opacity 0.7s ease, filter 0.7s ease;
+      will-change: opacity, transform, filter, max-width;
     }
 
     .enter-hint{
@@ -64,6 +67,9 @@
       border-radius: 999px;
       cursor: pointer;
       user-select: none;
+
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      will-change: opacity, transform;
     }
 
     /* ===== CONTENUTO ===== */
@@ -202,6 +208,32 @@
         width: 82vw;
       }
     }
+
+    /* ====== TRANSIZIONE SOFT ENTRA ====== */
+    /* 1) mentre "sta entrando" il logo e la pill si ammorbidiscono */
+    body.is-entering .hero-logo{
+      opacity: 0;
+      transform: translateY(-6px);
+      filter: blur(1px);
+    }
+
+    body.is-entering .enter-hint{
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    /* 2) quando il contenuto appare, lo facciamo entrare graduale */
+    body.ready #content{
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+
+    /* stato "prima" del fade-in contenuto */
+    body:not(.ready) #content{
+      opacity: 0;
+      transform: translateY(10px);
+    }
   </style>
 </head>
 
@@ -298,13 +330,23 @@
 
   <script>
     function enterSite(){
-      document.body.classList.remove("splash");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // evita doppio click spam
+      if (document.body.classList.contains("is-entering")) return;
+
+      // parte la transizione soft del logo
+      document.body.classList.add("is-entering");
+
+      // dopo un attimo, togli splash e fai apparire contenuto con fade
+      setTimeout(() => {
+        document.body.classList.remove("splash");
+        document.body.classList.add("ready");
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }, 420);
     }
 
     document.getElementById("hero").addEventListener("click", enterSite);
     document.getElementById("enterBtn").addEventListener("click", function(e){
-      e.stopPropagation(); // evita doppio trigger
+      e.stopPropagation();
       enterSite();
     });
   </script>
