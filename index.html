@@ -4,9 +4,9 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/aquilaimperiale2.0.png">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
+
   <meta charset="UTF-8">
   <title>Aquila Rubra</title>
-
   <meta name="description" content="Aquila Rubra è un universo narrativo ambientato nella Roma imperiale. Romanzi storici che raccontano il potere, la guerra e gli uomini dell’Impero.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -51,8 +51,7 @@
       height: auto;
       margin: 0 auto 14px;
 
-      /* transizione base (già l’avevi) */
-      transition: max-width 0.7s ease, transform 0.7s ease, opacity 0.7s ease, filter 0.7s ease;
+      transition: max-width 700ms ease, transform 700ms ease, opacity 700ms ease, filter 700ms ease;
       will-change: opacity, transform, filter, max-width;
     }
 
@@ -68,7 +67,7 @@
       cursor: pointer;
       user-select: none;
 
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition: opacity 600ms ease, transform 600ms ease;
       will-change: opacity, transform;
     }
 
@@ -167,74 +166,41 @@
 
     /* ====== SPLASH MODE ====== */
 
-body.splash{
-  overflow: hidden;
-}
+    /* In splash: niente scroll e SOLO hero visibile */
+    body.splash{
+      overflow: hidden;
+    }
 
-body.splash header.hero{
-  height: 100vh;
-  margin: 0;
-  cursor: pointer;
-}
+    body.splash header.hero{
+      height: 100vh;
+      margin: 0;
+      cursor: pointer;
+    }
 
-body.splash .hero-logo{
-  max-width: 1200px;
-  width: 92vw;
-  transform: translateY(-10px);
-}
+    /* In splash: logo enorme */
+    body.splash .hero-logo{
+      max-width: 1200px;
+      width: 92vw;
+      transform: translateY(-10px);
+    }
 
-/* contenuto: nascosto SOLO in splash */
-body.splash #content{
-  display: none;
-}
+    /* contenuto nascosto SOLO in splash */
+    body.splash #content{
+      display: none;
+    }
 
-/* fuori da splash: content visibile */
-body:not(.splash) #content{
-  display: block;
-}
+    /* fuori da splash: content visibile */
+    body:not(.splash) #content{
+      display: block;
+    }
 
-/* ENTRA sparisce dopo ingresso */
-body:not(.splash) .enter-hint{
-  display: none !important;
-}
-
-/* ====== TRANSIZIONE SOFT ====== */
-
-body.is-entering .hero-logo{
-  opacity: 0;
-  transform: translateY(-6px);
-  filter: blur(1px);
-}
-
-body.is-entering .enter-hint{
-  opacity: 0;
-  transform: translateY(6px);
-}
-
-/* durante is-entering, prepariamo il contenuto invisibile ma presente */
-body.is-entering #content{
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-/* quando ready, lo facciamo apparire */
-body.ready #content{
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 520ms ease, transform 520ms ease;
-}
-
-/* Mobile */
-@media (max-width: 768px){
-  .hero-logo{ max-width: 260px; }
-  body.splash .hero-logo{
-    max-width: 320px;
-    width: 82vw;
-  }
-}
+    /* Dopo ingresso: “ENTRA” sparisce */
+    body:not(.splash) .enter-hint{
+      display: none !important;
+    }
 
     /* ====== TRANSIZIONE SOFT ENTRA ====== */
-    /* 1) mentre "sta entrando" il logo e la pill si ammorbidiscono */
+
     body.is-entering .hero-logo{
       opacity: 0;
       transform: translateY(-6px);
@@ -246,47 +212,27 @@ body.ready #content{
       transform: translateY(6px);
     }
 
-    /* 2) quando il contenuto appare, lo facciamo entrare graduale */
+    /* durante ingresso il contenuto esiste ma resta trasparente */
+    body.is-entering #content{
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    /* quando ready, il contenuto appare dolcemente */
     body.ready #content{
       opacity: 1;
       transform: translateY(0);
       transition: opacity 520ms ease, transform 520ms ease;
     }
 
-/* ====== TRANSIZIONE SOFT ENTRA (ANTI-SPARIZIONE) ====== */
-
-/* In splash: contenuto nascosto */
-body.splash #content{
-  display: none;
-}
-
-/* Durante ingresso: il contenuto esiste ma resta trasparente (no flicker) */
-body.is-entering #content{
-  display: block;
-  opacity: 0;
-  transform: translateY(10px);
-}
-
-/* Dopo ingresso: contenuto visibile con fade-in */
-body.ready #content{
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 520ms ease, transform 520ms ease;
-}
-
-/* Fade soft del logo e pill */
-body.is-entering .hero-logo{
-  opacity: 0;
-  transform: translateY(-6px);
-  filter: blur(1px);
-}
-
-body.is-entering .enter-hint{
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
+    /* Mobile */
+    @media (max-width: 768px){
+      .hero-logo{ max-width: 260px; }
+      body.splash .hero-logo{
+        max-width: 320px;
+        width: 82vw;
+      }
+    }
   </style>
 </head>
 
@@ -353,7 +299,7 @@ body.is-entering .enter-hint{
     <script>
       document.getElementById("newsletterForm").addEventListener("submit", function(event) {
         event.preventDefault();
-        let email = document.getElementById("email").value;
+        const email = document.getElementById("email").value;
         localStorage.setItem("subscribedEmail", email);
         document.getElementById("confirmationMessage").style.display = "block";
 
@@ -383,17 +329,22 @@ body.is-entering .enter-hint{
 
   <script>
     function enterSite(){
-      // evita doppio click spam
       if (document.body.classList.contains("is-entering")) return;
 
-      // parte la transizione soft del logo
+      // avvia animazione
       document.body.classList.add("is-entering");
 
-      // dopo un attimo, togli splash e fai apparire contenuto con fade
+      // dopo il fade del logo, mostriamo il contenuto
       setTimeout(() => {
         document.body.classList.remove("splash");
         document.body.classList.add("ready");
-        window.scrollTo({ top: 0, behavior: "instant" });
+        window.scrollTo(0, 0);
+
+        // IMPORTANTISSIMO: rimuovi is-entering, sennò #content resta opacity:0
+        setTimeout(() => {
+          document.body.classList.remove("is-entering");
+        }, 650);
+
       }, 420);
     }
 
