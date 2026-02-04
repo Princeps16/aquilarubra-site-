@@ -254,6 +254,57 @@ white-space: nowrap;
     max-width: 90vw;
   }
 }
+/* ===== LAYOUT DESKTOP: colonna centrale tra le greche ===== */
+.page{
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* se le greche sono molto “invadenti”, aumenta padding: 64px */
+
+/* ===== HERO: aquila sopra al titolo, tutto centrato ===== */
+.saga-hero{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  margin: 40px auto 50px;
+}
+
+.saga-hero img{
+  display: block;          /* elimina comportamenti inline strani */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== TESTO: resta nel blocco centrale ===== */
+.text{
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Desktop: puoi tenere justify, ma senza esagerare */
+@media (min-width: 1024px){
+  .text{
+    font-size: 1.25em;
+    line-height: 1.85;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}
+
+/* Mobile: già ok, ma coerente col wrapper */
+@media (max-width: 768px){
+  .page{
+    padding: 0 16px;
+  }
+  .text{
+    text-align: left;
+  }
+}
 
     </style>
 </head>
@@ -264,7 +315,7 @@ white-space: nowrap;
         🇬🇧 English
     </a>
 </div>
-
+<main class="page">
 <header class="saga-hero">
 
   <!-- AQUILA (simbolo) -->
@@ -313,8 +364,6 @@ Ma oltre il confine, una figura di fuoco e vendetta si muove tra le ombre: una d
         <a href="mappa.html" class="button">Esplora il Mondo</a>
         <a href="legione.html" class="button">Scopri la XII Legione</a>
 
-    </div>
-
     <!-- Effetti sonori -->
     <audio id="sword" src="sword.mp3"></audio>
     <audio id="fire" src="fire.mp3"></audio>
@@ -336,6 +385,7 @@ Ma oltre il confine, una figura di fuoco e vendetta si muove tra le ombre: una d
         <a href="https://www.instagram.com/aquilarubra_official?igsh=cjZuNGh1Nm80enBx&utm_source=qr" target="_blank" style="color: #b31b1b;">Instagram</a> | 
         <a href="https://www.facebook.com/JuliusAquila16" target="_blank" style="color: #b31b1b;">Facebook</a>
     </p>
+    </main>
 </footer>
 </body>
 </html>
