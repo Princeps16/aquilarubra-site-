@@ -1,135 +1,331 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Le Volte del Palatino</title>
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLHJY4Z7FQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  <meta name="description" content="Le Volte del Palatino: Roma, 793 ab Urbe Condita. Pretoriani, congiure e potere nell’ombra del Palatino.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      gtag('config', 'G-WLHJY4Z7FQ');
+    </script>
+    <meta name="author" content="Decimo Valerio Lupo">
+    <meta name="description" content="Le Volte del Palatino - Un romanzo epico scritto da Valerio Lupo">
+    <meta name="keywords" content="Roman historical novel, Roman legion story, epic historical fiction, Ancient Rome book, Rome, Ancient Rome, Legion, Narrativa, Romanzo, Legione, Antica Roma, Romanzo storico, Legione Romana, Limes, Aquila Rubra, Decimo Valerio Lupo, DVL, Roma, Impero Romano">
+    <meta property="og:title" content="Le Volte del Palatino">
+    <meta property="og:description" content="Scopri il nuovo romanzo epico di Decimo Valerio Lupo, ambientato nell'Urbe.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Volte del Palatino</title>
+    <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/style.css">
+<style>
+       body {
+  background: none;
+  color: #ffffff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  animation: fadeIn 1.5s ease-in-out;
+}
 
-  <!-- CSS globale (con i font già gestiti lì) -->
-  <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/button.css">
 
-  <!-- Favicon (se già impostata in root) -->
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-  <!-- Piccoli stili specifici SOLO per questa pagina -->
-  <style>
-    /* HERO Palatino */
-    .palatino-hero{
-      text-align: center;
-      margin-top: 40px;
-      margin-bottom: 50px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0);
+        }
+
+        .quote {
+            font-size: 1.8em;
+            font-style: italic;
+            margin-top: 30px;
+            opacity: 0;
+            animation: slideIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 750px; /* Ancora più grande */
+            margin-top: 50px;
+            margin-bottom: 50px;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        .text {
+            font-size: 1.4em;
+            line-height: 1.8;
+            text-align: justify;
+            opacity: 0;
+            animation: fadeIn 2.5s ease-in-out forwards;
+        }
+
+    .button {
+  display: inline-block;
+width: auto;
+max-width: fit-content;
+white-space: nowrap;
+
+  margin: 20px 10px 0;
+  padding: 12px 24px;
+
+  font-family: "Julius Sans One", system-ui, sans-serif;
+  font-size: 0.95em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  color: #f0f0f0;
+  text-decoration: none;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 6px 18px rgba(0,0,0,0.6);
+
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+
+  opacity: 0;
+  animation: fadeIn 3s ease-in-out forwards;
+}
+
+.button:hover {
+  background: rgba(0, 0, 0, 0.75);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.1),
+    0 10px 24px rgba(0,0,0,0.75);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.15),
+    0 4px 10px rgba(0,0,0,0.7);
+}
+.button-group{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;        /* distanza tra i bottoni */
+  margin: 28px 0 40px;
+}
+
+        h2 {
+            font-size: 2.2em;
+            margin-top: 50px;
+            opacity: 0;
+            animation: fadeIn 3.5s ease-in-out forwards;
+        }
+
+        /* Effetti sonori (facoltativi) */
+        .button:hover::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+        }
+/* 📱 Ottimizzazioni per mobile */
+@media screen and (max-width: 768px) {
+    body {
+        padding: 10px;
     }
 
-    .palatino-emblem{
-      width: 100%;
-      max-width: 240px;   /* più piccolo dell’aquila saga */
-      height: auto;
-      margin: 0 auto 16px;
+    .container {
+        width: 95vw; /* Adatta il contenuto alla larghezza dello schermo */
+        max-width: none;
+        padding: 10px;
     }
 
-    .palatino-title-img{
-      width: 100%;
-      max-width: 760px;   /* qui “spinge” il titolo immagine */
-      height: auto;
-      margin: 0 auto 14px;
+    .quote {
+        font-size: 1.2em; /* Riduci la dimensione della citazione */
+        line-height: 1.4;
+        margin-top: 20px;
     }
 
-    .palatino-subtitle{
-      font-family: var(--title-font);
-      font-size: 15px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(234,234,234,0.78);
-      margin: 0;
+    .logo {
+        max-width: 300px; /* Riduci il logo per evitare che occupi troppo spazio */
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
-    @media (min-width: 1024px){
-      .palatino-emblem{ max-width: 260px; }
-      .palatino-title-img{ max-width: 900px; }
+    .text {
+        font-size: 1em; /* Migliora la leggibilità del testo */
+        line-height: 1.5;
+        text-align: left; /* Migliore leggibilità su mobile */
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
-    @media (max-width: 768px){
-      .palatino-emblem{ max-width: 190px; }
-      .palatino-title-img{ max-width: 92vw; }
+    .button {
+        width: 90%; /* Rendi i pulsanti più accessibili */
+        font-size: 1.1em;
+        padding: 10px;
     }
 
+    h2 {
+        font-size: 1.6em; /* Riduci leggermente la dimensione del titolo */
+    }
+}
+.release-info {
+    margin-top: 10px;
+    font-size: 1.3em;
+    color: #ffcc00; /* Giallo dorato per farla risaltare */
+    text-align: center;
+    font-weight: bold;
+    animation: fadeIn 3.2s ease-in-out forwards;
+}
+        /* ===== SAGA HERO ===== */
 
-  </style>
+.saga-hero{
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+/* AQUILA: simbolo, non protagonista */
+.saga-eagle{
+  width: 100%;
+  max-width: 260px;     /* dimensione controllata */
+  height: auto;
+  margin: 0 auto 18px;
+}
+
+/* TITOLO IMMAGINE: protagonista */
+.saga-title-img{
+  width: 100%;
+  max-width: 720px;     /* qui sta la forza visiva */
+  height: auto;
+  margin: 0 auto 14px;
+}
+
+/* Sottotitolo */
+.saga-subtitle{
+  font-family: 'Julius Sans One', sans-serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: rgba(234,234,234,0.75);
+  margin: 0;
+}
+
+/* Desktop grande */
+@media (min-width: 1024px){
+  .saga-eagle{
+    max-width: 300px;
+  }
+  .saga-title-img{
+    max-width: 860px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px){
+  .saga-eagle{
+    max-width: 200px;
+  }
+  .saga-title-img{
+    max-width: 90vw;
+  }
+}
+
+    </style>
 </head>
-
 <body>
+        <!-- Selettore Lingua in alto a destra -->
+<div style="position: fixed; top: 15px; right: 20px; z-index: 999;">
+    <a href="index-en.html" style="color: #ffcc00; font-weight: bold; text-decoration: none; font-size: 1em;">
+        🇬🇧 English
+    </a>
+</div>
 
-  <!-- HERO: simbolo + titolo immagine -->
-  <header class="palatino-hero">
+<header class="saga-hero">
 
-    <!-- 1) Emblema (opzionale): metti qui un simbolo del Palatino/criptoportico -->
-    <!-- Se non ce l’hai ancora, puoi commentare questo img -->
-    <img src="/levoltedelpalatino/aquilaimperialealloro2.0arancio.png"
-         alt="Le Volte del Palatino"
-         class="palatino-emblem">
+  <!-- AQUILA (simbolo) -->
+  <img src="/levoltedelpalatino/aquilaimperialealloro2.0arancio.png"
+       alt="Aquila Rubra"
+       class="saga-eagle">
 
-    <!-- 2) Titolo come immagine -->
-    <img src="/assets/titolo-le-volte-del-palatino.png"
-         alt="Le Volte del Palatino"
-         class="palatino-title-img">
+  <!-- TITOLO COME IMMAGINE -->
+  <img src="/aquilarubrasaga/titolo.png"
+       alt="Aquila Rubra"
+       class="saga-title-img">
 
-    <!-- 3) Sottotitolo -->
-    <p class="palatino-subtitle">Roma, 793 ab Urbe Condita</p>
-  </header>
+</header>
+        
+        <p class="text"> L'Urbe si trova stretta nella morsa di Caligola. Pretoriani, congiure e potere nell’ombra del Palatino.
 
-  <main class="content">
+Roma non dorme mai. Sotto i portici, nei corridoi interdetti, tra le volte che sorreggono il colle imperiale, il potere si muove senza toga e senza legge. Qui la fedeltà è merce. E la paura, un ordine.
+        </p>
+        
+<div class="button-group">
+  <a href="personaggi.html" class="button">Scopri i Personaggi</a>
+  <a href="prologo.html" class="button" onclick="playSound('sword')">Leggi un Estratto</a>
+  <a href="https://www.amazon.it/dp/B0F22WH5KC?dplnkId=5b618c01-aff0-4f12-995f-48b314589573&nodl=1"
+     class="button" target="_blank">
+     Acquistalo su Amazon
+  </a>
+  <a href="/" class="button button--small">Torna alla Home</a>
+</div>
 
-    <section>
-      <p><strong>Pretoriani, congiure e potere nell’ombra del Palatino.</strong></p>
-      <p>
-        Roma non dorme mai. Sotto i portici, nei corridoi interdetti, tra le volte che sorreggono il colle imperiale,
-        il potere si muove senza toga e senza legge. Qui la fedeltà è merce. E la paura, un ordine.
-      </p>
-    </section>
+        <h2>Ambientazione</h2>
+        <p class="text">Siamo nell’anno 847 Ab Urbe Condita. L’Impero Romano si estende ancora vasto e potente, ma il limes germanico è un confine fragile, una cicatrice di legno e pietra tra la civiltà e il caos delle tribù barbare. Qui, nel castrum di Argentorate, sede della XII Legione Fulminata, i giorni si susseguono tra addestramenti estenuanti, pattugliamenti nel fango e scontri sanguinosi con i barbari. Ogni notte, il vento porta con sé l’eco dei tamburi di guerra e il sussurro di ombre che si muovono tra le foreste impenetrabili degli Agri Decumates.
+                        Il castrum è una fortezza di disciplina e acciaio, un baluardo di Roma incastonato tra le nebbie del Reno. Dietro le sue mura di pietra e legno, legionari temprati dalla fatica affinano le loro spade, mentre i tribuni e il legato Valerio Rufo Celtico tessono strategie per contenere l’inevitabile avanzata delle orde germaniche.
+                        Ma il confine non è solo uno scontro di armi. È un crocevia di ambizioni, tradimenti e passioni. In questo mondo di ferro e cenere, dove l’onore si paga con il sangue e la lealtà è più affilata di un gladio, ogni uomo e ogni donna è costretto a scegliere: piegarsi al giogo dell’Impero o lottare per la propria libertà.</p>
+        <p class="text">Benvenuti nel limes in fiamme. 
+                Benvenuti in <strong>Aquila Rubra - Il Giuramento del Legato.</strong></p>
+        <a href="mappa.html" class="button">Esplora il Mondo</a>
+        <a href="legione.html" class="button">Scopri la XII Legione</a>
 
-    <section class="button-group">
-      <a class="btn" href="/aquilarubrasaga/">Vai alla Saga di Aquila Rubra</a>
-      <a class="btn" href="/">Torna alla Home</a>
-      <!-- Quando vuoi: pagina estratto/prologo -->
-      <a class="btn" href="/levoltedelpalatino/prologo.html">Leggi un Estratto</a>
-    </section>
+    </div>
 
-    <section>
-      <h2>Cosa trovi qui</h2>
-      <p>
-        Personaggi, ambientazioni, cronologia e contenuti extra legati al romanzo.
-        Una guida per entrare nel cuore dell’intrigo senza spoilerare tutto come fanno i trailer moderni.
-      </p>
-    </section>
+    <!-- Effetti sonori -->
+    <audio id="sword" src="sword.mp3"></audio>
+    <audio id="fire" src="fire.mp3"></audio>
+    <audio id="explore" src="explore.mp3"></audio>
 
-    <!-- Se vuoi, qui ci metti blocchi: Personaggi / Ambientazioni / Cronologia / Dietro le quinte -->
-    <section class="books">
-      <div class="book">
-        <h3>Personaggi</h3>
-        <p>Pretoriani, liberti, patrizi: chi comanda e chi paga.</p>
-        <a class="btn" href="/levoltedelpalatino/personaggi.html">Scopri i personaggi</a>
-      </div>
-
-      <div class="book">
-        <h3>Ambientazioni</h3>
-        <p>Palatino, Subura, Castra Praetoria: la città come trappola.</p>
-        <a class="btn" href="/levoltedelpalatino/ambientazioni.html">Esplora Roma</a>
-      </div>
-    </section>
-
-  </main>
-
-  <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
-    <p>© 2025 Decimo Valerio Lupo - Tutti i diritti riservati.</p>
+    <script>
+        function playSound(id) {
+            document.getElementById(id).play();
+        }
+    </script>
+    <footer style="background: rgba(0, 0, 0, 0.8); color: #ffffff; padding: 20px; text-align: center; margin-top: 50px;">
+    <p>© 2025 Decimo Valerio Lupo - Aquila Rubra - Tutti i diritti riservati.</p>
+    <p>Effetti sonori da <a href="https://freesound.org/" target="_blank" style="color: #b31b1b;">Freesound</a> e <a href="https://pixabay.com/sound-effects/" target="_blank" style="color: #b31b1b;">Pixabay</a>.</p>
     <p>
-      <a href="/privacy.html" style="color: #b31b1b;">Privacy Policy</a> |
-      <a href="/cookies.html" style="color: #b31b1b;">Cookie Policy</a>
+        <a href="privacy.html" style="color: #b31b1b;">Privacy Policy</a> | 
+        <a href="cookies.html" style="color: #b31b1b;">Cookie Policy</a>
     </p>
-  </footer>
-
+    <p>Seguici su: 
+        <a href="https://www.instagram.com/aquilarubra_official?igsh=cjZuNGh1Nm80enBx&utm_source=qr" target="_blank" style="color: #b31b1b;">Instagram</a> | 
+        <a href="https://www.facebook.com/JuliusAquila16" target="_blank" style="color: #b31b1b;">Facebook</a>
+    </p>
+</footer>
 </body>
 </html>
