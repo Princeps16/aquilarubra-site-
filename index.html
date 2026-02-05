@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Aquila Rubra</title>
+  <meta name="description" content="Aquila Rubra è un universo narrativo ambientato nella Roma imperiale. Romanzi storici che raccontano il potere, la guerra e gli uomini dell’Impero." />
+
   <link rel="apple-touch-icon" sizes="180x180" href="/aquilaimperiale2.0.png">
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
-
-  <meta charset="UTF-8">
-  <title>Aquila Rubra</title>
-  <meta name="description" content="Aquila Rubra è un universo narrativo ambientato nella Roma imperiale. Romanzi storici che raccontano il potere, la guerra e gli uomini dell’Impero.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap" rel="stylesheet">
 
-  <!-- Se questo file contiene lo sfondo (body::before), lascialo -->
+  <!-- tuo CSS -->
   <link rel="stylesheet" href="/assets/style.css">
-
-  <!-- (Opzionale) solo CSS Brevo, nessun JS Brevo -->
-  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 
   <style>
     :root{
@@ -50,10 +48,9 @@
     .hero-logo{
       display: block;
       width: 92vw;
-      max-width: 900px; /* normale dopo ingresso */
+      max-width: 900px;
       height: auto;
       margin: 0 auto 14px;
-
       transition: max-width 700ms ease, transform 700ms ease, opacity 700ms ease, filter 700ms ease;
       will-change: opacity, transform, filter, max-width;
     }
@@ -69,7 +66,6 @@
       border-radius: 999px;
       cursor: pointer;
       user-select: none;
-
       transition: opacity 600ms ease, transform 600ms ease;
       will-change: opacity, transform;
     }
@@ -191,7 +187,7 @@
       }
     }
 
-    /* ===== NEWSLETTER (Brevo, integrata nel tema) ===== */
+    /* ===== NEWSLETTER ===== */
     .ar-newsletter-wrap{
       margin-top: 34px;
       display: flex;
@@ -234,104 +230,29 @@
       text-shadow: none;
     }
 
-    .ar-newsletter label{
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      font-size: 14px;
-      text-shadow: none;
-    }
-
-    .ar-newsletter .input{
-      width: 100%;
-      box-sizing: border-box;
-      padding: 12px 12px;
+    .ar-iframe{
       border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.25);
-      background: rgba(0,0,0,0.35);
-      color: rgba(255,255,255,0.92);
-      outline: none;
-      font-size: 14px;
-      text-shadow: none;
-    }
-
-    .ar-newsletter .input::placeholder{
-      color: rgba(255,255,255,0.45);
-    }
-
-    .ar-newsletter .entry__specification{
-      display: block;
-      margin-top: 8px;
-      color: rgba(255,255,255,0.55);
-      font-size: 12px;
-      text-shadow: none;
-    }
-
-    .ar-newsletter .entry__error{
-      display:block;
-      margin-top: 10px;
-      color: #ffb4b4;
-      font-size: 13px;
-      min-height: 18px;
-      text-shadow: none;
-    }
-
-    .ar-newsletter .sib-form-block__button{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 14px;
-      padding: 12px 18px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.35);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.18);
       background: rgba(0,0,0,0.25);
-      color: var(--text);
-      font-family: "Julius Sans One", system-ui, sans-serif;
-      font-size: 0.95em;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
     }
 
-    .ar-newsletter .sib-form-block__button:hover{
-      transform: translateY(-1px);
-      background: rgba(0,0,0,0.35);
-      border-color: rgba(255,255,255,0.55);
+    .ar-iframe iframe{
+      width: 100%;
+      height: 340px; /* se serve, alza a 380 */
+      border: 0;
+      display: block;
     }
 
-    .ar-newsletter .sib-form-block__button[disabled]{
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Messaggi globali */
-    .ar-msg{
-      max-width: 540px;
-      margin: 0 auto 14px;
-      border-radius: 10px;
-      padding: 12px 14px;
-      background: rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.9);
-      text-align: center;
-      display: none;
+    .ar-privacy{
+      margin-top: 12px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
       text-shadow: none;
     }
-    .ar-msg.ok{ border-color: rgba(19,206,102,0.5); }
-    .ar-msg.ko{ border-color: rgba(255,73,73,0.5); }
-
-    /* Honeypot: nascosto ma presente */
-    .hp-field{
-      position:absolute !important;
-      left:-9999px !important;
-      width:1px !important;
-      height:1px !important;
-      opacity:0 !important;
-      pointer-events:none !important;
+    .ar-privacy a{
+      color:#b31b1b;
+      text-decoration:none;
     }
   </style>
 </head>
@@ -354,12 +275,9 @@
         Da ragazzo ha partecipato per anni a giochi di ruolo ambientati nella Roma imperiale: interpretare il suo personaggio è stata la prima palestra per costruire il suo stile narrativo.
         Dalla fine del liceo ha approfondito lo studio delle fonti classiche – Tito Livio, Svetonio, Tacito, Plutarco, Giulio Cesare – insieme agli autori contemporanei,
         visitando i luoghi dell'impero e studiando l'arte militare antica.
-        Tra le sue influenze narrative vi sono Massimiliano Colombo, Lindsey Davis, Simon Scarrow e Andrea Frediani, ma il suo principale modello rimane Guido Cervo,
-        che ha contribuito all'evoluzione del suo stile e lo ha ispirato a diventare scrittore.
+        Tra le sue influenze narrative vi sono Massimiliano Colombo, Lindsey Davis, Simon Scarrow e Andrea Frediani, ma il suo principale modello rimane Guido Cervo.
         Dopo anni di lavoro, nel 2025 ha pubblicato alcuni dei suoi romanzi.<br>
-        E questo è solo l'inizio.<br>
-        Aquila Rubra è un progetto ambizioso di narrativa storica ambientato nella Roma imperiale. Le storie esplorano il potere, la violenza istituzionale e il destino degli uomini all'interno dell'Impero,
-        attraverso epoche, luoghi e protagonisti diversi.
+        E questo è solo l'inizio.
       </p>
     </section>
 
@@ -388,49 +306,26 @@
       </div>
     </section>
 
-    <!-- ===== NEWSLETTER (Brevo, gestita da noi) ===== -->
-    <div class="ar-newsletter-wrap">
-      <div style="width:100%; max-width:540px;">
-        <div id="arSuccess" class="ar-msg ok">Iscrizione registrata. Controlla la tua email per confermare.</div>
-        <div id="arError" class="ar-msg ko">Qualcosa è andato storto. Riprova tra poco.</div>
+    <!-- ===== NEWSLETTER (Brevo iframe) ===== -->
+    <section class="ar-newsletter-wrap">
+      <div class="ar-newsletter">
+        <h3>Newsletter</h3>
+        <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
 
-        <div class="ar-newsletter">
-          <h3>Newsletter</h3>
-          <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
-
-          <form id="brevoForm"
-            method="POST"
-            action="https://b18d7e03.sibforms.com/serve/MUIFAE-K6KLo54yRKWxvB5NGGvDwgreJ1RTJrdVjfRTI-uwSg15IAHwCjLhypEt90LlqGdxZkK5BleMD_rUNWn0iDtisWVeNFxTqhBN7Wy_NNpMhCqC2u25QAXcjjuyCncU3hHrUJx3rja9zouRP5aBTZY8wUmdIHx5y6kS-3q4nFtYLWFcbe72iUhTkWDo9XDltWkR-JtUP9uUDfw==">
-
-            <label for="EMAIL">Inserisci la tua email</label>
-            <input class="input"
-              type="email"
-              id="EMAIL"
-              name="EMAIL"
-              autocomplete="email"
-              placeholder="nome@esempio.com"
-              required>
-
-            <span class="entry__specification">Niente spam. Solo aggiornamenti sul progetto.</span>
-            <span id="fieldError" class="entry__error"></span>
-
-            <button id="brevoBtn" class="sib-form-block__button" type="submit">
-              <span id="btnText">Iscriviti</span>
-              <span id="btnSpinner" style="display:none;">...</span>
-            </button>
-
-            <!-- Honeypot anti-bot (DEVE esistere, ma non va eliminato dal JS) -->
-            <input class="hp-field" type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off">
-
-            <input type="hidden" name="locale" value="it">
-          </form>
-
-          <p style="margin-top:12px; font-size:12px; color:rgba(255,255,255,0.55); text-shadow:none;">
-            Iscrivendoti accetti la <a href="/privacy.html" style="color:#b31b1b; text-decoration:none;">Privacy Policy</a>.
-          </p>
+        <div class="ar-iframe">
+          <iframe
+            title="Newsletter Aquila Rubra"
+            src="https://b18d7e03.sibforms.com/serve/MUIFAE-K6KLo54yRKWxvB5NGGvDwgreJ1RTJrdVjfRTI-uwSg15IAHwCjLhypEt90LlqGdxZkK5BleMD_rUNWn0iDtisWVeNFxTqhBN7Wy_NNpMhCqC2u25QAXcjjuyCncU3hHrUJx3rja9zouRP5aBTZY8wUmdIHx5y6kS-3q4nFtYLWFcbe72iUhTkWDo9XDltWkR-JtUP9uUDfw=="
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
         </div>
+
+        <p class="ar-privacy">
+          Iscrivendoti accetti la <a href="/privacy.html">Privacy Policy</a>.
+        </p>
       </div>
-    </div>
+    </section>
     <!-- ===== /NEWSLETTER ===== -->
 
   </main>
@@ -472,74 +367,6 @@
       e.stopPropagation();
       enterSite();
     });
-  </script>
-
-  <!-- Newsletter: submit affidabile (NO main.js Brevo) -->
-  <script>
-    (function () {
-      const form = document.getElementById("brevoForm");
-      const email = document.getElementById("EMAIL");
-
-      const ok = document.getElementById("arSuccess");
-      const ko = document.getElementById("arError");
-      const fieldError = document.getElementById("fieldError");
-
-      const btn = document.getElementById("brevoBtn");
-      const btnText = document.getElementById("btnText");
-      const btnSpinner = document.getElementById("btnSpinner");
-
-      const show = (el) => { el.style.display = "block"; };
-      const hide = (el) => { el.style.display = "none"; };
-
-      const setLoading = (on) => {
-        btn.disabled = on;
-        btnSpinner.style.display = on ? "inline" : "none";
-        btnText.textContent = on ? "Invio..." : "Iscriviti";
-      };
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        hide(ok); hide(ko);
-        fieldError.textContent = "";
-
-        if (!email.value || !email.checkValidity()) {
-          fieldError.textContent = "Inserisci un indirizzo email valido.";
-          return;
-        }
-
-        setLoading(true);
-
-        try {
-          const res = await fetch(form.action, {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-            body: new URLSearchParams(new FormData(form)),
-          });
-
-          const text = await res.text();
-          console.log("Brevo status:", res.status);
-          console.log("Brevo response (first 600 chars):", text.slice(0, 600));
-
-          // In molti casi Brevo risponde 200 anche se poi mostra un contenuto "error".
-          // Non potendo fidarci al 100% dello status, facciamo una check pragmatica:
-          const looksLikeError =
-            /error-message|Qualcosa è andato storto|invalid|erreur|errore/i.test(text);
-
-          if (res.ok && !looksLikeError) {
-            show(ok);
-            form.reset();
-          } else {
-            show(ko);
-          }
-        } catch (err) {
-          console.error(err);
-          show(ko);
-        } finally {
-          setLoading(false);
-        }
-      });
-    })();
   </script>
 
 </body>
