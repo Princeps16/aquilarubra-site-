@@ -16,7 +16,9 @@
 
   <!-- Se questo file contiene lo sfondo (body::before), lascialo -->
   <link rel="stylesheet" href="/assets/style.css">
-<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+
+  <!-- (Opzionale) solo CSS Brevo, nessun JS Brevo -->
+  <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 
   <style>
     :root{
@@ -219,6 +221,7 @@
       margin: 0 0 10px;
       color: rgba(255,255,255,0.92);
       text-align: left;
+      text-shadow: none;
     }
 
     .ar-newsletter p{
@@ -228,6 +231,7 @@
       font-size: 14px;
       text-align: left;
       max-width: none;
+      text-shadow: none;
     }
 
     .ar-newsletter label{
@@ -249,6 +253,7 @@
       color: rgba(255,255,255,0.92);
       outline: none;
       font-size: 14px;
+      text-shadow: none;
     }
 
     .ar-newsletter .input::placeholder{
@@ -263,8 +268,20 @@
       text-shadow: none;
     }
 
+    .ar-newsletter .entry__error{
+      display:block;
+      margin-top: 10px;
+      color: #ffb4b4;
+      font-size: 13px;
+      min-height: 18px;
+      text-shadow: none;
+    }
+
     .ar-newsletter .sib-form-block__button{
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       margin-top: 14px;
       padding: 12px 18px;
       border-radius: 10px;
@@ -285,9 +302,15 @@
       border-color: rgba(255,255,255,0.55);
     }
 
-    /* Messaggi Brevo */
-    #sib-form-container .sib-form-message-panel{
-      max-width: 540px !important;
+    .ar-newsletter .sib-form-block__button[disabled]{
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Messaggi globali */
+    .ar-msg{
+      max-width: 540px;
       margin: 0 auto 14px;
       border-radius: 10px;
       padding: 12px 14px;
@@ -295,24 +318,21 @@
       border: 1px solid rgba(255,255,255,0.25);
       color: rgba(255,255,255,0.9);
       text-align: center;
+      display: none;
+      text-shadow: none;
     }
+    .ar-msg.ok{ border-color: rgba(19,206,102,0.5); }
+    .ar-msg.ko{ border-color: rgba(255,73,73,0.5); }
 
-    /* Evita che Brevo ti imponga sfondi “sui generis” */
-    .sib-form{ background: transparent !important; }
-    #sib-container{
-      background: transparent !important;
-      border: none !important;
-      max-width: 540px !important;
+    /* Honeypot: nascosto ma presente */
+    .hp-field{
+      position:absolute !important;
+      left:-9999px !important;
+      width:1px !important;
+      height:1px !important;
+      opacity:0 !important;
+      pointer-events:none !important;
     }
-    .input--hidden{
-  display:none !important;
-  visibility:hidden !important;
-  opacity:0 !important;
-  width:0 !important;
-  height:0 !important;
-  overflow:hidden !important;
-}
-
   </style>
 </head>
 
@@ -368,97 +388,50 @@
       </div>
     </section>
 
- <!-- ===== NEWSLETTER (Brevo - struttura completa, no crash) ===== -->
-<div class="sib-form ar-newsletter-wrap" style="text-align:center;">
-  <div id="sib-form-container" class="sib-form-container">
+    <!-- ===== NEWSLETTER (Brevo, gestita da noi) ===== -->
+    <div class="ar-newsletter-wrap">
+      <div style="width:100%; max-width:540px;">
+        <div id="arSuccess" class="ar-msg ok">Iscrizione registrata. Controlla la tua email per confermare.</div>
+        <div id="arError" class="ar-msg ko">Qualcosa è andato storto. Riprova tra poco.</div>
 
-    <!-- Error -->
-    <div id="error-message" class="sib-form-message-panel" style="display:none;">
-      <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-        <span class="sib-form-message-panel__inner-text">
-          Qualcosa è andato storto, riprova tra poco.
-        </span>
-      </div>
-    </div>
+        <div class="ar-newsletter">
+          <h3>Newsletter</h3>
+          <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
 
-    <!-- Success -->
-    <div id="success-message" class="sib-form-message-panel" style="display:none;">
-      <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
-        <span class="sib-form-message-panel__inner-text">
-          Benvenuto in Aquila Rubra. Controlla la mail per confermare l’iscrizione.
-        </span>
-      </div>
-    </div>
+          <form id="brevoForm"
+            method="POST"
+            action="https://b18d7e03.sibforms.com/serve/MUIFAE-K6KLo54yRKWxvB5NGGvDwgreJ1RTJrdVjfRTI-uwSg15IAHwCjLhypEt90LlqGdxZkK5BleMD_rUNWn0iDtisWVeNFxTqhBN7Wy_NNpMhCqC2u25QAXcjjuyCncU3hHrUJx3rja9zouRP5aBTZY8wUmdIHx5y6kS-3q4nFtYLWFcbe72iUhTkWDo9XDltWkR-JtUP9uUDfw==">
 
-    <div id="sib-container" class="sib-container--large sib-container--vertical">
-      <div class="ar-newsletter">
-        <div class="sib-form-block" style="font-size:20px; font-weight:700; background:transparent;">
-          <h3 style="margin:0;">Newsletter</h3>
-        </div>
+            <label for="EMAIL">Inserisci la tua email</label>
+            <input class="input"
+              type="email"
+              id="EMAIL"
+              name="EMAIL"
+              autocomplete="email"
+              placeholder="nome@esempio.com"
+              required>
 
-        <div class="sib-form-block" style="font-size:14px; background:transparent;">
-          <p style="margin:10px 0 14px;">
-            Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.
+            <span class="entry__specification">Niente spam. Solo aggiornamenti sul progetto.</span>
+            <span id="fieldError" class="entry__error"></span>
+
+            <button id="brevoBtn" class="sib-form-block__button" type="submit">
+              <span id="btnText">Iscriviti</span>
+              <span id="btnSpinner" style="display:none;">...</span>
+            </button>
+
+            <!-- Honeypot anti-bot (DEVE esistere, ma non va eliminato dal JS) -->
+            <input class="hp-field" type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off">
+
+            <input type="hidden" name="locale" value="it">
+          </form>
+
+          <p style="margin-top:12px; font-size:12px; color:rgba(255,255,255,0.55); text-shadow:none;">
+            Iscrivendoti accetti la <a href="/privacy.html" style="color:#b31b1b; text-decoration:none;">Privacy Policy</a>.
           </p>
         </div>
-
-        <form id="sib-form" method="POST"
-          action="https://b18d7e03.sibforms.com/serve/MUIFAE-K6KLo54yRKWxvB5NGGvDwgreJ1RTJrdVjfRTI-uwSg15IAHwCjLhypEt90LlqGdxZkK5BleMD_rUNWn0iDtisWVeNFxTqhBN7Wy_NNpMhCqC2u25QAXcjjuyCncU3hHrUJx3rja9zouRP5aBTZY8wUmdIHx5y6kS-3q4nFtYLWFcbe72iUhTkWDo9XDltWkR-JtUP9uUDfw=="
-          data-type="subscription">
-
-          <div class="sib-input sib-form-block">
-            <div class="form__entry entry_block">
-              <div class="form__label-row">
-                <label class="entry__label" for="EMAIL" data-required="*">Inserisci la tua email</label>
-
-                <div class="entry__field">
-                  <input class="input"
-                    type="email"
-                    id="EMAIL"
-                    name="EMAIL"
-                    autocomplete="email"
-                    placeholder="nome@esempio.com"
-                    data-required="true"
-                    required />
-                </div>
-              </div>
-
-              <!-- QUESTI DUE SONO IMPORTANTI per il JS Brevo -->
-              <label class="entry__error entry__error--primary"></label>
-              <label class="entry__specification">Niente spam. Solo aggiornamenti sul progetto.</label>
-            </div>
-          </div>
-
-          <!-- Bottone con loader (Brevo lo usa) -->
-          <div class="sib-form-block" style="text-align:left;">
-            <button
-              class="sib-form-block__button sib-form-block__button-with-loader"
-              form="sib-form"
-              type="submit">
-              <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon"
-                   viewBox="0 0 512 512">
-                <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/>
-              </svg>
-              ISCRIVITI
-            </button>
-          </div>
-
-          <!-- Honeypot -->
-          <input type="text" name="email_address_check" value="" class="input--hidden" tabindex="-1" autocomplete="off">
-          <input type="hidden" name="locale" value="it">
-        </form>
-
-        <p style="margin-top:12px; font-size:12px; color:rgba(255,255,255,0.55);">
-          Iscrivendoti accetti la <a href="/privacy.html" style="color:#b31b1b; text-decoration:none;">Privacy Policy</a>.
-        </p>
       </div>
     </div>
-
-  </div>
-</div>
-<!-- ===== /NEWSLETTER ===== -->
-
-
+    <!-- ===== /NEWSLETTER ===== -->
 
   </main>
 
@@ -501,27 +474,73 @@
     });
   </script>
 
-  <!-- Brevo form script (necessario) -->
+  <!-- Newsletter: submit affidabile (NO main.js Brevo) -->
   <script>
-    window.REQUIRED_CODE_ERROR_MESSAGE = '';
-    window.LOCALE = 'it';
+    (function () {
+      const form = document.getElementById("brevoForm");
+      const email = document.getElementById("EMAIL");
 
-    window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "L’indirizzo e-mail non è valido";
-    window.REQUIRED_ERROR_MESSAGE = "Inserisci un indirizzo e-mail";
-    window.GENERIC_INVALID_MESSAGE = "L’indirizzo e-mail non è valido";
+      const ok = document.getElementById("arSuccess");
+      const ko = document.getElementById("arError");
+      const fieldError = document.getElementById("fieldError");
 
-    window.translation = {
-      common: {
-        selectedList: '{quantity} lista selezionata',
-        selectedLists: '{quantity} liste selezionate',
-        selectedOption: '{quantity} selezionato',
-        selectedOptions: '{quantity} selezionati'
-      }
-    };
+      const btn = document.getElementById("brevoBtn");
+      const btnText = document.getElementById("btnText");
+      const btnSpinner = document.getElementById("btnSpinner");
 
-    var AUTOHIDE = Boolean(0);
+      const show = (el) => { el.style.display = "block"; };
+      const hide = (el) => { el.style.display = "none"; };
+
+      const setLoading = (on) => {
+        btn.disabled = on;
+        btnSpinner.style.display = on ? "inline" : "none";
+        btnText.textContent = on ? "Invio..." : "Iscriviti";
+      };
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        hide(ok); hide(ko);
+        fieldError.textContent = "";
+
+        if (!email.value || !email.checkValidity()) {
+          fieldError.textContent = "Inserisci un indirizzo email valido.";
+          return;
+        }
+
+        setLoading(true);
+
+        try {
+          const res = await fetch(form.action, {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+            body: new URLSearchParams(new FormData(form)),
+          });
+
+          const text = await res.text();
+          console.log("Brevo status:", res.status);
+          console.log("Brevo response (first 600 chars):", text.slice(0, 600));
+
+          // In molti casi Brevo risponde 200 anche se poi mostra un contenuto "error".
+          // Non potendo fidarci al 100% dello status, facciamo una check pragmatica:
+          const looksLikeError =
+            /error-message|Qualcosa è andato storto|invalid|erreur|errore/i.test(text);
+
+          if (res.ok && !looksLikeError) {
+            show(ok);
+            form.reset();
+          } else {
+            show(ko);
+          }
+        } catch (err) {
+          console.error(err);
+          show(ko);
+        } finally {
+          setLoading(false);
+        }
+      });
+    })();
   </script>
-  <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
 </body>
 </html>
