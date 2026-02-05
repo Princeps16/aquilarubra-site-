@@ -366,54 +366,73 @@
       </div>
     </section>
 
-    <!-- ===== NEWSLETTER (Brevo vera) ===== -->
-    <div class="sib-form ar-newsletter-wrap" style="text-align:center;">
-      <div id="sib-form-container" class="sib-form-container">
+   <!-- ===== NEWSLETTER (Brevo) ===== -->
+<div class="sib-form ar-newsletter-wrap" style="text-align:center;">
+  <div id="sib-form-container" class="sib-form-container">
 
-        <div id="error-message" class="sib-form-message-panel" style="display:none;">
-          <span class="sib-form-message-panel__inner-text">
-            Qualcosa è andato storto. Riprova tra poco.
-          </span>
-        </div>
-
-        <div id="success-message" class="sib-form-message-panel" style="display:none;">
-          <span class="sib-form-message-panel__inner-text">
-            Benvenuto in Aquila Rubra.
-          </span>
-        </div>
-
-        <div id="sib-container" class="sib-container--large sib-container--vertical">
-          <div class="ar-newsletter">
-            <h3>Newsletter</h3>
-            <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
-
-            <form id="sib-form" method="POST"
-              action="https://b18d7e03.sibforms.com/serve/MUIFAE-K6KLo54yRKWxvB5NGGvDwgreJ1RTJrdVjfRTI-uwSg15IAHwCjLhypEt90LlqGdxZkK5BleMD_rUNWn0iDtisWVeNFxTqhBN7Wy_NNpMhCqC2u25QAXcjjuyCncU3hHrUJx3rja9zouRP5aBTZY8wUmdIHx5y6kS-3q4nFtYLWFcbe72iUhTkWDo9XDltWkR-JtUP9uUDfw=="
-              data-type="subscription">
-
-              <label for="EMAIL" data-required="*">Inserisci la tua email</label>
-              <input class="input" type="email" id="EMAIL" name="EMAIL" autocomplete="email"
-                placeholder="nome@esempio.com" data-required="true" required />
-
-              <span class="entry__specification">Niente spam. Solo aggiornamenti sul progetto.</span>
-
-              <button class="sib-form-block__button sib-form-block__button-with-loader" type="submit">
-                Iscriviti
-              </button>
-
-              <input type="text" name="email_address_check" value="" class="input--hidden">
-              <input type="hidden" name="locale" value="it">
-            </form>
-
-            <p style="margin-top:12px; font-size:12px; color:rgba(255,255,255,0.55);">
-              Iscrivendoti accetti la <a href="/privacy.html" style="color:#b31b1b; text-decoration:none;">Privacy Policy</a>.
-            </p>
-          </div>
-        </div>
-
+    <div id="error-message" class="sib-form-message-panel" style="display:none;">
+      <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+        <span class="sib-form-message-panel__inner-text">
+          Qualcosa è andato storto. Riprova tra poco.
+        </span>
       </div>
     </div>
-    <!-- ===== /NEWSLETTER ===== -->
+
+    <div id="success-message" class="sib-form-message-panel" style="display:none;">
+      <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
+        <span class="sib-form-message-panel__inner-text">
+          Benvenuto in Aquila Rubra. Controlla la mail per confermare l’iscrizione.
+        </span>
+      </div>
+    </div>
+
+    <div id="sib-container" class="sib-container--large sib-container--vertical">
+      <div class="ar-newsletter">
+        <h3>Newsletter</h3>
+        <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
+
+        <form id="sib-form" method="POST"
+          action="https://b18d7e03.sibforms.com/serve/MUIFAE-K6KLo54yRKWxvB5NGGvDwgreJ1RTJrdVjfRTI-uwSg15IAHwCjLhypEt90LlqGdxZkK5BleMD_rUNWn0iDtisWVeNFxTqhBN7Wy_NNpMhCqC2u25QAXcjjuyCncU3hHrUJx3rja9zouRP5aBTZY8wUmdIHx5y6kS-3q4nFtYLWFcbe72iUhTkWDo9XDltWkR-JtUP9uUDfw=="
+          data-type="subscription">
+
+          <div class="sib-input sib-form-block">
+            <div class="form__entry entry_block">
+              <div class="form__label-row">
+                <label class="entry__label" for="EMAIL" data-required="*">Inserisci la tua email</label>
+
+                <div class="entry__field">
+                  <input class="input" type="email" id="EMAIL" name="EMAIL"
+                    autocomplete="email" placeholder="nome@esempio.com"
+                    data-required="true" required />
+                </div>
+              </div>
+
+              <!-- QUESTO TI MANCAVA: Brevo lo vuole, altrimenti crasha -->
+              <label class="entry__error entry__error--primary"></label>
+
+              <span class="entry__specification">Niente spam. Solo aggiornamenti sul progetto.</span>
+            </div>
+          </div>
+
+          <button class="sib-form-block__button sib-form-block__button-with-loader" type="submit">
+            Iscriviti
+          </button>
+
+          <!-- Honeypot: deve essere invisibile sul serio -->
+          <input type="text" name="email_address_check" value="" class="input--hidden" tabindex="-1" autocomplete="off">
+          <input type="hidden" name="locale" value="it">
+        </form>
+
+        <p style="margin-top:12px; font-size:12px; color:rgba(255,255,255,0.55);">
+          Iscrivendoti accetti la <a href="/privacy.html" style="color:#b31b1b; text-decoration:none;">Privacy Policy</a>.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- ===== /NEWSLETTER ===== -->
+
 
   </main>
 
