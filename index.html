@@ -368,18 +368,20 @@
       </div>
     </section>
 
-   <!-- ===== NEWSLETTER (Brevo) ===== -->
+ <!-- ===== NEWSLETTER (Brevo - struttura completa, no crash) ===== -->
 <div class="sib-form ar-newsletter-wrap" style="text-align:center;">
   <div id="sib-form-container" class="sib-form-container">
 
+    <!-- Error -->
     <div id="error-message" class="sib-form-message-panel" style="display:none;">
       <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
         <span class="sib-form-message-panel__inner-text">
-          Qualcosa è andato storto. Riprova tra poco.
+          Qualcosa è andato storto, riprova tra poco.
         </span>
       </div>
     </div>
 
+    <!-- Success -->
     <div id="success-message" class="sib-form-message-panel" style="display:none;">
       <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
         <span class="sib-form-message-panel__inner-text">
@@ -390,8 +392,15 @@
 
     <div id="sib-container" class="sib-container--large sib-container--vertical">
       <div class="ar-newsletter">
-        <h3>Newsletter</h3>
-        <p>Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.</p>
+        <div class="sib-form-block" style="font-size:20px; font-weight:700; background:transparent;">
+          <h3 style="margin:0;">Newsletter</h3>
+        </div>
+
+        <div class="sib-form-block" style="font-size:14px; background:transparent;">
+          <p style="margin:10px 0 14px;">
+            Ricevi aggiornamenti esclusivi su <strong>Aquila Rubra</strong>, contenuti inediti e anteprime speciali.
+          </p>
+        </div>
 
         <form id="sib-form" method="POST"
           action="https://b18d7e03.sibforms.com/serve/MUIFAE-K6KLo54yRKWxvB5NGGvDwgreJ1RTJrdVjfRTI-uwSg15IAHwCjLhypEt90LlqGdxZkK5BleMD_rUNWn0iDtisWVeNFxTqhBN7Wy_NNpMhCqC2u25QAXcjjuyCncU3hHrUJx3rja9zouRP5aBTZY8wUmdIHx5y6kS-3q4nFtYLWFcbe72iUhTkWDo9XDltWkR-JtUP9uUDfw=="
@@ -403,24 +412,38 @@
                 <label class="entry__label" for="EMAIL" data-required="*">Inserisci la tua email</label>
 
                 <div class="entry__field">
-                  <input class="input" type="email" id="EMAIL" name="EMAIL"
-                    autocomplete="email" placeholder="nome@esempio.com"
-                    data-required="true" required />
+                  <input class="input"
+                    type="email"
+                    id="EMAIL"
+                    name="EMAIL"
+                    autocomplete="email"
+                    placeholder="nome@esempio.com"
+                    data-required="true"
+                    required />
                 </div>
               </div>
 
-              <!-- QUESTO TI MANCAVA: Brevo lo vuole, altrimenti crasha -->
+              <!-- QUESTI DUE SONO IMPORTANTI per il JS Brevo -->
               <label class="entry__error entry__error--primary"></label>
-
-              <span class="entry__specification">Niente spam. Solo aggiornamenti sul progetto.</span>
+              <label class="entry__specification">Niente spam. Solo aggiornamenti sul progetto.</label>
             </div>
           </div>
 
-          <button class="sib-form-block__button sib-form-block__button-with-loader" type="submit">
-            Iscriviti
-          </button>
+          <!-- Bottone con loader (Brevo lo usa) -->
+          <div class="sib-form-block" style="text-align:left;">
+            <button
+              class="sib-form-block__button sib-form-block__button-with-loader"
+              form="sib-form"
+              type="submit">
+              <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon"
+                   viewBox="0 0 512 512">
+                <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/>
+              </svg>
+              ISCRIVITI
+            </button>
+          </div>
 
-          <!-- Honeypot: deve essere invisibile sul serio -->
+          <!-- Honeypot -->
           <input type="text" name="email_address_check" value="" class="input--hidden" tabindex="-1" autocomplete="off">
           <input type="hidden" name="locale" value="it">
         </form>
@@ -434,6 +457,7 @@
   </div>
 </div>
 <!-- ===== /NEWSLETTER ===== -->
+
 
 
   </main>
