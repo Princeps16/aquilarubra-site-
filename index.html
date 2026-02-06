@@ -343,11 +343,26 @@
     </p>
   </footer>
 
+<script>
+  // Splash: mostrala solo la prima volta nella sessione
+  (function () {
+    const hasEntered = sessionStorage.getItem("ar_entered");
+
+    if (hasEntered) {
+      // L’utente è già entrato: salta la splash
+      document.body.classList.remove("splash");
+      document.body.classList.add("ready");
+    }
+  })();
+</script>
+  
   <!-- Splash enter -->
   <script>
     function enterSite(){
       if (document.body.classList.contains("is-entering")) return;
 
+sessionStorage.setItem("ar_entered", "1"); //
+      
       document.body.classList.add("is-entering");
 
       setTimeout(() => {
