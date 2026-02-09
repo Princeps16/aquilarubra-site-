@@ -254,6 +254,63 @@
       color:#b31b1b;
       text-decoration:none;
     }
+    /* Wrapper tuo: layout e stile */
+.newsletter-wrap{
+  max-width: 620px;
+  margin: 40px auto 0;
+  padding: 22px 18px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05),
+              0 10px 24px rgba(0,0,0,0.65);
+}
+
+/* ===== FIX SCROLLBAR BREVO ===== */
+.sib-form,
+#sib-form-container,
+#sib-container{
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* Centra e limita larghezza del form Brevo */
+#sib-form-container{
+  width: 100% !important;
+  max-width: 540px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#sib-container{
+  width: 100% !important;
+  max-width: 540px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Togli il bordo tratteggiato e blocchi “boxed” */
+.form__entry,
+.sib-form-block{
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Se compare ancora scroll da qualche parte */
+.sib-form-container__wrapper,
+.sib-container--vertical{
+  overflow: visible !important;
+}
+
   </style>
 </head>
 
@@ -307,6 +364,7 @@
     </section>
 
     <!-- ===== NEWSLETTER (Brevo iframe) ===== -->
+    <section class="newsletter-wrap">
         <div class="ar-iframe">
           <iframe
             title="Newsletter Aquila Rubra"
@@ -315,7 +373,7 @@
             referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
-      
+      </section>
     <!-- ===== /NEWSLETTER ===== -->
 
   </main>
