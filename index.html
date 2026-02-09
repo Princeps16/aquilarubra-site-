@@ -310,6 +310,46 @@
 .sib-container--vertical{
   overflow: visible !important;
 }
+/* ===== KILL SCROLLBAR BREVO (definitivo) ===== */
+
+/* 1) rimuove qualunque altezza fissa / max-height imposta da Brevo */
+#sib-form-container,
+#sib-container,
+.sib-form,
+.sib-form-container,
+.sib-container--vertical,
+.sib-form .sib-container--large,
+.sib-form .sib-container--vertical,
+.sib-form-container__wrapper,
+.form__entry,
+.entry__field{
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  overflow-y: visible !important;
+}
+
+/* 2) spesso Brevo forza lo scroll qui */
+#sib-form-container *{
+  max-height: none !important;
+}
+
+/* 3) se la scrollbar resta, è perché c'è overflow:auto su un DIV specifico */
+#sib-form-container div{
+  overflow: visible !important;
+  overflow-y: visible !important;
+}
+
+/* 4) elimina “spazio” extra che può far sembrare tagliato */
+#sib-container{
+  padding: 0 !important;
+}
+
+/* 5) il bordino tratteggiato (già che ci siamo) */
+.form__entry{
+  border: none !important;
+  outline: none !important;
+}
 
   </style>
 </head>
