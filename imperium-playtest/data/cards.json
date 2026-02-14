@@ -31,7 +31,7 @@
       "rarity": "communis",
       "faction": "LEGIO",
       "classes": ["AUXILIUM"],
-      "image": "cards/minervina-communis.png",
+      "image": "cards/Minervina-communis.png",
       "stats": { "vit": 5, "imp": 2, "def": 1, "vel": 5 },
       "abilities": [
         {
@@ -57,7 +57,7 @@
       "rarity": "rara",
       "faction": "LEGIO",
       "classes": ["AUXILIUM"],
-      "image": "cards/minervina-rara.png",
+      "image": "cards/Minervina-rara.png",
       "stats": { "vit": 6, "imp": 2, "def": 2, "vel": 6 },
       "abilities": [
         {
