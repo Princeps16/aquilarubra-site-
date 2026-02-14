@@ -1,1 +1,79 @@
+{
+  "version": "0.1",
 
+  "factions": {
+    "LEGIO": { "color": "#b71c1c" },
+    "HELVETII": { "color": "#1b5e20" },
+    "DOMUS": { "color": "#0d47a1" }
+  },
+
+  "classes": [
+    "DUX",
+    "PUGNATOR",
+    "AUXILIUM",
+    "RITUS",
+    "SPECULATOR"
+  ],
+
+  "rarities": {
+    "communis": { "tier": 1, "color": "#bfbfbf" },
+    "rara": { "tier": 2, "color": "#3a86ff" },
+    "insignis": { "tier": 3, "color": "#9b5de5" },
+    "mythica": { "tier": 4, "color": "#ff7b00" },
+    "aeterna": { "tier": 5, "color": "#ff0033" }
+  },
+
+  "cards": [
+    {
+      "id": "minervina_communis",
+      "name": "Minervina",
+      "type": "unit",
+      "rarity": "communis",
+      "faction": "LEGIO",
+      "classes": ["AUXILIUM"],
+      "image": "cards/minervina-communis.png",
+      "stats": { "vit": 5, "imp": 2, "def": 1, "vel": 5 },
+      "abilities": [
+        {
+          "slot": 1,
+          "type": "enter",
+          "name": "Aiuto in Bottega",
+          "text": "Quando Minervina entra in gioco, un alleato LEGIO ottiene +1 DEF fino alla fine del turno."
+        },
+        {
+          "slot": 2,
+          "type": "active",
+          "name": "Occhi Attenti",
+          "limit": "oncePerTurn",
+          "text": "Una volta per turno puoi guardare la prima carta del tuo mazzo. Puoi rimetterla sopra oppure sotto."
+        }
+      ]
+    },
+
+    {
+      "id": "minervina_rara",
+      "name": "Minervina",
+      "type": "unit",
+      "rarity": "rara",
+      "faction": "LEGIO",
+      "classes": ["AUXILIUM"],
+      "image": "cards/minervina-rara.png",
+      "stats": { "vit": 6, "imp": 2, "def": 2, "vel": 6 },
+      "abilities": [
+        {
+          "slot": 1,
+          "type": "passive",
+          "name": "Figlia del Fabbro",
+          "text": "Quando un'unità LEGIO alleata riceve un potenziamento con durata, quel potenziamento dura 1 turno in più."
+        },
+        {
+          "slot": 2,
+          "type": "active",
+          "name": "Strumenti Affilati",
+          "limit": "oncePerTurn",
+          "text": "Una volta per turno scegli un'unità LEGIO alleata. Ottiene +2 IMP fino alla fine del turno."
+        }
+      ]
+    }
+  ]
+}
