@@ -17,7 +17,7 @@
 
   "rarities": {
     "communis": { "tier": 1, "color": "#bfbfbf" },
-    "rara": { "tier": 2, "color": "#3a86ff" },
+    "rara": { "tier": 2, "color": "#027e74" },
     "insignis": { "tier": 3, "color": "#9b5de5" },
     "mythica": { "tier": 4, "color": "#ff7b00" },
     "aeterna": { "tier": 5, "color": "#ff0033" }
