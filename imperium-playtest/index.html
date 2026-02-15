@@ -1,1 +1,46 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imperium Playtest – Cards</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
+<body>
+  <header class="topbar">
+    <div class="topbar__left">
+      <h1>Imperium Playtest</h1>
+      <p class="muted">Griglia carte (da data/cards.json)</p>
+    </div>
+
+    <div class="topbar__right">
+      <label class="field">
+        <span>Filtro fazione</span>
+        <select id="factionFilter">
+          <option value="ALL">Tutte</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Filtro rarità</span>
+        <select id="rarityFilter">
+          <option value="ALL">Tutte</option>
+        </select>
+      </label>
+
+      <label class="field">
+        <span>Cerca</span>
+        <input id="searchInput" type="text" placeholder="Nome carta..." />
+      </label>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="status" class="status">Caricamento...</div>
+    <section id="grid" class="grid" aria-label="Griglia carte"></section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
