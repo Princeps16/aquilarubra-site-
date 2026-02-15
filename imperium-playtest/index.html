@@ -42,5 +42,18 @@
   </main>
 
   <script src="app.js"></script>
+  <script type="module">
+  import { createGameState, getLegalActions } from "./engine/core.js";
+
+  fetch("./data/cards.json")
+    .then(r => r.json())
+    .then(cardsDb => {
+      const state = createGameState(cardsDb);
+
+      console.log("Game creato:", state);
+      console.log("Azioni legali iniziali:", getLegalActions(state));
+    });
+</script>
+
 </body>
 </html>
