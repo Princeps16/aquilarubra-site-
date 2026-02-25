@@ -238,7 +238,33 @@ function renderCard(card) {
   meta.appendChild(statsToggle);
   meta.appendChild(statsWrap);
 
-// abilità: wrapper (serve per collapse)
+// ===== TOGGLE BUTTONS =====
+
+// toggle Stats
+const statsToggle = document.createElement("button");
+statsToggle.type = "button";
+statsToggle.className = "ccard__toggle ccard__toggle--stats";
+statsToggle.textContent = "Stats";
+statsToggle.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  wrap.classList.toggle("stats-open");
+});
+meta.appendChild(statsToggle);
+
+// toggle Abilità
+const abilitiesToggle = document.createElement("button");
+abilitiesToggle.type = "button";
+abilitiesToggle.className = "ccard__toggle ccard__toggle--abilities";
+abilitiesToggle.textContent = "Abilità";
+abilitiesToggle.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  wrap.classList.toggle("abilities-open");
+});
+meta.appendChild(abilitiesToggle);
+
+// ===== ABILITIES WRAP =====
 const abilitiesWrap = document.createElement("div");
 abilitiesWrap.className = "ccard__abilities";
 
@@ -272,7 +298,6 @@ for (const ab of card?.abilities || []) {
 
   sec.appendChild(head);
   sec.appendChild(text);
-
   abilitiesWrap.appendChild(sec);
 }
 
