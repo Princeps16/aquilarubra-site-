@@ -1,20 +1,11 @@
 {
   "version": "0.1",
-
   "factions": {
     "LEGIO": { "color": "#b71c1c" },
     "HELVETII": { "color": "#1b5e20" },
     "DOMUS": { "color": "#0d47a1" }
   },
-
-  "classes": [
-    "DUX",
-    "PUGNATOR",
-    "AUXILIUM",
-    "RITUS",
-    "SPECULATOR"
-  ],
-
+  "classes": ["DUX", "PUGNATOR", "AUXILIUM", "RITUS", "SPECULATOR"],
   "rarities": {
     "communis": { "tier": 1, "color": "#bfbfbf" },
     "rara": { "tier": 2, "color": "#027e74" },
@@ -22,7 +13,6 @@
     "mythica": { "tier": 4, "color": "#daa521" },
     "aeterna": { "tier": 5, "color": "#fe830f" }
   },
-
   "cards": [
     {
       "id": "minervina_communis",
@@ -35,13 +25,11 @@
       "stats": { "vit": 5, "imp": 2, "def": 1, "vel": 5 },
       "abilities": [
         {
-          "slot": 1,
           "type": "enter",
           "name": "Aiuto in Bottega",
           "text": "Un alleato LEGIO ottiene +1 DEF."
         },
         {
-          "slot": 2,
           "type": "active",
           "name": "Occhi Attenti",
           "limit": "CD 3",
@@ -49,7 +37,6 @@
         }
       ]
     },
-
     {
       "id": "minervina_rara",
       "name": "Minervina",
@@ -61,481 +48,476 @@
       "stats": { "vit": 6, "imp": 2, "def": 2, "vel": 6 },
       "abilities": [
         {
-          "slot": 1,
           "type": "passive",
           "name": "Figlia del Fabbro",
           "text": "Quando un'unità LEGIO alleata riceve un potenziamento con durata, quel potenziamento dura 1 turno in più."
         },
         {
-          "slot": 2,
           "type": "active",
           "name": "Strumenti Affilati",
           "limit": "CD 2",
           "text": "Scegli un'unità LEGIO alleata. Ottiene +2 IMP fino alla fine del turno."
         }
       ]
-    }
-    [
-  {
-    "id": "fabia_communis",
-    "name": "Fabia",
-    "type": "unit",
-    "rarity": "communis",
-    "faction": "DOMUS",
-    "classes": ["SPECULATOR"],
-    "image": "cards/Fabia-speculator.png",
-    "stats": { "vit": 4, "imp": 0, "def": 0, "vel": 4 },
-    "abilities": [
-      {
-        "name": "Voci di Atrio",
-        "limit": "CD 1",
-        "text": "Guarda una carta casuale dalla mano avversaria; se è una carta Evento Actio, rimescolala nel mazzo avversario."
-      }
-    ]
-  },
-  {
-    "id": "claudia_rufa_communis",
-    "name": "Claudia Rufa",
-    "type": "unit",
-    "rarity": "communis",
-    "faction": "DOMUS",
-    "classes": ["DUX"],
-    "image": "cards/Claudia-communis.png",
-    "stats": { "vit": 5, "imp": 1, "def": 2, "vel": 4 },
-    "abilities": [
-      {
-        "name": "Spirito Libero",
-        "text": "Se all’inizio del turno Claudia Rufa è l’unica unità in campo, pesca una carta aggiuntiva."
-      },
-      {
-        "name": "Fascino Romano",
-        "limit": "CD 3",
-        "text": "Un’unità nemica a scelta non può attaccare questo turno."
-      }
-    ]
-  },
-  {
-    "id": "aulo_communis",
-    "name": "Aulo",
-    "type": "unit",
-    "rarity": "communis",
-    "faction": "DOMUS",
-    "classes": ["AUXILIUM"],
-    "image": "cards/Aulo-auxilium.png",
-    "stats": { "vit": 4, "imp": 1, "def": 3, "vel": 1 },
-    "abilities": [
-      {
-        "name": "Accesso Negato",
-        "limit": "CD 1",
-        "text": "Scegli un’unità nemica in seconda linea. Quell’unità non può usare abilità fino al tuo prossimo turno."
-      }
-    ]
-  },
-  {
-    "id": "sesto_communis",
-    "name": "Sesto",
-    "type": "unit",
-    "rarity": "communis",
-    "faction": "DOMUS",
-    "classes": ["AUXILIUM"],
-    "image": "cards/Sesto-auxilium.png",
-    "stats": { "vit": 5, "imp": 2, "def": 2, "vel": 2 },
-    "abilities": [
-      {
-        "name": "Prelievo Discreto",
-        "limit": "CD 2",
-        "text": "Scegli un’unità nemica. Perde 1 VIT. Un’unità DOMUS alleata recupera 1 VIT."
-      }
-    ]
-  },
-  {
-    "id": "akhom_communis",
-    "name": "Akhom",
-    "type": "unit",
-    "rarity": "communis",
-    "faction": "DOMUS",
-    "classes": ["PUGNATOR"],
-    "image": "cards/Akhom-communis.png",
-    "stats": { "vit": 8, "imp": 4, "def": 2, "vel": 2 },
-    "abilities": [
-      {
-        "name": "Guardia della Matrona",
-        "text": "Se anche Claudia Rufa è in campo, Akhom ha +1 DEF e intercetta automaticamente il primo attacco diretto a lei ogni turno."
-      },
-      {
-        "name": "Forza Inarrestabile",
-        "limit": "CD 1",
-        "text": "Per una volta a partita, Akhom può ignorare la DEF con il suo attacco."
-      }
-    ]
-  },
-  {
-    "id": "publio_communis",
-    "name": "Publio",
-    "type": "unit",
-    "rarity": "communis",
-    "faction": "DOMUS",
-    "classes": ["PUGNATOR"],
-    "image": "cards/Publio-pugnator.png",
-    "stats": { "vit": 5, "imp": 3, "def": 1, "vel": 2 },
-    "abilities": [
-      {
-        "name": "Protezione del Patrono",
-        "text": "Sacrifica questa unità. Scegli un tuo Dux DOMUS. Ottiene +2 DEF e +2 IMP fino alla fine del turno."
-      }
-    ]
-  },
-  {
-    "id": "marcello_communis",
-    "name": "Marcello",
-    "type": "unit",
-    "rarity": "communis",
-    "faction": "DOMUS",
-    "classes": ["DUX"],
-    "image": "cards/Marcello-communis.png",
-    "stats": { "vit": 6, "imp": 1, "def": 3, "vel": 2 },
-    "abilities": [
-      {
-        "name": "Gestione della Domus",
-        "text": "Finché controlli almeno 1 unità DOMUS Dux, all’inizio del tuo turno puoi pescare una carta in più."
-      },
-      {
-        "name": "Prelievo Straordinario",
-        "text": "Sacrifica un’unità DOMUS Communis per pescare 2 carte."
-      }
-    ]
-  },
-  {
-    "id": "crispo_communis",
-    "name": "Crispo",
-    "type": "unit",
-    "rarity": "communis",
-    "faction": "DOMUS",
-    "classes": ["AUXILIUM"],
-    "image": "cards/Crispo-communis.png",
-    "stats": { "vit": 4, "imp": 1, "def": 2, "vel": 3 },
-    "abilities": [
-      {
-        "name": "Registri Alterati",
-        "limit": "CD 2",
-        "text": "Guarda la prima carta del tuo mazzo. Puoi lasciarla in cima oppure metterla in fondo."
+    },
 
-        [
-  {
-    "id": "claudia_rufa_rara",
-    "name": "Claudia Rufa",
-    "type": "unit",
-    "rarity": "rara",
-    "faction": "DOMUS",
-    "classes": ["DUX"],
-    "image": "cards/Claudia-rara.png",
-    "stats": { "vit": 6, "imp": 1, "def": 3, "vel": 5 },
-    "abilities": [
-      {
-        "name": "Lingua Sciolta",
-        "text": "Quando Claudia Rufa entra in campo, scegli una carta nella mano avversaria. L’avversario deve rivelarla. Se è una carta Pactum, viene scartata."
-      },
-      {
-        "name": "Vino e Segreti",
-        "text": "Scarta una carta dalla tua mano per applicare STATUS Corrotto a un’unità nemica."
-      }
-    ]
-  },
-  {
-    "id": "marcello_rara",
-    "name": "Marcello",
-    "type": "unit",
-    "rarity": "rara",
-    "faction": "DOMUS",
-    "classes": ["DUX"],
-    "image": "cards/Marcello-rara.png",
-    "stats": { "vit": 7, "imp": 2, "def": 2, "vel": 3 },
-    "abilities": [
-      {
-        "name": "Rete Fondiaria",
-        "text": "Ogni volta che un’unità DOMUS viene eliminata, puoi pescare 1 carta. Se era una Communis, applica STATUS Corrotto all’unità nemica che ha causato l’eliminazione."
-      },
-      {
-        "name": "Centralizzazione",
-        "text": "Sacrifica un’unità DOMUS Communis. Un’unità nemica a tua scelta non può usare l’abilità attiva il prossimo turno."
-      }
-    ]
-  },
-  {
-    "id": "akhom_rara",
-    "name": "Akhom",
-    "type": "unit",
-    "rarity": "rara",
-    "faction": "DOMUS",
-    "classes": ["PUGNATOR"],
-    "image": "cards/Akhom-rara.png",
-    "stats": { "vit": 9, "imp": 5, "def": 2, "vel": 3 },
-    "abilities": [
-      {
-        "name": "Guardia Giurata",
-        "text": "Se Claudia Rufa è in campo, Akhom ha +1 DEF e intercetta tutti gli attacchi diretti a lei."
-      },
-      {
-        "name": "Ira Incatenata",
-        "limit": "CD 1",
-        "text": "Akhom perde 2 VIT, ma il suo prossimo attacco infligge +2 IMP e ignora DEF."
-      }
-    ]
-  }
-      [
-  {
-    "id": "lucio_valerio_messalla_insignis",
-    "name": "Lucio Valerio Messalla",
-    "type": "unit",
-    "rarity": "insignis",
-    "faction": "DOMUS",
-    "classes": ["DUX"],
-    "image": "cards/Messalla-insignis.png",
-    "stats": { "vit": 8, "imp": 5, "def": 4, "vel": 3 },
-    "abilities": [
-      {
-        "name": "Autorità Senatoriale",
-        "text": "Le unità DOMUS ottengono +1 DEF."
-      },
-      {
-        "name": "Manovra Politica",
-        "limit": "CD 1",
-        "text": "Scegli un’unità nemica. Perde 4 DEF fino al tuo prossimo turno."
-      }
-    ]
-  },
-  {
-    "id": "gaio_rufo_celtico_insignis",
-    "name": "Gaio Rufo Celtico",
-    "type": "unit",
-    "rarity": "insignis",
-    "faction": "DOMUS",
-    "classes": ["DUX"],
-    "image": "cards/GaioRufo-insignis.png",
-    "stats": { "vit": 11, "imp": 4, "def": 5, "vel": 3 },
-    "abilities": [
-      {
-        "name": "Influenza Senatoriale",
-        "text": "La durata di tutte le carte Evento Vigilia che controlli aumenta di 1 turno."
-      },
-      {
-        "name": "Decreto Senatorio",
-        "limit": "CD 3",
-        "text": "Scegli una carta Actio nei tuoi scarti. Aggiungila alla tua mano."
-      }
-    ]
-  },
-  {
-    "id": "aurelia_cassia_insignis",
-    "name": "Aurelia Cassia",
-    "type": "unit",
-    "rarity": "insignis",
-    "faction": "DOMUS",
-    "classes": ["DUX", "SPECULATOR"],
-    "image": "cards/Aurelia-insignis.png",
-    "stats": { "vit": 7, "imp": 1, "def": 7, "vel": 4 },
-    "abilities": [
-      {
-        "name": "Redini della Paura",
-        "text": "Ogni unità nemica che entra in campo lo fa con STATUS Ferito se il giocatore avversario ha meno unità in campo di te."
-      },
-      {
-        "name": "Maestra del Controllo",
-        "limit": "CD 3",
-        "text": "Scegli il bersaglio dell’attacco di un’unità nemica invece del giocatore avversario."
-      }
-    ]
-  },
-  {
-    "id": "akhom_insignis",
-    "name": "Akhom",
-    "type": "unit",
-    "rarity": "insignis",
-    "faction": "DOMUS",
-    "classes": ["PUGNATOR"],
-    "image": "cards/Akhom-insignis.png",
-    "stats": { "vit": 15, "imp": 7, "def": 3, "vel": 3 },
-    "abilities": [
-      {
-        "name": "Scudo della Matrona",
-        "text": "Se Claudia Rufa è in campo, Akhom intercetta tutti gli attacchi diretti a lei e riduce di 2 IMP questi attacchi."
-      },
-      {
-        "name": "Fedeltà in Catene",
-        "limit": "CD 2",
-        "text": "Se Claudia Rufa ha STATUS negativi, il prossimo attacco di Akhom infligge +3 IMP e ignora DEF."
-      }
-    ]
-  },
-  {
-    "id": "marcello_insignis",
-    "name": "Marcello",
-    "type": "unit",
-    "rarity": "insignis",
-    "faction": "DOMUS",
-    "classes": ["DUX"],
-    "image": "cards/Marcello-insignis.png",
-    "stats": { "vit": 10, "imp": 4, "def": 3, "vel": 3 },
-    "abilities": [
-      {
-        "name": "Egemonia Patrimoniale",
-        "text": "All’inizio del tuo turno, se controlli più unità Auxilium dell’avversario, pesca 1 carta. Le unità nemiche con STATUS Corrotto hanno -1 IMP."
-      },
-      {
-        "name": "Prelievo Sistemico",
-        "text": "Sacrifica fino a 2 unità DOMUS Communis; per ogni unità sacrificata applica ad un’unità nemica STATUS Corrotto."
-      }
-    ]
-  },
-  {
-    "id": "claudia_rufa_insignis",
-    "name": "Claudia Rufa",
-    "type": "unit",
-    "rarity": "insignis",
-    "faction": "DOMUS",
-    "classes": ["DUX", "SPECULATOR"],
-    "image": "cards/Claudia-insignis.png",
-    "stats": { "vit": 8, "imp": 2, "def": 4, "vel": 6 },
-    "abilities": [
-      {
-        "name": "Rete di Contatti",
-        "text": "Quando un’unità DOMUS o UMBRAE attacca Claudia Rufa, applica STATUS Corrotto a quell’unità."
-      },
-      {
-        "name": "Doppio Gioco",
-        "text": "Una volta per partita, scegli un’unità nemica. Fino alla fine del turno, quell’unità è considerata della tua fazione e deve attaccare un’unità nemica valida a tua scelta."
-      }
-    ]
-  }
-]
-      [
-  {
-    "id": "claudia_rufa_mythica",
-    "name": "Claudia Rufa",
-    "type": "unit",
-    "rarity": "mythica",
-    "faction": "DOMUS",
-    "classes": ["DUX", "SPECULATOR"],
-    "image": "cards/Claudia-mythica.png",
-    "stats": { "vit": 14, "imp": 4, "def": 6, "vel": 9 },
-    "abilities": [
-      {
-        "name": "Eredità Irriverente",
-        "text": "All’inizio del tuo turno, se nel turno precedente una unità nemica è stata eliminata, pesca una carta."
-      },
-      {
-        "name": "Comando Usurpato",
-        "limit": "CD 2",
-        "text": "Le unità LEGIO Dux e Pugnator non possono attaccare e usare abilità attive fino alla fine del prossimo turno avversario."
-      }
-    ]
-  },
-  {
-    "id": "lucio_valerio_messalla_mythica",
-    "name": "Lucio Valerio Messalla",
-    "type": "unit",
-    "rarity": "mythica",
-    "faction": "DOMUS",
-    "classes": ["DUX"],
-    "image": "cards/Messalla-mythica.png",
-    "stats": { "vit": 17, "imp": 8, "def": 6, "vel": 6 },
-    "abilities": [
-      {
-        "name": "Rete di Influenza",
-        "text": "La prima volta ogni turno che un’unità DOMUS subisce danno, riduci quel danno di 4."
-      },
-      {
-        "name": "Proscrizione Mirata",
-        "text": "Per una volta a partita, scegli un’unità nemica Rara o Insignis. Se viene eliminata in questo turno, fornisce +1 Gloria aggiuntiva."
-      }
-    ]
-  },
-  {
-    "id": "aurelia_cassia_mythica",
-    "name": "Aurelia Cassia",
-    "type": "unit",
-    "rarity": "mythica",
-    "faction": "DOMUS",
-    "classes": ["DUX", "SPECULATOR"],
-    "image": "cards/Aurelia-mythica.png",
-    "stats": { "vit": 12, "imp": 4, "def": 8, "vel": 8 },
-    "abilities": [
-      {
-        "name": "Guardia Permanente",
-        "text": "Le unità DOMUS adiacenti hanno +2 DEF e immunità a STATUS Prigioniero."
-      },
-      {
-        "name": "Vendetta Fredda",
-        "text": "Se un’unità alleata è stata eliminata il turno precedente, puoi applicare STATUS Prigioniero a un’unità nemica a scelta."
-      }
-    ]
-  }
-]
-      [
-  {
-    "id": "claudia_rufa_aeterna",
-    "name": "Claudia Rufa",
-    "type": "unit",
-    "rarity": "aeterna",
-    "faction": "DOMUS",
-    "classes": ["DUX", "SPECULATOR"],
-    "image": "cards/Claudia-aeterna.png",
-    "stats": { "vit": 16, "imp": 5, "def": 9, "vel": 12 },
-    "abilities": [
-      {
-        "name": "Eredità Assoluta",
-        "text": "All’inizio del tuo turno, se nel turno precedente una unità nemica o alleata è stata eliminata, pesca una carta."
-      },
-      {
-        "name": "Rete della Tessitrice",
-        "limit": "CD 1",
-        "text": "Scegli un’unità nemica. Quella unità subisce 2 danni ogni volta che attacca, fino alla fine del turno successivo del tuo avversario."
-      }
-    ]
-  },
-  {
-    "id": "aurelia_cassia_aeterna",
-    "name": "Aurelia Cassia",
-    "type": "unit",
-    "rarity": "aeterna",
-    "faction": "DOMUS",
-    "classes": ["DUX", "SPECULATOR"],
-    "image": "cards/Aurelia-aeterna.png",
-    "stats": { "vit": 18, "imp": 6, "def": 10, "vel": 10 },
-    "abilities": [
-      {
-        "name": "Padrona di Lugdunum",
-        "text": "Ogni volta che un’unità DOMUS entra in campo, applica STATUS Corrotto a un’unità nemica a scelta."
-      },
-      {
-        "name": "Rete Infinita",
-        "limit": "CD 2",
-        "text": "Scegli un’unità nemica. Quella unità ha -2 a tutte le statistiche fino alla fine del turno successivo."
-      }
-    ]
-  },
-  {
-    "id": "lucio_valerio_messalla_aeterna",
-    "name": "Lucio Valerio Messalla",
-    "type": "unit",
-    "rarity": "aeterna",
-    "faction": "DOMUS",
-    "classes": ["DUX"],
-    "image": "cards/Messalla-aeterna.png",
-    "stats": { "vit": 21, "imp": 11, "def": 10, "vel": 7 },
-    "abilities": [
-      {
-        "name": "Potere Consolidato",
-        "text": "Una volta per turno, quando un’unità nemica riceve un bonus, puoi annullarlo."
-      },
-      {
-        "name": "Proscrizione Senatoriale",
-        "text": "Una volta per partita scegli un’unità nemica Mythica o superiore. Se viene eliminata entro i prossimi due turni, fornisce +1 Gloria aggiuntiva."
-      }
-    ]
-  }
-]
-]
-]
+    {
+      "id": "fabia_communis",
+      "name": "Fabia",
+      "type": "unit",
+      "rarity": "communis",
+      "faction": "DOMUS",
+      "classes": ["SPECULATOR"],
+      "image": "cards/Fabia-speculator.png",
+      "stats": { "vit": 4, "imp": 0, "def": 0, "vel": 4 },
+      "abilities": [
+        {
+          "name": "Voci di Atrio",
+          "limit": "CD 1",
+          "text": "Guarda una carta casuale dalla mano avversaria; se è una carta Evento Actio, rimescolala nel mazzo avversario."
+        }
+      ]
+    },
+    {
+      "id": "claudia_rufa_communis",
+      "name": "Claudia Rufa",
+      "type": "unit",
+      "rarity": "communis",
+      "faction": "DOMUS",
+      "classes": ["DUX"],
+      "image": "cards/Claudia-communis.png",
+      "stats": { "vit": 5, "imp": 1, "def": 2, "vel": 4 },
+      "abilities": [
+        {
+          "name": "Spirito Libero",
+          "text": "Se all’inizio del turno Claudia Rufa è l’unica unità in campo, pesca una carta aggiuntiva."
+        },
+        {
+          "name": "Fascino Romano",
+          "limit": "CD 3",
+          "text": "Un’unità nemica a scelta non può attaccare questo turno."
+        }
+      ]
+    },
+    {
+      "id": "aulo_communis",
+      "name": "Aulo",
+      "type": "unit",
+      "rarity": "communis",
+      "faction": "DOMUS",
+      "classes": ["AUXILIUM"],
+      "image": "cards/Aulo-auxilium.png",
+      "stats": { "vit": 4, "imp": 1, "def": 3, "vel": 1 },
+      "abilities": [
+        {
+          "name": "Accesso Negato",
+          "limit": "CD 1",
+          "text": "Scegli un’unità nemica in seconda linea. Quell’unità non può usare abilità fino al tuo prossimo turno."
+        }
+      ]
+    },
+    {
+      "id": "sesto_communis",
+      "name": "Sesto",
+      "type": "unit",
+      "rarity": "communis",
+      "faction": "DOMUS",
+      "classes": ["AUXILIUM"],
+      "image": "cards/Sesto-auxilium.png",
+      "stats": { "vit": 5, "imp": 2, "def": 2, "vel": 2 },
+      "abilities": [
+        {
+          "name": "Prelievo Discreto",
+          "limit": "CD 2",
+          "text": "Scegli un’unità nemica. Perde 1 VIT. Un’unità DOMUS alleata recupera 1 VIT."
+        }
+      ]
+    },
+    {
+      "id": "akhom_communis",
+      "name": "Akhom",
+      "type": "unit",
+      "rarity": "communis",
+      "faction": "DOMUS",
+      "classes": ["PUGNATOR"],
+      "image": "cards/Akhom-communis.png",
+      "stats": { "vit": 8, "imp": 4, "def": 2, "vel": 2 },
+      "abilities": [
+        {
+          "name": "Guardia della Matrona",
+          "text": "Se anche Claudia Rufa è in campo, Akhom ha +1 DEF e intercetta automaticamente il primo attacco diretto a lei ogni turno."
+        },
+        {
+          "name": "Forza Inarrestabile",
+          "limit": "CD 1",
+          "text": "Per una volta a partita, Akhom può ignorare la DEF con il suo attacco."
+        }
+      ]
+    },
+    {
+      "id": "publio_communis",
+      "name": "Publio",
+      "type": "unit",
+      "rarity": "communis",
+      "faction": "DOMUS",
+      "classes": ["PUGNATOR"],
+      "image": "cards/Publio-pugnator.png",
+      "stats": { "vit": 5, "imp": 3, "def": 1, "vel": 2 },
+      "abilities": [
+        {
+          "name": "Protezione del Patrono",
+          "text": "Sacrifica questa unità. Scegli un tuo Dux DOMUS. Ottiene +2 DEF e +2 IMP fino alla fine del turno."
+        }
+      ]
+    },
+    {
+      "id": "marcello_communis",
+      "name": "Marcello",
+      "type": "unit",
+      "rarity": "communis",
+      "faction": "DOMUS",
+      "classes": ["DUX"],
+      "image": "cards/Marcello-communis.png",
+      "stats": { "vit": 6, "imp": 1, "def": 3, "vel": 2 },
+      "abilities": [
+        {
+          "name": "Gestione della Domus",
+          "text": "Finché controlli almeno 1 unità DOMUS Dux, all’inizio del tuo turno puoi pescare una carta in più."
+        },
+        {
+          "name": "Prelievo Straordinario",
+          "text": "Sacrifica un’unità DOMUS Communis per pescare 2 carte."
+        }
+      ]
+    },
+    {
+      "id": "crispo_communis",
+      "name": "Crispo",
+      "type": "unit",
+      "rarity": "communis",
+      "faction": "DOMUS",
+      "classes": ["AUXILIUM"],
+      "image": "cards/Crispo-communis.png",
+      "stats": { "vit": 4, "imp": 1, "def": 2, "vel": 3 },
+      "abilities": [
+        {
+          "name": "Registri Alterati",
+          "limit": "CD 2",
+          "text": "Guarda la prima carta del tuo mazzo. Puoi lasciarla in cima oppure metterla in fondo."
+        }
+      ]
+    },
+
+    {
+      "id": "claudia_rufa_rara",
+      "name": "Claudia Rufa",
+      "type": "unit",
+      "rarity": "rara",
+      "faction": "DOMUS",
+      "classes": ["DUX"],
+      "image": "cards/Claudia-rara.png",
+      "stats": { "vit": 6, "imp": 1, "def": 3, "vel": 5 },
+      "abilities": [
+        {
+          "name": "Lingua Sciolta",
+          "text": "Quando Claudia Rufa entra in campo, scegli una carta nella mano avversaria. L’avversario deve rivelarla. Se è una carta Pactum, viene scartata."
+        },
+        {
+          "name": "Vino e Segreti",
+          "text": "Scarta una carta dalla tua mano per applicare STATUS Corrotto a un’unità nemica."
+        }
+      ]
+    },
+    {
+      "id": "marcello_rara",
+      "name": "Marcello",
+      "type": "unit",
+      "rarity": "rara",
+      "faction": "DOMUS",
+      "classes": ["DUX"],
+      "image": "cards/Marcello-rara.png",
+      "stats": { "vit": 7, "imp": 2, "def": 2, "vel": 3 },
+      "abilities": [
+        {
+          "name": "Rete Fondiaria",
+          "text": "Ogni volta che un’unità DOMUS viene eliminata, puoi pescare 1 carta. Se era una Communis, applica STATUS Corrotto all’unità nemica che ha causato l’eliminazione."
+        },
+        {
+          "name": "Centralizzazione",
+          "text": "Sacrifica un’unità DOMUS Communis. Un’unità nemica a tua scelta non può usare l’abilità attiva il prossimo turno."
+        }
+      ]
+    },
+    {
+      "id": "akhom_rara",
+      "name": "Akhom",
+      "type": "unit",
+      "rarity": "rara",
+      "faction": "DOMUS",
+      "classes": ["PUGNATOR"],
+      "image": "cards/Akhom-rara.png",
+      "stats": { "vit": 9, "imp": 5, "def": 2, "vel": 3 },
+      "abilities": [
+        {
+          "name": "Guardia Giurata",
+          "text": "Se Claudia Rufa è in campo, Akhom ha +1 DEF e intercetta tutti gli attacchi diretti a lei."
+        },
+        {
+          "name": "Ira Incatenata",
+          "limit": "CD 1",
+          "text": "Akhom perde 2 VIT, ma il suo prossimo attacco infligge +2 IMP e ignora DEF."
+        }
+      ]
+    },
+
+    {
+      "id": "lucio_valerio_messalla_insignis",
+      "name": "Lucio Valerio Messalla",
+      "type": "unit",
+      "rarity": "insignis",
+      "faction": "DOMUS",
+      "classes": ["DUX"],
+      "image": "cards/Messalla-insignis.png",
+      "stats": { "vit": 8, "imp": 5, "def": 4, "vel": 3 },
+      "abilities": [
+        {
+          "name": "Autorità Senatoriale",
+          "text": "Le unità DOMUS ottengono +1 DEF."
+        },
+        {
+          "name": "Manovra Politica",
+          "limit": "CD 1",
+          "text": "Scegli un’unità nemica. Perde 4 DEF fino al tuo prossimo turno."
+        }
+      ]
+    },
+    {
+      "id": "gaio_rufo_celtico_insignis",
+      "name": "Gaio Rufo Celtico",
+      "type": "unit",
+      "rarity": "insignis",
+      "faction": "DOMUS",
+      "classes": ["DUX"],
+      "image": "cards/GaioRufo-insignis.png",
+      "stats": { "vit": 11, "imp": 4, "def": 5, "vel": 3 },
+      "abilities": [
+        {
+          "name": "Influenza Senatoriale",
+          "text": "La durata di tutte le carte Evento Vigilia che controlli aumenta di 1 turno."
+        },
+        {
+          "name": "Decreto Senatorio",
+          "limit": "CD 3",
+          "text": "Scegli una carta Actio nei tuoi scarti. Aggiungila alla tua mano."
+        }
+      ]
+    },
+    {
+      "id": "aurelia_cassia_insignis",
+      "name": "Aurelia Cassia",
+      "type": "unit",
+      "rarity": "insignis",
+      "faction": "DOMUS",
+      "classes": ["DUX", "SPECULATOR"],
+      "image": "cards/Aurelia-insignis.png",
+      "stats": { "vit": 7, "imp": 1, "def": 7, "vel": 4 },
+      "abilities": [
+        {
+          "name": "Redini della Paura",
+          "text": "Ogni unità nemica che entra in campo lo fa con STATUS Ferito se il giocatore avversario ha meno unità in campo di te."
+        },
+        {
+          "name": "Maestra del Controllo",
+          "limit": "CD 3",
+          "text": "Scegli il bersaglio dell’attacco di un’unità nemica invece del giocatore avversario."
+        }
+      ]
+    },
+    {
+      "id": "akhom_insignis",
+      "name": "Akhom",
+      "type": "unit",
+      "rarity": "insignis",
+      "faction": "DOMUS",
+      "classes": ["PUGNATOR"],
+      "image": "cards/Akhom-insignis.png",
+      "stats": { "vit": 15, "imp": 7, "def": 3, "vel": 3 },
+      "abilities": [
+        {
+          "name": "Scudo della Matrona",
+          "text": "Se Claudia Rufa è in campo, Akhom intercetta tutti gli attacchi diretti a lei e riduce di 2 IMP questi attacchi."
+        },
+        {
+          "name": "Fedeltà in Catene",
+          "limit": "CD 2",
+          "text": "Se Claudia Rufa ha STATUS negativi, il prossimo attacco di Akhom infligge +3 IMP e ignora DEF."
+        }
+      ]
+    },
+    {
+      "id": "marcello_insignis",
+      "name": "Marcello",
+      "type": "unit",
+      "rarity": "insignis",
+      "faction": "DOMUS",
+      "classes": ["DUX"],
+      "image": "cards/Marcello-insignis.png",
+      "stats": { "vit": 10, "imp": 4, "def": 3, "vel": 3 },
+      "abilities": [
+        {
+          "name": "Egemonia Patrimoniale",
+          "text": "All’inizio del tuo turno, se controlli più unità Auxilium dell’avversario, pesca 1 carta. Le unità nemiche con STATUS Corrotto hanno -1 IMP."
+        },
+        {
+          "name": "Prelievo Sistemico",
+          "text": "Sacrifica fino a 2 unità DOMUS Communis; per ogni unità sacrificata applica ad un’unità nemica STATUS Corrotto."
+        }
+      ]
+    },
+    {
+      "id": "claudia_rufa_insignis",
+      "name": "Claudia Rufa",
+      "type": "unit",
+      "rarity": "insignis",
+      "faction": "DOMUS",
+      "classes": ["DUX", "SPECULATOR"],
+      "image": "cards/Claudia-insignis.png",
+      "stats": { "vit": 8, "imp": 2, "def": 4, "vel": 6 },
+      "abilities": [
+        {
+          "name": "Rete di Contatti",
+          "text": "Quando un’unità DOMUS o UMBRAE attacca Claudia Rufa, applica STATUS Corrotto a quell’unità."
+        },
+        {
+          "name": "Doppio Gioco",
+          "text": "Una volta per partita, scegli un’unità nemica. Fino alla fine del turno, quell’unità è considerata della tua fazione e deve attaccare un bersaglio valido a tua scelta."
+        }
+      ]
+    },
+
+    {
+      "id": "claudia_rufa_mythica",
+      "name": "Claudia Rufa",
+      "type": "unit",
+      "rarity": "mythica",
+      "faction": "DOMUS",
+      "classes": ["DUX", "SPECULATOR"],
+      "image": "cards/Claudia-mythica.png",
+      "stats": { "vit": 14, "imp": 4, "def": 6, "vel": 9 },
+      "abilities": [
+        {
+          "name": "Eredità Irriverente",
+          "text": "All’inizio del tuo turno, se nel turno precedente una unità nemica è stata eliminata, pesca una carta."
+        },
+        {
+          "name": "Comando Usurpato",
+          "limit": "CD 2",
+          "text": "Le unità LEGIO Dux e Pugnator non possono attaccare e usare abilità attive fino alla fine del prossimo turno avversario."
+        }
+      ]
+    },
+    {
+      "id": "lucio_valerio_messalla_mythica",
+      "name": "Lucio Valerio Messalla",
+      "type": "unit",
+      "rarity": "mythica",
+      "faction": "DOMUS",
+      "classes": ["DUX"],
+      "image": "cards/Messalla-mythica.png",
+      "stats": { "vit": 17, "imp": 8, "def": 6, "vel": 6 },
+      "abilities": [
+        {
+          "name": "Rete di Influenza",
+          "text": "La prima volta ogni turno che un’unità DOMUS subisce danno, riduci quel danno di 4."
+        },
+        {
+          "name": "Proscrizione Mirata",
+          "text": "Per una volta a partita, scegli un’unità nemica Rara o Insignis. Se viene eliminata in questo turno, fornisce +1 Gloria aggiuntiva."
+        }
+      ]
+    },
+    {
+      "id": "aurelia_cassia_mythica",
+      "name": "Aurelia Cassia",
+      "type": "unit",
+      "rarity": "mythica",
+      "faction": "DOMUS",
+      "classes": ["DUX", "SPECULATOR"],
+      "image": "cards/Aurelia-mythica.png",
+      "stats": { "vit": 12, "imp": 4, "def": 8, "vel": 8 },
+      "abilities": [
+        {
+          "name": "Guardia Permanente",
+          "text": "Le unità DOMUS adiacenti hanno +2 DEF e immunità a STATUS Prigioniero."
+        },
+        {
+          "name": "Vendetta Fredda",
+          "text": "Se un’unità alleata è stata eliminata il turno precedente, puoi applicare STATUS Prigioniero a un’unità nemica a scelta."
+        }
+      ]
+    },
+
+    {
+      "id": "claudia_rufa_aeterna",
+      "name": "Claudia Rufa",
+      "type": "unit",
+      "rarity": "aeterna",
+      "faction": "DOMUS",
+      "classes": ["DUX", "SPECULATOR"],
+      "image": "cards/Claudia-aeterna.png",
+      "stats": { "vit": 16, "imp": 5, "def": 9, "vel": 12 },
+      "abilities": [
+        {
+          "name": "Eredità Assoluta",
+          "text": "All’inizio del tuo turno, se nel turno precedente una unità nemica o alleata è stata eliminata, pesca una carta."
+        },
+        {
+          "name": "Rete della Tessitrice",
+          "limit": "CD 1",
+          "text": "Scegli un’unità nemica. Quella unità subisce 2 danni ogni volta che attacca, fino alla fine del turno successivo del tuo avversario."
+        }
+      ]
+    },
+    {
+      "id": "aurelia_cassia_aeterna",
+      "name": "Aurelia Cassia",
+      "type": "unit",
+      "rarity": "aeterna",
+      "faction": "DOMUS",
+      "classes": ["DUX", "SPECULATOR"],
+      "image": "cards/Aurelia-aeterna.png",
+      "stats": { "vit": 18, "imp": 6, "def": 10, "vel": 10 },
+      "abilities": [
+        {
+          "name": "Padrona di Lugdunum",
+          "text": "Ogni volta che un’unità DOMUS entra in campo, applica STATUS Corrotto a un’unità nemica a scelta."
+        },
+        {
+          "name": "Rete Infinita",
+          "limit": "CD 2",
+          "text": "Scegli un’unità nemica. Quella unità ha -2 a tutte le statistiche fino alla fine del turno successivo."
+        }
+      ]
+    },
+    {
+      "id": "lucio_valerio_messalla_aeterna",
+      "name": "Lucio Valerio Messalla",
+      "type": "unit",
+      "rarity": "aeterna",
+      "faction": "DOMUS",
+      "classes": ["DUX"],
+      "image": "cards/Messalla-aeterna.png",
+      "stats": { "vit": 21, "imp": 11, "def": 10, "vel": 7 },
+      "abilities": [
+        {
+          "name": "Potere Consolidato",
+          "text": "Una volta per turno, quando un’unità nemica riceve un bonus, puoi annullarlo."
+        },
+        {
+          "name": "Proscrizione Senatoriale",
+          "text": "Una volta per partita scegli un’unità nemica Mythica o superiore. Se viene eliminata entro i prossimi due turni, fornisce +1 Gloria aggiuntiva."
+        }
+      ]
+    }
   ]
 }
