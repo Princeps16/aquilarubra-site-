@@ -160,36 +160,40 @@ function renderCard(card) {
 
   wrap.appendChild(imgWrap);
 
-  // meta
-  const meta = document.createElement("div");
-  meta.className = "ccard__meta";
+// meta
+const meta = document.createElement("div");
+meta.className = "ccard__meta";
 
-  // riga titolo
-  // nome
+/* ===== NOME ===== */
+const nameEl = document.createElement("h3");
+nameEl.className = "ccard__name";
+nameEl.textContent = card?.name || "-";
 meta.appendChild(nameEl);
 
-// tipo sotto il nome
+/* ===== TYPE + RARITÀ SOTTO ===== */
+const typeEl = document.createElement("div");
 typeEl.className = "ccard__type ccard__type--under";
+typeEl.textContent = `${String(card?.type || "").toUpperCase()} · ${String(card?.rarity || "").toUpperCase()}`;
 meta.appendChild(typeEl);
 
-  // chips
-  const chips = document.createElement("div");
-  chips.className = "ccard__chips";
+/* ===== CHIPS ===== */
+const chips = document.createElement("div");
+chips.className = "ccard__chips";
 
-  const factionChip = document.createElement("span");
-  factionChip.className = "chip chip--faction";
-  factionChip.textContent = card?.faction || "-";
-  chips.appendChild(factionChip);
+const factionChip = document.createElement("span");
+factionChip.className = "chip chip--faction";
+factionChip.textContent = card?.faction || "-";
+chips.appendChild(factionChip);
 
-  for (const cls of card?.classes || []) {
-    const c = document.createElement("span");
-    c.className = "chip";
-    c.textContent = cls;
-    chips.appendChild(c);
-  }
+for (const cls of card?.classes || []) {
+  const c = document.createElement("span");
+  c.className = "chip";
+  c.textContent = cls;
+  chips.appendChild(c);
+}
 
-  meta.appendChild(chips);
-
+meta.appendChild(chips);
+   
   // stats (uniformate)
   const statsWrap = document.createElement("div");
   statsWrap.className = "ccard__stats";
