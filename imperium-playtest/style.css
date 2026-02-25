@@ -607,3 +607,10 @@ body {
 .detail-mode .ccard__toggle{ display:none; }
 .detail-mode .ccard__stats{ display:grid; }
 .detail-mode .ccard__abilities{ display:block; }
+
+.ccard__type--under {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
