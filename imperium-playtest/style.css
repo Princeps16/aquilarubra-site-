@@ -476,3 +476,90 @@ body {
   flex-direction: column;
   gap: 25px;
 }
+/* ---------- BRAND (logo) ---------- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.brand__logo {
+  height: 42px;
+  width: auto;
+  display: block;
+}
+
+/* ---------- TOPBAR LAYOUT ---------- */
+.topbar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.topbar__left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.topbar__right {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.field select,
+.field input {
+  width: 100%;
+}
+
+/* ---------- VIEW TOGGLE ---------- */
+.view-toggle {
+  display: flex;
+  gap: 10px;
+  padding: 0 16px 12px;
+  justify-content: center; /* CENTRATO */
+}
+
+.view-toggle button {
+  min-width: 120px;
+}
+
+/* ---------- MOBILE: filtri in griglia ordinata ---------- */
+@media (max-width: 720px) {
+  .topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .topbar__left {
+    align-items: flex-start;
+  }
+
+  .topbar__right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    justify-content: stretch;
+  }
+
+  /* “Cerca” prende tutta la riga */
+  .topbar__right .field:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .field { min-width: 0; }
+}
