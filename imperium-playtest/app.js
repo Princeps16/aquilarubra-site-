@@ -368,3 +368,36 @@ function canDrop(cardEl, slotEl) {
 
   return true;
 }
+/* =========================
+   VIEW MODE SWITCH
+========================= */
+
+const gridBtn = document.getElementById("gridViewBtn");
+const detailBtn = document.getElementById("detailViewBtn");
+const allGrids = document.querySelectorAll(".cards-grid");
+
+function setGridMode() {
+  allGrids.forEach(g => {
+    g.classList.remove("detail-mode");
+    g.classList.add("grid-mode");
+  });
+  gridBtn.classList.add("active");
+  detailBtn.classList.remove("active");
+}
+
+function setDetailMode() {
+  allGrids.forEach(g => {
+    g.classList.remove("grid-mode");
+    g.classList.add("detail-mode");
+  });
+  detailBtn.classList.add("active");
+  gridBtn.classList.remove("active");
+}
+
+if (gridBtn && detailBtn) {
+  gridBtn.addEventListener("click", setGridMode);
+  detailBtn.addEventListener("click", setDetailMode);
+}
+
+/* default */
+setGridMode();
