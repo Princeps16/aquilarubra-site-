@@ -374,22 +374,18 @@ function canDrop(cardEl, slotEl) {
 
 const gridBtn = document.getElementById("gridViewBtn");
 const detailBtn = document.getElementById("detailViewBtn");
-const allGrids = document.querySelectorAll(".cards-grid");
+const mainGrid = document.getElementById("grid");
 
 function setGridMode() {
-  allGrids.forEach(g => {
-    g.classList.remove("detail-mode");
-    g.classList.add("grid-mode");
-  });
+  mainGrid.classList.remove("detail-mode");
+  mainGrid.classList.add("grid-mode");
   gridBtn.classList.add("active");
   detailBtn.classList.remove("active");
 }
 
 function setDetailMode() {
-  allGrids.forEach(g => {
-    g.classList.remove("grid-mode");
-    g.classList.add("detail-mode");
-  });
+  mainGrid.classList.remove("grid-mode");
+  mainGrid.classList.add("detail-mode");
   detailBtn.classList.add("active");
   gridBtn.classList.remove("active");
 }
