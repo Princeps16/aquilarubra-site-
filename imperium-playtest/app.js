@@ -72,16 +72,17 @@ function cardImageSrc(card) {
 function populateFilters(db) {
   if (!db) return;
 
-  // factions
-  if (factionFilterEl) {
-    const factionKeys = Object.keys(db.factions || {}).sort();
-    for (const f of factionKeys) {
-      const opt = document.createElement("option");
-      opt.value = f;
-      opt.textContent = f;
-      factionFilterEl.appendChild(opt);
-    }
+ // factions
+if (factionFilterEl) {
+  const factionKeys = [...new Set(db.cards.map(c => c.faction))].sort();
+
+  for (const f of factionKeys) {
+    const opt = document.createElement("option");
+    opt.value = f;
+    opt.textContent = f;
+    factionFilterEl.appendChild(opt);
   }
+}
 
   // rarities (ordine per tier)
   if (rarityFilterEl) {
