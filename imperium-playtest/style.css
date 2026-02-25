@@ -579,3 +579,31 @@ body {
 
 /* quando apri */
 .grid-mode .ccard.stats-open .ccard__stats{ display:grid; }
+
+/* pulsanti toggle */
+.ccard__toggle{
+  margin-top:10px;
+  width:100%;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.18);
+  color:inherit;
+  cursor:pointer;
+}
+
+/* GRID MODE: chiusi di default */
+.grid-mode .ccard__stats{ display:none; }
+.grid-mode .ccard__abilities{ display:none; }
+
+/* GRID MODE: toggles visibili */
+.grid-mode .ccard__toggle{ display:block; }
+
+/* GRID MODE: quando apri */
+.grid-mode .ccard.stats-open .ccard__stats{ display:grid; }
+.grid-mode .ccard.abilities-open .ccard__abilities{ display:block; }
+
+/* DETAIL MODE: sempre visibili, toggle nascosti */
+.detail-mode .ccard__toggle{ display:none; }
+.detail-mode .ccard__stats{ display:grid; }
+.detail-mode .ccard__abilities{ display:block; }
