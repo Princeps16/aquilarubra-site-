@@ -518,6 +518,170 @@
           "text": "Una volta per partita scegli un’unità nemica Mythica o superiore. Se viene eliminata entro i prossimi due turni, fornisce +1 Gloria aggiuntiva."
         }
       ]
-    }
-  ]
-}
+    },
+    [
+  {
+    "id": "brennos_communis",
+    "name": "Brennos",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["RITUS"],
+    "image": "cards/Brennos-comune.png",
+    "stats": { "vit": 5, "imp": 1, "def": 2, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Spiriti della Foresta",
+        "text": "All'inizio del tuo turno, tutte le unità HELVETII recuperano 1 VIT."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Rito di Guarigione",
+        "limit": "CD 2",
+        "text": "Scegli un'unità HELVETII alleata. Rimuovi 1 STATUS negativo da quell'unità. Quell'unità recupera anche 2 VIT."
+      }
+    ]
+  },
+  {
+    "id": "sairika_communis",
+    "name": "Sairika",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Sairika-communis.png",
+    "stats": { "vit": 6, "imp": 4, "def": 1, "vel": 4 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Guerriera Nata",
+        "text": "Quando Sairika attacca un bersaglio con STATUS Ferito, ottiene +1 IMP (per questo attacco)."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Predatorice Silenziosa",
+        "limit": "CD 1",
+        "text": "Quando Sairika attacca un bersaglio più lento, applica STATUS Ferito a quel bersaglio."
+      }
+    ]
+  },
+  {
+    "id": "aela_communis",
+    "name": "Aela",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["SPECULATOR"],
+    "image": "cards/Aela-communis.png",
+    "stats": { "vit": 6, "imp": 2, "def": 1, "vel": 5 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Tra i Rami",
+        "text": "Anche se Aela è in seconda linea, può attaccare le unità nemiche in prima linea."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Aiuto dalla Natura",
+        "limit": "CD 1",
+        "text": "Rimuovi STATUS Ferito da un'unità alleata."
+      }
+    ]
+  },
+  {
+    "id": "storvan_communis",
+    "name": "Storvan",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Storvan-communis.png",
+    "stats": { "vit": 7, "imp": 4, "def": 3, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Maestro d'Armi",
+        "text": "Le unità HELVETII Communis e Rara adiacenti hanno +1 IMP e +1 DEF."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Lezione di Guerra",
+        "limit": "1 volta per partita",
+        "text": "Scegli un'unità HELVETII Communis o Rara. Quell'unità può attaccare 2 volte in questo turno."
+      }
+    ]
+  },
+  {
+    "id": "varka_communis",
+    "name": "Varka",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["RITUS"],
+    "image": "cards/Varka-communis.png",
+    "stats": { "vit": 5, "imp": 2, "def": 3, "vel": 4 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Memoria del Sangue",
+        "text": "Ogni volta che un'unità HELVETII alleata viene eliminata, Varka guadagna +1 IMP permanente."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Lamento Tribale",
+        "limit": "CD 2",
+        "text": "Applica STATUS Ferito a un'unità LEGIO Pugnator nemica."
+      }
+    ]
+  },
+  {
+    "id": "thrug_communis",
+    "name": "Thrug",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Thrug-Pugnator.png",
+    "stats": { "vit": 6, "imp": 3, "def": 2, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Resistenza Germanica",
+        "limit": "CD 2",
+        "text": "Thrug subisce 1 danno. In cambio, ottiene +2 DEF fino alla fine del turno avversario successivo."
+      }
+    ]
+  },
+  {
+    "id": "gormund_communis",
+    "name": "Gormund",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Gormund-Pugnator.png",
+    "stats": { "vit": 7, "imp": 4, "def": 1, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Furia Tribale",
+        "limit": "CD 2",
+        "text": "Applica STATUS Ferito a Gormund. Se lo fai, Gormund ottiene +2 IMP fino alla fine del turno."
+      }
+    ]
+  }
+]
+    
