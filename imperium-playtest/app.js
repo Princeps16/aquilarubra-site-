@@ -194,35 +194,33 @@ for (const cls of card?.classes || []) {
 
 meta.appendChild(chips);
    
-  // stats (uniformate)
-  const statsWrap = document.createElement("div");
-  statsWrap.className = "ccard__stats";
+/* ===== STATS WRAP ===== */
+const statsWrap = document.createElement("div");
+statsWrap.className = "ccard__stats";
 
-  const rows = [
-    ["VIT", getStat(card?.stats, "vit")],
-    ["IMP", getStat(card?.stats, "imp")],
-    ["DEF", getStat(card?.stats, "def")],
-    ["VEL", getStat(card?.stats, "vel")],
-  ];
+const rows = [
+  ["VIT", getStat(card?.stats, "vit")],
+  ["IMP", getStat(card?.stats, "imp")],
+  ["DEF", getStat(card?.stats, "def")],
+  ["VEL", getStat(card?.stats, "vel")],
+];
 
-  for (const [k, v] of rows) {
-    const box = document.createElement("div");
-    box.className = "stat";
+for (const [k, v] of rows) {
+  const box = document.createElement("div");
+  box.className = "stat";
 
-    const kEl = document.createElement("span");
-    kEl.textContent = k;
+  const kEl = document.createElement("span");
+  kEl.textContent = k;
 
-    const vEl = document.createElement("b");
-    vEl.textContent = v ?? "-";
+  const vEl = document.createElement("b");
+  vEl.textContent = v ?? "-";
 
-    box.appendChild(kEl);
-    box.appendChild(vEl);
-    statsWrap.appendChild(box);
-  }
+  box.appendChild(kEl);
+  box.appendChild(vEl);
+  statsWrap.appendChild(box);
+}
 
-// ===== TOGGLE BUTTONS =====
-
-// toggle Stats
+/* ===== TOGGLE STATS ===== */
 const statsToggle = document.createElement("button");
 statsToggle.type = "button";
 statsToggle.className = "ccard__toggle ccard__toggle--stats";
@@ -232,9 +230,11 @@ statsToggle.addEventListener("click", (e) => {
   e.stopPropagation();
   wrap.classList.toggle("stats-open");
 });
-meta.appendChild(statsToggle);
 
-// toggle Abilità
+meta.appendChild(statsToggle);
+meta.appendChild(statsWrap);   // <<< QUESTA RIGA MANCAVA
+
+/* ===== TOGGLE ABILITÀ ===== */
 const abilitiesToggle = document.createElement("button");
 abilitiesToggle.type = "button";
 abilitiesToggle.className = "ccard__toggle ccard__toggle--abilities";
@@ -244,9 +244,10 @@ abilitiesToggle.addEventListener("click", (e) => {
   e.stopPropagation();
   wrap.classList.toggle("abilities-open");
 });
+
 meta.appendChild(abilitiesToggle);
 
-// ===== ABILITIES WRAP =====
+/* ===== ABILITIES WRAP ===== */
 const abilitiesWrap = document.createElement("div");
 abilitiesWrap.className = "ccard__abilities";
 
@@ -284,10 +285,9 @@ for (const ab of card?.abilities || []) {
 }
 
 meta.appendChild(abilitiesWrap);
+wrap.appendChild(meta);
 
-  wrap.appendChild(meta);
-  return wrap;
-}
+return wrap;
 
 /* =========================
    GRID + FILTRI
