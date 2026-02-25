@@ -225,18 +225,6 @@ function renderCard(card) {
     box.appendChild(vEl);
     statsWrap.appendChild(box);
   }
-  const statsToggle = document.createElement("button");
-  statsToggle.type = "button";
-  statsToggle.className = "ccard__statsToggle";
-  statsToggle.textContent = "Stats";
-  statsToggle.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    wrap.classList.toggle("stats-open");
-  });
-
-  meta.appendChild(statsToggle);
-  meta.appendChild(statsWrap);
 
 // ===== TOGGLE BUTTONS =====
 
