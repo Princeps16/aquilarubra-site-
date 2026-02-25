@@ -432,3 +432,47 @@ body {
   color: #d7e1ee;
   line-height: 1.45;
 }
+/* =========================
+   VIEW TOGGLE
+========================= */
+
+.view-toggle {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.view-toggle button {
+  background: #111;
+  color: #aaa;
+  border: 1px solid #333;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.view-toggle button.active {
+  background: #5b2a86;
+  color: white;
+}
+
+/* GRID MODE */
+.cards-grid.grid-mode {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+  .cards-grid.grid-mode {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* DETAIL MODE */
+.cards-grid.detail-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
