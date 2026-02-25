@@ -2122,11 +2122,11 @@
   ]
 },
 {
-  "id": "giulio_aquila_legio_aeterna",
+  "id": "giulio_aquila_umbrae_aeterna",
   "name": "Giulio Aquila",
   "type": "unit",
   "rarity": "aeterna",
-  "faction": "LEGIO",
+  "faction": "UMBRAE",
   "classes": ["PUGNATOR"],
   "image": "cards/Aquila-aeterna-Umbra.png",
   "stats": { "vit": 18, "imp": 14, "def": 7, "vel": 11 },
