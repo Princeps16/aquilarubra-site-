@@ -11,7 +11,7 @@
   <header class="topbar">
     <div class="topbar__left">
       <h1>Imperium Playtest</h1>
-      <p class="muted">Griglia carte (da data/cards.json)</p>
+      <p class="muted">Lista Carte</p>
     </div>
 
     <div class="topbar__right">
@@ -41,19 +41,25 @@
     <section id="grid" class="grid" aria-label="Griglia carte"></section>
   </main>
 
-  <script src="app.js"></script>
+  <!-- Overlay preview carta: DEVE stare prima degli script che lo leggono -->
+  <div id="cardPreview" class="card-preview" aria-hidden="true">
+    <img id="cardPreviewImg" class="card-preview__img" src="" alt="">
+  </div>
+
+  <!-- Carica app.js dopo che il DOM è pronto -->
+  <script defer src="app.js"></script>
+
+  <!-- Modulo engine separato -->
   <script type="module">
-  import { createGameState, getLegalActions } from "./engine/core.js";
+    import { createGameState, getLegalActions } from "./engine/core.js";
 
-  fetch("./data/cards.json")
-    .then(r => r.json())
-    .then(cardsDb => {
-      const state = createGameState(cardsDb);
-
-      console.log("Game creato:", state);
-      console.log("Azioni legali iniziali:", getLegalActions(state));
-    });
-</script>
-
+    fetch("./data/cards.json")
+      .then(r => r.json())
+      .then(cardsDb => {
+        const state = createGameState(cardsDb);
+        console.log("Game creato:", state);
+        console.log("Azioni legali iniziali:", getLegalActions(state));
+      });
+  </script>
 </body>
 </html>
