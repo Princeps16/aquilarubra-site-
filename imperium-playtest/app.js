@@ -238,39 +238,45 @@ function renderCard(card) {
   meta.appendChild(statsToggle);
   meta.appendChild(statsWrap);
 
-  // abilità: SOLO name + (limit) + text
-  for (const ab of card?.abilities || []) {
-    const sec = document.createElement("section");
-    sec.className = "ccard__ability";
+// abilità: wrapper (serve per collapse)
+const abilitiesWrap = document.createElement("div");
+abilitiesWrap.className = "ccard__abilities";
 
-    const head = document.createElement("div");
-    head.className = "ability__head";
+for (const ab of card?.abilities || []) {
+  const sec = document.createElement("section");
+  sec.className = "ccard__ability";
 
-    const title = document.createElement("div");
-    title.className = "ability__title";
-    title.textContent = ab?.name || "Abilità";
+  const head = document.createElement("div");
+  head.className = "ability__head";
 
-    const tags = document.createElement("div");
-    tags.className = "ability__tags";
+  const title = document.createElement("div");
+  title.className = "ability__title";
+  title.textContent = ab?.name || "Abilità";
 
-    if (ab?.limit) {
-      const t = document.createElement("span");
-      t.className = "atag atag--limit";
-      t.textContent = ab.limit;
-      tags.appendChild(t);
-    }
+  const tags = document.createElement("div");
+  tags.className = "ability__tags";
 
-    head.appendChild(title);
-    head.appendChild(tags);
-
-    const text = document.createElement("p");
-    text.className = "ability__text";
-    text.textContent = ab?.text || "";
-
-    sec.appendChild(head);
-    sec.appendChild(text);
-    meta.appendChild(sec);
+  if (ab?.limit) {
+    const t = document.createElement("span");
+    t.className = "atag atag--limit";
+    t.textContent = ab.limit;
+    tags.appendChild(t);
   }
+
+  head.appendChild(title);
+  head.appendChild(tags);
+
+  const text = document.createElement("p");
+  text.className = "ability__text";
+  text.textContent = ab?.text || "";
+
+  sec.appendChild(head);
+  sec.appendChild(text);
+
+  abilitiesWrap.appendChild(sec);
+}
+
+meta.appendChild(abilitiesWrap);
 
   wrap.appendChild(meta);
   return wrap;
