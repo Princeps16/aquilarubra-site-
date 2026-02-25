@@ -75,5 +75,153 @@
         }
       ]
     }
+    [
+  {
+    "id": "fabia_communis",
+    "name": "Fabia",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["SPECULATOR"],
+    "image": "cards/Fabia-speculator.png",
+    "stats": { "vit": 4, "imp": 0, "def": 0, "vel": 4 },
+    "abilities": [
+      {
+        "name": "Voci di Atrio",
+        "limit": "CD 1",
+        "text": "Guarda una carta casuale dalla mano avversaria; se è una carta Evento Actio, rimescolala nel mazzo avversario."
+      }
+    ]
+  },
+  {
+    "id": "claudia_rufa_communis",
+    "name": "Claudia Rufa",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["DUX"],
+    "image": "cards/Claudia-communis.png",
+    "stats": { "vit": 5, "imp": 1, "def": 2, "vel": 4 },
+    "abilities": [
+      {
+        "name": "Spirito Libero",
+        "text": "Se all’inizio del turno Claudia Rufa è l’unica unità in campo, pesca una carta aggiuntiva."
+      },
+      {
+        "name": "Fascino Romano",
+        "limit": "CD 3",
+        "text": "Un’unità nemica a scelta non può attaccare questo turno."
+      }
+    ]
+  },
+  {
+    "id": "aulo_communis",
+    "name": "Aulo",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Aulo-auxilium.png",
+    "stats": { "vit": 4, "imp": 1, "def": 3, "vel": 1 },
+    "abilities": [
+      {
+        "name": "Accesso Negato",
+        "limit": "CD 1",
+        "text": "Scegli un’unità nemica in seconda linea. Quell’unità non può usare abilità fino al tuo prossimo turno."
+      }
+    ]
+  },
+  {
+    "id": "sesto_communis",
+    "name": "Sesto",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Sesto-auxilium.png",
+    "stats": { "vit": 5, "imp": 2, "def": 2, "vel": 2 },
+    "abilities": [
+      {
+        "name": "Prelievo Discreto",
+        "limit": "CD 2",
+        "text": "Scegli un’unità nemica. Perde 1 VIT. Un’unità DOMUS alleata recupera 1 VIT."
+      }
+    ]
+  },
+  {
+    "id": "akhom_communis",
+    "name": "Akhom",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Akhom-communis.png",
+    "stats": { "vit": 8, "imp": 4, "def": 2, "vel": 2 },
+    "abilities": [
+      {
+        "name": "Guardia della Matrona",
+        "text": "Se anche Claudia Rufa è in campo, Akhom ha +1 DEF e intercetta automaticamente il primo attacco diretto a lei ogni turno."
+      },
+      {
+        "name": "Forza Inarrestabile",
+        "limit": "CD 1",
+        "text": "Per una volta a partita, Akhom può ignorare la DEF con il suo attacco."
+      }
+    ]
+  },
+  {
+    "id": "publio_communis",
+    "name": "Publio",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Publio-pugnator.png",
+    "stats": { "vit": 5, "imp": 3, "def": 1, "vel": 2 },
+    "abilities": [
+      {
+        "name": "Protezione del Patrono",
+        "text": "Sacrifica questa unità. Scegli un tuo Dux DOMUS. Ottiene +2 DEF e +2 IMP fino alla fine del turno."
+      }
+    ]
+  },
+  {
+    "id": "marcello_communis",
+    "name": "Marcello",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["DUX"],
+    "image": "cards/Marcello-communis.png",
+    "stats": { "vit": 6, "imp": 1, "def": 3, "vel": 2 },
+    "abilities": [
+      {
+        "name": "Gestione della Domus",
+        "text": "Finché controlli almeno 1 unità DOMUS Dux, all’inizio del tuo turno puoi pescare una carta in più."
+      },
+      {
+        "name": "Prelievo Straordinario",
+        "text": "Sacrifica un’unità DOMUS Communis per pescare 2 carte."
+      }
+    ]
+  },
+  {
+    "id": "crispo_communis",
+    "name": "Crispo",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Crispo-communis.png",
+    "stats": { "vit": 4, "imp": 1, "def": 2, "vel": 3 },
+    "abilities": [
+      {
+        "name": "Registri Alterati",
+        "limit": "CD 2",
+        "text": "Guarda la prima carta del tuo mazzo. Puoi lasciarla in cima oppure metterla in fondo."
+      }
+    ]
+  }
+]
   ]
 }
