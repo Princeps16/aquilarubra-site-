@@ -6,6 +6,14 @@
   --muted: #9aa6b2;
   --border: #222a33;
   --chip: #0e141b;
+
+  --slot: #141414;
+  --row: #0e0e0e;
+  --rowBorder: #333;
+  --slotBorder: #444;
+
+  --cardBg: #111;
+  --cardBorder: #444;
 }
 
 * { box-sizing: border-box; }
@@ -17,6 +25,7 @@ body {
   color: var(--text);
 }
 
+/* ===== Topbar ===== */
 .topbar {
   display: flex;
   gap: 16px;
@@ -65,9 +74,8 @@ body {
   outline: none;
 }
 
-.container {
-  padding: 18px;
-}
+/* ===== Layout ===== */
+.container { padding: 18px; }
 
 .status {
   margin-bottom: 12px;
@@ -75,144 +83,352 @@ body {
   color: var(--muted);
 }
 
-.grid {
+/* ===== Battlefield ===== */
+#battlefield {
+  margin: 40px 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 14px;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: start;
 }
 
-.card {
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  background: #0c1116;
+@media (min-width: 1100px){
+  #battlefield { grid-template-columns: 1fr 1fr; }
+}
+
+.player{
+  border: 1px solid var(--rowBorder);
+  padding: 20px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #0f1216, #0b0d10);
+}
+
+/* Righe: Prima linea / Seconda linea / Eventi di Campo */
+.row{
+  display: flex;
+  gap: 12px;
+  min-height: 120px;
+  margin: 10px 0;
+  padding: 8px;
+  background: var(--row);
+  border: 1px dashed var(--rowBorder);
   position: relative;
 }
 
-.card__rarityBar {
-  height: 6px;
-  width: 100%;
-  background: #666;
+.row.front::before { content: "Prima linea"; }
+.row.back::before { content: "Seconda linea"; }
+.row.reserve::before { content: "Eventi di Campo"; }
+
+.row::before{
+  position: absolute;
+  top: -12px;
+  left: 10px;
+  font-size: 12px;
+  opacity: .55;
+  letter-spacing: .4px;
+  color: var(--muted);
 }
 
-.card__imgWrap {
+.row.front{ border-color: #555; }
+.row.back{ opacity: 0.9; }
+
+.row.reserve{
+  background: #0b0b0b;
+  border-color: #2b2b2b;
+  opacity: 0.95;
+}
+
+/* Slot */
+.slot{
+  flex: 1;
+  min-height: 104px;
+  padding: 10px;
+  border: 1px dashed var(--slotBorder);
+  border-radius: 12px;
+  background: var(--slot);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.15s ease;
+  overflow: visible; /* non taglia le carte */
+}
+
+.slot.is-over{
+  border-style: solid;
+  border-color: #777;
+  background: #1b1b1b;
+}
+
+.slot.is-invalid{
+  border-color: #aa4444;
+}
+
+/* =========================
+   BATTLEFIELD – Card (DnD)
+   ========================= */
+#battlefield .card{
+  width: 170px;
+  height: 250px;
+  border-radius: 12px;
+  border: 1px solid var(--cardBorder);
+  background: var(--cardBg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+}
+
+#battlefield .card:active{ cursor: grabbing; }
+
+#battlefield .slot .card{
+  width: 170px;
+  height: 250px;
+}
+
+#battlefield .card img{
   width: 100%;
-  aspect-ratio: 2 / 3;
-  background: #0a0f14;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+#battlefield .card .label{
+  padding: 10px 12px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* Mano */
+#battlefield .hand{
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 12px 0 4px;
+  flex-wrap: nowrap;
+}
+
+#battlefield .hand .card{ flex: 0 0 auto; }
+
+#battlefield .hand::-webkit-scrollbar { height: 8px; }
+#battlefield .hand::-webkit-scrollbar-thumb { background: #222; border-radius: 99px; }
+#battlefield .hand::-webkit-scrollbar-track { background: transparent; }
+
+#battlefield .card[data-type="event"]{
+  width: 200px;
+  height: 100px;
+  border-radius: 12px;
+}
+
+#battlefield .slot .card{
+  transition: transform .12s ease, box-shadow .12s ease;
+  transform-origin: bottom left;
+}
+
+#battlefield .slot .card:hover{
+  transform: scale(2.3);
+  z-index: 50;
+  box-shadow: 0 20px 60px rgba(0,0,0,.65);
+}
+
+/* Overlay preview (battlefield) */
+#battlefield .card-preview{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 24px;
+}
+
+#battlefield .card-preview.is-open{ display: flex; }
+
+#battlefield .card-preview__img{
+  max-width: min(520px, 92vw);
+  max-height: 92vh;
+  border-radius: 14px;
+  border: 1px solid #444;
+  background: #111;
+}
+
+/* ===== COLLEZIONE: Griglia ===== */
+.grid{
   display: grid;
-  place-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+/* card wrapper */
+.ccard{
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0c1116;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+/* barra rarità */
+.ccard__rarityBar{
+  height: 6px;
+  width: 100%;
+  background: var(--rarityColor, #666);
+}
+
+/* immagine (nessun taglio) */
+.ccard__imgWrap{
+  width: 100%;
+  aspect-ratio: 2.5 / 3.5;
+  background: #0a0f14;
   overflow: hidden;
 }
 
-.card__imgWrap img {
+.ccard__imgWrap img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
-.card__imgFallback {
-  padding: 14px;
-  text-align: center;
-  font-size: 12px;
-  color: var(--muted);
+/* scheda sotto */
+.ccard__meta{
+  padding: 14px 14px 16px;
+  display: grid;
+  gap: 12px;
 }
 
-.card__body {
-  padding: 12px 12px 14px;
-  display: grid;
+.ccard__topline{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
   gap: 10px;
 }
 
-.card__titleRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.card__name {
+.ccard__name{
+  margin: 0;
+  font-size: 18px;
   font-weight: 800;
-  font-size: 14px;
 }
 
-.card__meta {
-  font-size: 11px;
+.ccard__type{
+  font-size: 12px;
+  letter-spacing: .6px;
   color: var(--muted);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
 }
 
-.chips {
+/* chips */
+.ccard__chips{
   display: flex;
+  gap: 10px;
   flex-wrap: wrap;
-  gap: 6px;
 }
 
-.chip {
-  font-size: 11px;
-  padding: 4px 8px;
-  border-radius: 999px;
-  background: var(--chip);
-  border: 1px solid var(--border);
+.chip{
+  border: 1px solid #2a3440;
+  background: rgba(255,255,255,.02);
   color: var(--text);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  letter-spacing: .4px;
 }
 
-.stats {
+.chip--faction{
+  border-color: color-mix(in srgb, var(--factionColor, #888) 70%, #2a3440);
+  color: color-mix(in srgb, var(--factionColor, #888) 70%, white);
+}
+
+/* stats pills */
+.ccard__stats{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 10px;
 }
 
-.stat {
-  border: 1px solid var(--border);
-  background: #0b1117;
-  border-radius: 10px;
-  padding: 8px 8px;
+.stat{
+  border: 1px solid #1e2a35;
+  background: rgba(255,255,255,.015);
+  border-radius: 14px;
+  padding: 10px 8px 8px;
   text-align: center;
 }
 
-.stat .k {
+.stat span{
   display: block;
-  font-size: 10px;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-}
-
-.stat .v {
-  display: block;
-  font-weight: 800;
-  font-size: 14px;
-  margin-top: 2px;
-}
-
-.abilities {
-  display: grid;
-  gap: 8px;
-}
-
-.ability {
-  border: 1px solid var(--border);
-  background: #0b1117;
-  border-radius: 10px;
-  padding: 8px 10px;
-}
-
-.ability .an {
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.ability .at {
   font-size: 11px;
   color: var(--muted);
-  margin-top: 2px;
+  letter-spacing: .6px;
 }
 
-.ability .ax {
-  margin-top: 6px;
+.stat b{
+  display: block;
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+/* abilità */
+.ccard__ability{
+  border: 1px solid #1b2732;
+  background: rgba(255,255,255,.015);
+  border-radius: 16px;
+  padding: 12px 12px 10px;
+}
+
+.ability__head{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.ability__title{
+  font-weight: 800;
+}
+
+/* Badge numerino (se mai esistesse ancora). Se è vuoto non si vede. */
+.ability__title b{
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  margin-right: 6px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid #223140;
   font-size: 12px;
-  line-height: 1.25rem;
-  color: var(--text);
-  opacity: 0.95;
+}
+
+.ability__title b:empty{
+  display: none;
+}
+
+.ability__tags{
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+/* di default NON mostra tag generici (es. passive/active) */
+.ability__tags .atag{
+  display: none;
+  font-size: 12px;
+  color: #9fb0c0;
+  opacity: .95;
+}
+
+/* mostra SOLO i tag di tipo limit (CD) */
+.ability__tags .atag--limit{
+  display: inline;
+}
+
+.ability__text{
+  margin: 10px 0 0;
+  color: #d7e1ee;
+  line-height: 1.45;
 }
