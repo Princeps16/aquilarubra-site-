@@ -44,7 +44,7 @@
           "slot": 2,
           "type": "active",
           "name": "Occhi Attenti",
-          "limit": "CD 3",
+          "limit": { "cd": 3 },
           "text": "Puoi guardare la prima carta del tuo mazzo. Puoi rimetterla sopra oppure sotto."
         }
       ]
