@@ -679,7 +679,153 @@
         "name": "Furia Tribale",
         "limit": "CD 2",
         "text": "Applica STATUS Ferito a Gormund. Se lo fai, Gormund ottiene +2 IMP fino alla fine del turno."
-      }
+      },
+[
+  {
+    "id": "HELVETII_AELA_RARA",
+    "type": "UNITA",
+    "name": "Aela",
+    "faction": "HELVETII",
+    "rarity": "Rara",
+    "classes": ["SPECULATOR"],
+    "stats": { "VIT": 7, "IMP": 4, "DEF": 1, "VEL": 5 },
+    "passive": {
+      "name": "Tra i rami",
+      "text": "Anche se è in seconda linea può attaccare la prima linea nemica."
+    },
+    "active": {
+      "name": "Movimento silenzioso",
+      "cd": 3,
+      "text": "Aela quando attacca ignora la DEF nemica."
+    }
+  },
+  {
+    "id": "HELVETII_BRENNOS_RARA",
+    "type": "UNITA",
+    "name": "Brennos",
+    "faction": "HELVETII",
+    "rarity": "Rara",
+    "classes": ["RITUS"],
+    "stats": { "VIT": 7, "IMP": 2, "DEF": 3, "VEL": 3 },
+    "passive": {
+      "name": "Spirito della foresta",
+      "text": "Tutte le unità HELVETII Ferite recuperano 1 VIT a inizio turno."
+    },
+    "active": {
+      "name": "Canale rituale",
+      "cd": 1,
+      "text": "Trasferisci fino a 3 VIT da Brennos a un'unità HELVETII alleata."
+    }
+  },
+  {
+    "id": "HELVETII_SAIRIKA_RARA",
+    "type": "UNITA",
+    "name": "Sairika",
+    "faction": "HELVETII",
+    "rarity": "Rara",
+    "classes": ["PUGNATOR"],
+    "stats": { "VIT": 8, "IMP": 4, "DEF": 1, "VEL": 3 },
+    "passive": {
+      "name": "Paura negli occhi",
+      "text": "Le unità nemiche con STATUS Ferito infliggono -2 IMP."
+    },
+    "active": {
+      "name": "Predatrice scatenata",
+      "cd": 1,
+      "text": "Quando Sairika attacca una unità LEGIO infligge STATUS Ferito e ha +2 IMP."
+    }
+  },
+  {
+    "id": "HELVETII_DRUSTIGAR_INSIGNIS",
+    "type": "UNITA",
+    "name": "Drustigar",
+    "faction": "HELVETII",
+    "rarity": "Insignis",
+    "classes": ["DUX"],
+    "stats": { "VIT": 14, "IMP": 7, "DEF": 7, "VEL": 4 },
+    "passive": {
+      "name": "Volontà del capo",
+      "text": "Tutte le unità HELVETII hanno +1 VIT."
+    },
+    "active": {
+      "name": "Giudizio tribale",
+      "cd": 2,
+      "text": "Scegli un'unità. Subisce 2 danni. Se sopravvive, applica STATUS Prigioniero."
+    }
+  },
+  {
+    "id": "HELVETII_BRENNOS_INSIGNIS",
+    "type": "UNITA",
+    "name": "Brennos",
+    "faction": "HELVETII",
+    "rarity": "Insignis",
+    "classes": ["RITUS"],
+    "stats": { "VIT": 10, "IMP": 3, "DEF": 4, "VEL": 3 },
+    "passive": {
+      "name": "Legame con la terra",
+      "text": "Le unità HELVETII Ferite recuperano 2 VIT all'inizio del tuo turno."
+    },
+    "active": {
+      "name": "Sangue e radici",
+      "cd": 1,
+      "text": "Scegli fino a 2 unità non LEGIO. Rimuovi tutti gli STATUS negativi e recuperano 3 VIT ciascuna."
+    }
+  },
+  {
+    "id": "HELVETII_AELA_INSIGNIS",
+    "type": "UNITA",
+    "name": "Aela",
+    "faction": "HELVETII",
+    "rarity": "Insignis",
+    "classes": ["SPECULATOR"],
+    "stats": { "VIT": 8, "IMP": 5, "DEF": 4, "VEL": 7 },
+    "passive": {
+      "name": "Occhi tra i rami",
+      "text": "Anche se si trova in seconda fila può attaccare qualsiasi nemico."
+    },
+    "active": {
+      "name": "Freccia dal nulla",
+      "cd": 2,
+      "text": "Aela può attaccare due volte: una volta la prima linea e una volta la seconda linea."
+    }
+  },
+  {
+    "id": "HELVETII_AEGIR_INSIGNIS",
+    "type": "UNITA",
+    "name": "Aegir",
+    "faction": "HELVETII",
+    "rarity": "Insignis",
+    "classes": ["PUGNATOR"],
+    "stats": { "VIT": 13, "IMP": 7, "DEF": 4, "VEL": 5 },
+    "passive": {
+      "name": "Sangue del limes",
+      "text": "Finché Aegir è in campo insieme a Sairika, entrambi hanno +2 VIT e +1 IMP."
+    },
+    "active": {
+      "name": "Spezzare la linea",
+      "cd": 2,
+      "text": "Scegli un'unità nemica in prima linea. Riduci la sua DEF a 0 fino alla fine del turno."
+    }
+  },
+  {
+    "id": "HELVETII_SAIRIKA_INSIGNIS",
+    "type": "UNITA",
+    "name": "Sairika",
+    "faction": "HELVETII",
+    "rarity": "Insignis",
+    "classes": ["PUGNATOR", "RITUS"],
+    "stats": { "VIT": 12, "IMP": 7, "DEF": 3, "VEL": 5 },
+    "passive": {
+      "name": "Terrore negli occhi",
+      "text": "Le unità Pugnator LEGIO non possono attaccare Sairika. Quando attaccano unità HELVETII hanno -2 IMP."
+    },
+    "active": {
+      "name": "Odore del sangue",
+      "cd": 1,
+      "text": "Se Sairika attacca un nemico con STATUS Ferito attacca con +2 IMP."
+    }
+  }
+]
     ]
     }
   ]
