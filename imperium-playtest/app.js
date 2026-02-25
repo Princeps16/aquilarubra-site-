@@ -165,22 +165,12 @@ function renderCard(card) {
   meta.className = "ccard__meta";
 
   // riga titolo
-  const topline = document.createElement("div");
-  topline.className = "ccard__topline";
+  // nome
+meta.appendChild(nameEl);
 
-  const nameEl = document.createElement("h3");
-  nameEl.className = "ccard__name";
-  nameEl.textContent = card?.name || "-";
-
-  const typeEl = document.createElement("div");
-  typeEl.className = "ccard__type";
-  typeEl.textContent = `${String(card?.type || "").toUpperCase()} · ${String(
-    card?.rarity || ""
-  ).toUpperCase()}`.trim();
-
-  topline.appendChild(nameEl);
-  topline.appendChild(typeEl);
-  meta.appendChild(topline);
+// tipo sotto il nome
+typeEl.className = "ccard__type ccard__type--under";
+meta.appendChild(typeEl);
 
   // chips
   const chips = document.createElement("div");
