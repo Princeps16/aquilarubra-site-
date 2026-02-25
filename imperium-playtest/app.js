@@ -288,6 +288,7 @@ meta.appendChild(abilitiesWrap);
 wrap.appendChild(meta);
 
 return wrap;
+}
 
 /* =========================
    GRID + FILTRI
