@@ -5,7 +5,6 @@
   --text: #e9eef5;
   --muted: #9aa6b2;
   --border: #222a33;
-  --chip: #0e141b;
 
   --slot: #141414;
   --row: #0e0e0e;
@@ -25,316 +24,365 @@ body {
   color: var(--text);
 }
 
-/* ===== Topbar ===== */
-.topbar {
-  display: flex;
-  gap: 16px;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 16px 18px;
-  border-bottom: 1px solid var(--border);
+/* =========================
+   TOPBAR + FILTRI
+   ========================= */
+.topbar{
+  display:flex;
+  gap:16px;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 18px;
+  border-bottom:1px solid var(--border);
   background: linear-gradient(180deg, var(--panel), var(--panel2));
 }
 
-.topbar h1 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 700;
+.topbar__left{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:160px;
 }
 
-.topbar p {
-  margin: 4px 0 0;
-  font-size: 12px;
+.topbar__right{
+  display:flex;
+  gap:12px;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
-.muted { color: var(--muted); }
+.muted{ color: var(--muted); }
 
-.topbar__right {
-  display: flex;
-  gap: 12px;
-  align-items: flex-end;
-  flex-wrap: wrap;
-}
-
-.field {
-  display: grid;
-  gap: 6px;
-  font-size: 12px;
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-width:160px;
+  font-size:12px;
   color: var(--muted);
 }
 
 .field select,
-.field input {
-  height: 32px;
-  padding: 6px 10px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #0b1117;
-  color: var(--text);
-  outline: none;
+.field input{
+  height:32px;
+  padding:6px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#0b1117;
+  color:var(--text);
+  outline:none;
 }
 
-/* ===== Layout ===== */
-.container { padding: 18px; }
-
-.status {
-  margin-bottom: 12px;
-  font-size: 13px;
-  color: var(--muted);
+/* brand/logo */
+.brand{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
+}
+.brand__logo{
+  height:120px;
+  width:auto;
+  display:block;
 }
 
-/* ===== Battlefield ===== */
-#battlefield {
-  margin: 40px 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-  align-items: start;
-}
-
-@media (min-width: 1100px){
-  #battlefield { grid-template-columns: 1fr 1fr; }
-}
-
-.player{
-  border: 1px solid var(--rowBorder);
-  padding: 20px;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #0f1216, #0b0d10);
-}
-
-/* Righe: Prima linea / Seconda linea / Eventi di Campo */
-.row{
-  display: flex;
-  gap: 12px;
-  min-height: 120px;
-  margin: 10px 0;
-  padding: 8px;
-  background: var(--row);
-  border: 1px dashed var(--rowBorder);
-  position: relative;
-}
-
-.row.front::before { content: "Prima linea"; }
-.row.back::before { content: "Seconda linea"; }
-.row.reserve::before { content: "Eventi di Campo"; }
-
-.row::before{
-  position: absolute;
-  top: -12px;
-  left: 10px;
-  font-size: 12px;
-  opacity: .55;
-  letter-spacing: .4px;
-  color: var(--muted);
-}
-
-.row.front{ border-color: #555; }
-.row.back{ opacity: 0.9; }
-
-.row.reserve{
-  background: #0b0b0b;
-  border-color: #2b2b2b;
-  opacity: 0.95;
-}
-
-/* Slot */
-.slot{
-  flex: 1;
-  min-height: 104px;
-  padding: 10px;
-  border: 1px dashed var(--slotBorder);
-  border-radius: 12px;
-  background: var(--slot);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.15s ease;
-  overflow: visible; /* non taglia le carte */
-}
-
-.slot.is-over{
-  border-style: solid;
-  border-color: #777;
-  background: #1b1b1b;
-}
-
-.slot.is-invalid{
-  border-color: #aa4444;
+/* MOBILE: filtri in griglia ordinata */
+@media (max-width: 720px){
+  .topbar{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .topbar__right{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    justify-content:stretch;
+  }
+  .topbar__right .field:last-child{
+    grid-column:1 / -1;
+  }
+  .field{ min-width:0; }
 }
 
 /* =========================
-   BATTLEFIELD – Card (DnD)
+   VIEW TOGGLE (Griglia/Dettaglio)
    ========================= */
+.view-toggle{
+  display:flex;
+  gap:10px;
+  padding:0 16px 12px;
+  justify-content:center;
+}
+
+.view-toggle button{
+  min-width:120px;
+  background:#111;
+  color:#aaa;
+  border:1px solid #333;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.view-toggle button.active{
+  background:#5b2a86;
+  color:#fff;
+}
+
+/* =========================
+   LAYOUT
+   ========================= */
+.container{ padding:18px; }
+
+.status{
+  margin-bottom:12px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* =========================
+   BATTLEFIELD (invariato)
+   ========================= */
+#battlefield{
+  margin:40px 0;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:28px;
+  align-items:start;
+}
+
+@media (min-width:1100px){
+  #battlefield{ grid-template-columns:1fr 1fr; }
+}
+
+.player{
+  border:1px solid var(--rowBorder);
+  padding:20px;
+  border-radius:12px;
+  background:linear-gradient(180deg, #0f1216, #0b0d10);
+}
+
+.row{
+  display:flex;
+  gap:12px;
+  min-height:120px;
+  margin:10px 0;
+  padding:8px;
+  background:var(--row);
+  border:1px dashed var(--rowBorder);
+  position:relative;
+}
+
+.row.front::before{ content:"Prima linea"; }
+.row.back::before{ content:"Seconda linea"; }
+.row.reserve::before{ content:"Eventi di Campo"; }
+
+.row::before{
+  position:absolute;
+  top:-12px;
+  left:10px;
+  font-size:12px;
+  opacity:.55;
+  letter-spacing:.4px;
+  color:var(--muted);
+}
+
+.row.front{ border-color:#555; }
+.row.back{ opacity:.9; }
+.row.reserve{
+  background:#0b0b0b;
+  border-color:#2b2b2b;
+  opacity:.95;
+}
+
+.slot{
+  flex:1;
+  min-height:104px;
+  padding:10px;
+  border:1px dashed var(--slotBorder);
+  border-radius:12px;
+  background:var(--slot);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:.15s ease;
+  overflow:visible;
+}
+
+.slot.is-over{
+  border-style:solid;
+  border-color:#777;
+  background:#1b1b1b;
+}
+
+.slot.is-invalid{ border-color:#aa4444; }
+
+/* Battlefield cards */
 #battlefield .card{
-  width: 170px;
-  height: 250px;
-  border-radius: 12px;
-  border: 1px solid var(--cardBorder);
-  background: var(--cardBg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  cursor: grab;
-  user-select: none;
+  width:170px;
+  height:250px;
+  border-radius:12px;
+  border:1px solid var(--cardBorder);
+  background:var(--cardBg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  cursor:grab;
+  user-select:none;
 }
-
-#battlefield .card:active{ cursor: grabbing; }
-
-#battlefield .slot .card{
-  width: 170px;
-  height: 250px;
-}
+#battlefield .card:active{ cursor:grabbing; }
 
 #battlefield .card img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  pointer-events: none;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  pointer-events:none;
 }
 
-#battlefield .card .label{
-  padding: 10px 12px;
-  font-weight: 800;
-  color: var(--text);
-}
-
-/* Mano */
 #battlefield .hand{
-  display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  padding: 12px 0 4px;
-  flex-wrap: nowrap;
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding:12px 0 4px;
+  flex-wrap:nowrap;
 }
-
-#battlefield .hand .card{ flex: 0 0 auto; }
-
-#battlefield .hand::-webkit-scrollbar { height: 8px; }
-#battlefield .hand::-webkit-scrollbar-thumb { background: #222; border-radius: 99px; }
-#battlefield .hand::-webkit-scrollbar-track { background: transparent; }
+#battlefield .hand .card{ flex:0 0 auto; }
+#battlefield .hand::-webkit-scrollbar{ height:8px; }
+#battlefield .hand::-webkit-scrollbar-thumb{ background:#222; border-radius:99px; }
+#battlefield .hand::-webkit-scrollbar-track{ background:transparent; }
 
 #battlefield .card[data-type="event"]{
-  width: 200px;
-  height: 100px;
-  border-radius: 12px;
+  width:200px;
+  height:100px;
+  border-radius:12px;
 }
 
 #battlefield .slot .card{
-  transition: transform .12s ease, box-shadow .12s ease;
-  transform-origin: bottom left;
+  transition:transform .12s ease, box-shadow .12s ease;
+  transform-origin:bottom left;
 }
-
 #battlefield .slot .card:hover{
-  transform: scale(2.3);
-  z-index: 50;
-  box-shadow: 0 20px 60px rgba(0,0,0,.65);
+  transform:scale(2.3);
+  z-index:50;
+  box-shadow:0 20px 60px rgba(0,0,0,.65);
 }
 
-/* Overlay preview (battlefield) */
+/* Preview overlay (battlefield) */
 #battlefield .card-preview{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.7);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 24px;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:24px;
 }
-
-#battlefield .card-preview.is-open{ display: flex; }
-
+#battlefield .card-preview.is-open{ display:flex; }
 #battlefield .card-preview__img{
-  max-width: min(520px, 92vw);
-  max-height: 92vh;
-  border-radius: 14px;
-  border: 1px solid #444;
-  background: #111;
+  max-width:min(520px, 92vw);
+  max-height:92vh;
+  border-radius:14px;
+  border:1px solid #444;
+  background:#111;
 }
 
-/* ===== COLLEZIONE: Griglia ===== */
-.grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 14px;
+/* =========================
+   COLLEZIONE CARTE
+   ========================= */
+
+/* contenitore cards */
+.cards-grid.grid-mode{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:12px;
+}
+@media (min-width:768px){
+  .cards-grid.grid-mode{
+    grid-template-columns:repeat(3, 1fr);
+  }
+}
+.cards-grid.detail-mode{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
 }
 
 /* card wrapper */
 .ccard{
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  background: #0c1116;
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  background:#0c1116;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
 /* barra rarità */
 .ccard__rarityBar{
-  height: 6px;
-  width: 100%;
-  background: var(--rarityColor, #666);
+  height:6px;
+  width:100%;
+  background:var(--rarityColor, #666);
 }
 
-/* immagine (nessun taglio) */
+/* immagine */
 .ccard__imgWrap{
-  width: 100%;
-  aspect-ratio: 2.5 / 3.5;
-  background: #0a0f14;
-  overflow: hidden;
+  width:100%;
+  aspect-ratio:2.5 / 3.5;
+  background:#0a0f14;
+  overflow:hidden;
 }
-
 .ccard__imgWrap img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
 }
 
-/* scheda sotto */
+/* meta */
 .ccard__meta{
-  padding: 14px 14px 16px;
-  display: grid;
-  gap: 12px;
-}
-
-.ccard__topline{
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
+  padding:14px 14px 16px;
+  display:grid;
+  gap:12px;
 }
 
 .ccard__name{
-  margin: 0;
-  font-size: 18px;
-  font-weight: 800;
+  margin:0;
+  font-size:18px;
+  font-weight:800;
 }
 
 .ccard__type{
-  font-size: 12px;
-  letter-spacing: .6px;
-  color: var(--muted);
-  text-transform: uppercase;
+  font-size:12px;
+  letter-spacing:.6px;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+
+.ccard__type--under{
+  margin-top:4px;
+  font-size:.85rem;
+  opacity:.7;
+  letter-spacing:1px;
 }
 
 /* chips */
 .ccard__chips{
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
 }
 
 .chip{
-  border: 1px solid #2a3440;
-  background: rgba(255,255,255,.02);
-  color: var(--text);
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  letter-spacing: .4px;
+  border:1px solid #2a3440;
+  background:rgba(255,255,255,.02);
+  color:var(--text);
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  letter-spacing:.4px;
 }
 
 .chip--faction{
@@ -342,245 +390,75 @@ body {
   color: color-mix(in srgb, var(--factionColor, #888) 70%, white);
 }
 
-/* stats pills */
+/* stats */
 .ccard__stats{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  display:none;
+  margin-top:12px;
+  grid-template-columns:repeat(4, 1fr);
+  gap:10px;
 }
 
 .stat{
-  border: 1px solid #1e2a35;
-  background: rgba(255,255,255,.015);
-  border-radius: 14px;
-  padding: 10px 8px 8px;
-  text-align: center;
+  border:1px solid #1e2a35;
+  background:rgba(255,255,255,.015);
+  border-radius:14px;
+  padding:10px 8px 8px;
+  text-align:center;
 }
 
 .stat span{
-  display: block;
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: .6px;
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:.6px;
 }
 
 .stat b{
-  display: block;
-  margin-top: 4px;
-  font-size: 18px;
-  font-weight: 800;
+  display:block;
+  margin-top:4px;
+  font-size:18px;
+  font-weight:800;
 }
 
 /* abilità */
+.ccard__abilities{
+  display:none;
+  margin-top:12px;
+}
+
 .ccard__ability{
-  border: 1px solid #1b2732;
-  background: rgba(255,255,255,.015);
-  border-radius: 16px;
-  padding: 12px 12px 10px;
+  border:1px solid #1b2732;
+  background:rgba(255,255,255,.015);
+  border-radius:16px;
+  padding:12px 12px 10px;
 }
 
 .ability__head{
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  align-items: flex-start;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
 }
 
-.ability__title{
-  font-weight: 800;
-}
-
-/* Badge numerino (se mai esistesse ancora). Se è vuoto non si vede. */
-.ability__title b{
-  display: inline-grid;
-  place-items: center;
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
-  margin-right: 6px;
-  background: rgba(255,255,255,.04);
-  border: 1px solid #223140;
-  font-size: 12px;
-}
-
-.ability__title b:empty{
-  display: none;
-}
+.ability__title{ font-weight:800; }
 
 .ability__tags{
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
-/* di default NON mostra tag generici (es. passive/active) */
-.ability__tags .atag{
-  display: none;
-  font-size: 12px;
-  color: #9fb0c0;
-  opacity: .95;
-}
-
-/* mostra SOLO i tag di tipo limit (CD) */
-.ability__tags .atag--limit{
-  display: inline;
-}
+.ability__tags .atag{ display:none; }
+.ability__tags .atag--limit{ display:inline; font-size:12px; color:#9fb0c0; }
 
 .ability__text{
-  margin: 10px 0 0;
-  color: #d7e1ee;
-  line-height: 1.45;
-}
-/* =========================
-   VIEW TOGGLE
-========================= */
-
-.view-toggle {
-  display: flex;
-  gap: 10px;
-  margin: 20px 0;
+  margin:10px 0 0;
+  color:#d7e1ee;
+  line-height:1.45;
 }
 
-.view-toggle button {
-  background: #111;
-  color: #aaa;
-  border: 1px solid #333;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.view-toggle button.active {
-  background: #5b2a86;
-  color: white;
-}
-
-/* GRID MODE */
-.cards-grid.grid-mode {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-/* DESKTOP */
-@media (min-width: 768px) {
-  .cards-grid.grid-mode {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* DETAIL MODE */
-.cards-grid.detail-mode {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-/* ---------- BRAND (logo) ---------- */
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-}
-
-.brand__logo {
-  height: 120px;
-  width: auto;
-  display: block;
-}
-
-/* ---------- TOPBAR LAYOUT ---------- */
-.topbar {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-}
-
-.topbar__left {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 160px;
-}
-
-.topbar__right {
-  display: flex;
-  gap: 12px;
-  align-items: end;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 160px;
-}
-
-.field select,
-.field input {
-  width: 100%;
-}
-
-/* ---------- VIEW TOGGLE ---------- */
-.view-toggle {
-  display: flex;
-  gap: 10px;
-  padding: 0 16px 12px;
-  justify-content: center; /* CENTRATO */
-}
-
-.view-toggle button {
-  min-width: 120px;
-}
-
-/* ---------- MOBILE: filtri in griglia ordinata ---------- */
-@media (max-width: 720px) {
-  .topbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .topbar__left {
-    align-items: flex-start;
-  }
-
-  .topbar__right {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    justify-content: stretch;
-  }
-
-  /* “Cerca” prende tutta la riga */
-  .topbar__right .field:last-child {
-    grid-column: 1 / -1;
-  }
-
-  .field { min-width: 0; }
-}
-/* bottone */
-.ccard__statsToggle{
-  margin-top:12px;
-  padding:10px 12px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0,0,0,.18);
-  color:inherit;
-}
-
-/* in grid: stats chiuse per default */
-.grid-mode .ccard__stats{ display:none; }
-.grid-mode .ccard__statsToggle{ display:block; }
-
-/* quando apri */
-.grid-mode .ccard.stats-open .ccard__stats{ display:grid; }
-
-/* pulsanti toggle */
+/* Toggle buttons */
 .ccard__toggle{
   margin-top:10px;
   width:100%;
@@ -592,25 +470,11 @@ body {
   cursor:pointer;
 }
 
-/* GRID MODE: chiusi di default */
-.grid-mode .ccard__stats{ display:none; }
-.grid-mode .ccard__abilities{ display:none; }
+/* Apertura tramite JS */
+.ccard.stats-open .ccard__stats{ display:grid; }
+.ccard.abilities-open .ccard__abilities{ display:block; }
 
-/* GRID MODE: toggles visibili */
-.grid-mode .ccard__toggle{ display:block; }
-
-/* GRID MODE: quando apri */
-.grid-mode .ccard.stats-open .ccard__stats{ display:grid; }
-.grid-mode .ccard.abilities-open .ccard__abilities{ display:block; }
-
-/* DETAIL MODE: sempre visibili, toggle nascosti */
-.detail-mode .ccard__toggle{ display:none; }
-.detail-mode .ccard__stats{ display:grid; }
-.detail-mode .ccard__abilities{ display:block; }
-
-.ccard__type--under {
-  margin-top: 4px;
-  font-size: 0.85rem;
-  opacity: 0.7;
-  letter-spacing: 1px;
-}
+/* Detail mode: sempre aperti, bottoni nascosti */
+.cards-grid.detail-mode .ccard__toggle{ display:none; }
+.cards-grid.detail-mode .ccard__stats{ display:grid; }
+.cards-grid.detail-mode .ccard__abilities{ display:block; }
