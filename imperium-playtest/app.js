@@ -16,8 +16,24 @@ let ALL_CARDS = [];
 const previewEl = document.getElementById("cardPreview");
 const previewImgEl = document.getElementById("cardPreviewImg");
 
+let PREVIEW_ROT = 0;
+
+const closeBtn = document.querySelector(".card-preview__close");
+const rotLeftBtn = document.getElementById("rotLeft");
+const rotRightBtn = document.getElementById("rotRight");
+const rotResetBtn = document.getElementById("rotReset");
+
+function applyPreviewTransform() {
+  if (!previewEl) return;
+  previewEl.style.setProperty("--rot", `${PREVIEW_ROT}deg`);
+}
+
 function openPreview(src, alt = "") {
   if (!previewEl || !previewImgEl || !src) return;
+
+  PREVIEW_ROT = 0;
+  applyPreviewTransform();
+
   previewImgEl.src = src;
   previewImgEl.alt = alt;
   previewEl.classList.add("is-open");
@@ -30,6 +46,9 @@ function closePreview() {
   previewEl.setAttribute("aria-hidden", "true");
   previewImgEl.src = "";
   previewImgEl.alt = "";
+
+  PREVIEW_ROT = 0;
+  applyPreviewTransform();
 }
 
 // chiudi SOLO cliccando fuori dall’immagine
@@ -38,6 +57,33 @@ if (previewEl) {
     if (e.target === previewEl) closePreview();
   });
 }
+
+closeBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  closePreview();
+});
+
+rotLeftBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  PREVIEW_ROT = (PREVIEW_ROT - 90) % 360;
+  applyPreviewTransform();
+});
+
+rotRightBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  PREVIEW_ROT = (PREVIEW_ROT + 90) % 360;
+  applyPreviewTransform();
+});
+
+rotResetBtn?.addEventListener("click", (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  PREVIEW_ROT = 0;
+  applyPreviewTransform();
+});
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closePreview();
