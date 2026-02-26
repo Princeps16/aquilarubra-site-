@@ -49,9 +49,21 @@
   </main>
 
   <!-- Overlay preview carta: DEVE stare prima degli script che lo leggono -->
-  <div id="cardPreview" class="card-preview" aria-hidden="true">
-    <img id="cardPreviewImg" class="card-preview__img" src="" alt="">
+<div id="cardPreview" class="card-preview" aria-hidden="true">
+  <div class="card-preview__sheet" role="dialog" aria-label="Anteprima carta">
+    <button class="card-preview__close" type="button" aria-label="Chiudi">✕</button>
+
+    <div class="card-preview__stage">
+      <img id="cardPreviewImg" class="card-preview__img" src="" alt="">
+    </div>
+
+    <div class="card-preview__controls">
+      <button id="rotLeft" type="button">⟲</button>
+      <button id="rotReset" type="button">Reset</button>
+      <button id="rotRight" type="button">⟳</button>
+    </div>
   </div>
+</div>
 
   <!-- Carica app.js dopo che il DOM è pronto -->
   <script defer src="app.js"></script>
