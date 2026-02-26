@@ -478,3 +478,78 @@ body {
 .cards-grid.detail-mode .ccard__toggle{ display:none; }
 .cards-grid.detail-mode .ccard__stats{ display:grid; }
 .cards-grid.detail-mode .ccard__abilities{ display:block; }
+
+/* ===== Overlay preview (collezione) ===== */
+.card-preview{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.78);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 18px;
+}
+
+.card-preview.is-open{ display: flex; }
+
+.card-preview__sheet{
+  width: min(520px, 96vw);
+  max-height: 92vh;
+  background: rgba(15,19,23,.92);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.65);
+  position: relative;
+}
+
+.card-preview__close{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.25);
+  color: #fff;
+  cursor: pointer;
+}
+
+.card-preview__stage{
+  padding: 18px 18px 10px;
+  display: grid;
+  place-items: center;
+}
+
+.card-preview__img{
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  display: block;
+  transform: rotate(var(--rot, 0deg)) scale(var(--zoom, 1));
+  transition: transform 120ms ease;
+  transform-origin: center center;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.card-preview__controls{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding: 12px 14px 16px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.card-preview__controls button{
+  min-width: 90px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.25);
+  color: #fff;
+  cursor: pointer;
+}
