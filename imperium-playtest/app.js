@@ -11,47 +11,64 @@ let DB = null;
 let ALL_CARDS = [];
 
 /* =========================
-   PREVIEW (click-to-zoom)
+   PREVIEW (flip front/back)
    ========================= */
 const previewEl = document.getElementById("cardPreview");
-const previewImgEl = document.getElementById("cardPreviewImg");
-
-let PREVIEW_ROT = 0;
-
 const closeBtn = document.querySelector(".card-preview__close");
-const rotLeftBtn = document.getElementById("rotLeft");
-const rotRightBtn = document.getElementById("rotRight");
-const rotResetBtn = document.getElementById("rotReset");
 
-function applyPreviewTransform() {
-  if (!previewEl) return;
-  previewEl.style.setProperty("--rot", `${PREVIEW_ROT}deg`);
+const flipStageEl = document.getElementById("flipStage");
+const flipCardEl = document.getElementById("flipCard");
+const frontImgEl = document.getElementById("cardPreviewFront");
+const backImgEl = document.getElementById("cardPreviewBack");
+
+let flipDragging = false;
+let startX = 0;
+let currentDeg = 0;     // rotazione live
+let committedSide = "front"; // "front" o "back"
+
+// helper: calcola retro (se non esiste, usa placeholder)
+function cardBackSrc(card) {
+  // 1) se nel JSON hai card.backImage, usala
+  if (card?.backImage) return `data/${card.backImage}`;
+  // 2) fallback: una immagine unica di retro per tutti
+  return "assets/card_back.png"; // crea questo file (anche provvisorio)
 }
 
-function openPreview(src, alt = "") {
-  if (!previewEl || !previewImgEl || !src) return;
+function setFlipDeg(deg, withTransition = false) {
+  if (!flipCardEl) return;
+  flipCardEl.style.transition = withTransition ? "transform 180ms ease" : "none";
+  flipCardEl.style.setProperty("--ry", `${deg}deg`);
+  currentDeg = deg;
+}
 
-  PREVIEW_ROT = 0;
-  applyPreviewTransform();
+function openPreview(card) {
+  if (!previewEl || !frontImgEl || !backImgEl) return;
 
-  previewImgEl.src = src;
-  previewImgEl.alt = alt;
+  // front
+  const frontSrc = cardImageSrc(card);
+  frontImgEl.src = frontSrc || "";
+  frontImgEl.alt = card?.name || "Carta";
+
+  // back
+  backImgEl.src = cardBackSrc(card);
+  backImgEl.alt = `${card?.name || "Carta"} (retro)`;
+
+  committedSide = "front";
+  setFlipDeg(0, true);
+
   previewEl.classList.add("is-open");
   previewEl.setAttribute("aria-hidden", "false");
 }
 
 function closePreview() {
-  if (!previewEl || !previewImgEl) return;
+  if (!previewEl) return;
   previewEl.classList.remove("is-open");
   previewEl.setAttribute("aria-hidden", "true");
-  previewImgEl.src = "";
-  previewImgEl.alt = "";
-
-  PREVIEW_ROT = 0;
-  applyPreviewTransform();
+  committedSide = "front";
+  setFlipDeg(0, false);
 }
 
-// chiudi SOLO cliccando fuori dall’immagine
+// chiudi cliccando fuori dal foglio
 if (previewEl) {
   previewEl.addEventListener("click", (e) => {
     if (e.target === previewEl) closePreview();
@@ -64,30 +81,59 @@ closeBtn?.addEventListener("click", (e) => {
   closePreview();
 });
 
-rotLeftBtn?.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  PREVIEW_ROT = (PREVIEW_ROT - 90) % 360;
-  applyPreviewTransform();
-});
-
-rotRightBtn?.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  PREVIEW_ROT = (PREVIEW_ROT + 90) % 360;
-  applyPreviewTransform();
-});
-
-rotResetBtn?.addEventListener("click", (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  PREVIEW_ROT = 0;
-  applyPreviewTransform();
-});
-
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closePreview();
 });
+
+// Gesto flip: drag orizzontale
+function onStart(e) {
+  if (!flipStageEl || !flipCardEl) return;
+  flipDragging = true;
+  startX = (e.touches ? e.touches[0].clientX : e.clientX);
+
+  // base: 0 se front, 180 se back
+  const base = committedSide === "front" ? 0 : 180;
+  setFlipDeg(base, false);
+}
+
+function onMove(e) {
+  if (!flipDragging || !flipCardEl) return;
+
+  const x = (e.touches ? e.touches[0].clientX : e.clientX);
+  const dx = x - startX;
+
+  // mapping: trascinata -> gradi (sensibilità)
+  // 200px ~ 180deg
+  const deltaDeg = (dx / 200) * 180;
+
+  const base = committedSide === "front" ? 0 : 180;
+  let deg = base + deltaDeg;
+
+  // clamp per evitare rotazioni assurde
+  deg = Math.max(-30, Math.min(210, deg));
+
+  setFlipDeg(deg, false);
+}
+
+function onEnd() {
+  if (!flipDragging || !flipCardEl) return;
+  flipDragging = false;
+
+  // soglia: se oltre 90°, vai back, altrimenti front
+  const goBack = currentDeg > 90;
+  committedSide = goBack ? "back" : "front";
+  setFlipDeg(goBack ? 180 : 0, true);
+}
+
+// bind touch + mouse
+flipStageEl?.addEventListener("touchstart", onStart, { passive: true });
+flipStageEl?.addEventListener("touchmove", onMove, { passive: true });
+flipStageEl?.addEventListener("touchend", onEnd);
+
+flipStageEl?.addEventListener("mousedown", onStart);
+window.addEventListener("mousemove", onMove);
+window.addEventListener("mouseup", onEnd);
+/* ========================= */
 /* ========================= */
 
 function normalize(s) {
