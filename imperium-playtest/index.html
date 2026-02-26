@@ -53,15 +53,18 @@
   <div class="card-preview__sheet" role="dialog" aria-label="Anteprima carta">
     <button class="card-preview__close" type="button" aria-label="Chiudi">✕</button>
 
-    <div class="card-preview__stage">
-      <img id="cardPreviewImg" class="card-preview__img" src="" alt="">
+    <div id="flipStage" class="flip-stage">
+      <div id="flipCard" class="flip-card" data-side="front" aria-label="Carta">
+        <div class="flip-face flip-face--front">
+          <img id="cardPreviewFront" class="flip-img" src="" alt="">
+        </div>
+        <div class="flip-face flip-face--back">
+          <img id="cardPreviewBack" class="flip-img" src="" alt="">
+        </div>
+      </div>
     </div>
 
-    <div class="card-preview__controls">
-      <button id="rotLeft" type="button">⟲</button>
-      <button id="rotReset" type="button">Reset</button>
-      <button id="rotRight" type="button">⟳</button>
-    </div>
+    <div class="card-preview__hint">Trascina a sinistra/destra per girare</div>
   </div>
 </div>
 
