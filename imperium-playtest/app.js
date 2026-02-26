@@ -231,7 +231,7 @@ function renderCard(card) {
     imgWrap.style.cursor = "zoom-in";
     imgWrap.addEventListener("click", (e) => {
       e.stopPropagation();
-      openPreview(img.src, img.alt);
+      openPreview(card);
     });
 
     img.onerror = () => {
