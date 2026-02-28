@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imperium – Battle</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar__left">
+      <h1>Campo di Battaglia</h1>
+      <p class="muted">
+        <a href="index.html" style="color:inherit;text-decoration:underline;">Torna alla collezione</a>
+      </p>
+    </div>
+
+    <div class="topbar__right">
+      <button id="endTurnBtn" type="button" class="btn">Fine Turno</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Campo di Battaglia</h2>
+
+    <!-- LOG IN ALTO (scrollabile) -->
+    <section class="panel panel--log">
+      <h3>Log</h3>
+      <div id="log" class="log log--scroll"></div>
+    </section>
+
+    <section id="battlefield">
+
+      <!-- AVVERSARIO (P1) -->
+      <div class="player enemy">
+        <h3>Avversario</h3>
+
+        <div class="row back" id="enemyBack">
+          <div class="slot" data-owner="1" data-row="back" data-col="0"></div>
+          <div class="slot" data-owner="1" data-row="back" data-col="1"></div>
+          <div class="slot" data-owner="1" data-row="back" data-col="2"></div>
+        </div>
+
+        <div class="row front" id="enemyFront">
+          <div class="slot" data-owner="1" data-row="front" data-col="0"></div>
+          <div class="slot" data-owner="1" data-row="front" data-col="1"></div>
+          <div class="slot" data-owner="1" data-row="front" data-col="2"></div>
+        </div>
+
+        <div class="row reserve" id="enemyReserve" style="display:none;">
+          <div class="slot" data-owner="1" data-row="reserve" data-col="0"></div>
+          <div class="slot" data-owner="1" data-row="reserve" data-col="1"></div>
+          <div class="slot" data-owner="1" data-row="reserve" data-col="2"></div>
+        </div>
+
+        <!-- MANO AVVERSARIO -->
+        <h3>Mano (Avversario)</h3>
+<div id="handP1" class="hand"></div>
+      </div>
+
+      <!-- GIOCATORE (P0) -->
+      <div class="player me">
+        <h3>Giocatore</h3>
+
+        <div class="row front" id="playerFront">
+          <div class="slot" data-owner="0" data-row="front" data-col="0"></div>
+          <div class="slot" data-owner="0" data-row="front" data-col="1"></div>
+          <div class="slot" data-owner="0" data-row="front" data-col="2"></div>
+        </div>
+
+        <div class="row back" id="playerBack">
+          <div class="slot" data-owner="0" data-row="back" data-col="0"></div>
+          <div class="slot" data-owner="0" data-row="back" data-col="1"></div>
+          <div class="slot" data-owner="0" data-row="back" data-col="2"></div>
+        </div>
+
+        <div class="row reserve" id="playerReserve" style="display:none;">
+          <div class="slot" data-owner="0" data-row="reserve" data-col="0"></div>
+          <div class="slot" data-owner="0" data-row="reserve" data-col="1" data-reserve="general"></div>
+          <div class="slot" data-owner="0" data-row="reserve" data-col="2"></div>
+        </div>
+
+        <h3>Mano</h3>
+        <div id="handP0" class="hand"></div>
+      </div>
+
+    </section>
+
+    <div id="cardPreview" class="card-preview" aria-hidden="true">
+      <img id="cardPreviewImg" class="card-preview__img" alt="Preview carta">
+    </div>
+  </main>
+
+  <script type="module" src="battle.js"></script>
+
+  <script type="module">
+    const btn = document.getElementById("endTurnBtn");
+    btn?.addEventListener("click", () => {
+      window.dispatchEvent(new CustomEvent("BATTLE_END_TURN"));
+    });
+  </script>
+
+  <!-- ACTION HUD -->
+  <div id="actionHud" class="hud" aria-hidden="true">
+    <div class="hud__panel">
+      <div class="hud__header">
+        <div id="hudTitle" class="hud__title">Unità</div>
+        <button id="hudClose" class="hud__close" type="button">×</button>
+      </div>
+
+      <div id="hudStats" class="hud__stats"></div>
+      <div id="hudAbilities" class="hud__abilities"></div>
+      <div id="hudPassives" class="hud__passives"></div>
+    </div>
+  </div>
+</body>
+</html>
