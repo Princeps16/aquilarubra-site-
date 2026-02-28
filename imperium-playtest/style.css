@@ -1,32 +1,39 @@
-:root {
-  --bg: #0b0d10;
-  --panel: #12161b;
-  --panel2: #0f1317;
-  --text: #e9eef5;
-  --muted: #9aa6b2;
-  --border: #222a33;
+/* =========================================================
+   RESET + THEME
+   ========================================================= */
+:root{
+  --bg:#0b0d10;
+  --panel:#12161b;
+  --panel2:#0f1317;
+  --text:#e9eef5;
+  --muted:#9aa6b2;
+  --border:#222a33;
 
-  --slot: #141414;
-  --row: #0e0e0e;
-  --rowBorder: #333;
-  --slotBorder: #444;
+  --slot:#141414;
+  --row:#0e0e0e;
+  --rowBorder:#333;
+  --slotBorder:#444;
 
-  --cardBg: #111;
-  --cardBorder: #444;
+  --cardBg:#111;
+  --cardBorder:#444;
+
+  --radius:12px;
+  --radius2:16px;
 }
 
-* { box-sizing: border-box; }
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+body{
+  margin:0;
+  font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
 }
 
-/* =========================
+/* =========================================================
    TOPBAR + FILTRI
-   ========================= */
+   ========================================================= */
 .topbar{
   display:flex;
   gap:16px;
@@ -34,7 +41,7 @@ body {
   justify-content:space-between;
   padding:16px 18px;
   border-bottom:1px solid var(--border);
-  background: linear-gradient(180deg, var(--panel), var(--panel2));
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
 }
 
 .topbar__left{
@@ -52,7 +59,7 @@ body {
   justify-content:flex-end;
 }
 
-.muted{ color: var(--muted); }
+.muted{ color:var(--muted); }
 
 .field{
   display:flex;
@@ -60,7 +67,7 @@ body {
   gap:6px;
   min-width:160px;
   font-size:12px;
-  color: var(--muted);
+  color:var(--muted);
 }
 
 .field select,
@@ -74,21 +81,20 @@ body {
   outline:none;
 }
 
-/* brand/logo */
 .brand{
   display:inline-flex;
   align-items:center;
   gap:10px;
   text-decoration:none;
 }
+
 .brand__logo{
   height:120px;
   width:auto;
   display:block;
 }
 
-/* MOBILE: filtri in griglia ordinata */
-@media (max-width: 720px){
+@media (max-width:720px){
   .topbar{
     flex-direction:column;
     align-items:stretch;
@@ -99,15 +105,13 @@ body {
     gap:12px;
     justify-content:stretch;
   }
-  .topbar__right .field:last-child{
-    grid-column:1 / -1;
-  }
+  .topbar__right .field:last-child{ grid-column:1 / -1; }
   .field{ min-width:0; }
 }
 
-/* =========================
-   VIEW TOGGLE (Griglia/Dettaglio)
-   ========================= */
+/* =========================================================
+   VIEW TOGGLE
+   ========================================================= */
 .view-toggle{
   display:flex;
   gap:10px;
@@ -130,9 +134,9 @@ body {
   color:#fff;
 }
 
-/* =========================
+/* =========================================================
    LAYOUT
-   ========================= */
+   ========================================================= */
 .container{ padding:18px; }
 
 .status{
@@ -141,9 +145,9 @@ body {
   color:var(--muted);
 }
 
-/* =========================
-   BATTLEFIELD (invariato)
-   ========================= */
+/* =========================================================
+   BATTLEFIELD LAYOUT
+   ========================================================= */
 #battlefield{
   margin:40px 0;
   display:grid;
@@ -159,8 +163,8 @@ body {
 .player{
   border:1px solid var(--rowBorder);
   padding:20px;
-  border-radius:12px;
-  background:linear-gradient(180deg, #0f1216, #0b0d10);
+  border-radius:var(--radius2);
+  background:linear-gradient(180deg,#0f1216,#0b0d10);
 }
 
 .row{
@@ -201,13 +205,13 @@ body {
   min-height:104px;
   padding:10px;
   border:1px dashed var(--slotBorder);
-  border-radius:12px;
+  border-radius:var(--radius);
   background:var(--slot);
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:.15s ease;
-  overflow:visible;
+  transition: .15s ease;
+  overflow: visible;
 }
 
 .slot.is-over{
@@ -218,21 +222,30 @@ body {
 
 .slot.is-invalid{ border-color:#aa4444; }
 
-/* Battlefield cards */
+/* =========================================================
+   CARTE IN CAMPO (board)
+   - NO zoom hover
+   - zoom SOLO con .is-zoom (gestito dal long-press JS)
+   ========================================================= */
 #battlefield .card{
   width:170px;
   height:250px;
-  border-radius:12px;
+  border-radius:var(--radius);
   border:1px solid var(--cardBorder);
   background:var(--cardBg);
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
-  cursor:grab;
   user-select:none;
 }
-#battlefield .card:active{ cursor:grabbing; }
+
+#battlefield .card.on-board{
+  position:relative;
+  cursor:pointer; /* click -> HUD */
+}
+
+#battlefield .card:active{ cursor:default; }
 
 #battlefield .card img{
   width:100%;
@@ -242,6 +255,33 @@ body {
   pointer-events:none;
 }
 
+/* rimuove lo zoom su hover (non deve interferire) */
+#battlefield .slot .card{
+  transition: transform .12s ease, box-shadow .12s ease;
+  transform-origin: center;
+}
+#battlefield .slot .card:hover{
+  transform:none;
+  box-shadow:none;
+}
+
+/* zoom (solo quando JS mette .is-zoom) */
+#battlefield .slot .card.is-zoom{
+  transform: scale(2.3);
+  z-index: 2000;
+  box-shadow: 0 20px 60px rgba(0,0,0,.65);
+  overflow: visible;
+}
+
+/* highlight target (quando JS mette .is-target) */
+#battlefield .card.on-board.is-target{
+  outline: 2px solid rgba(255,255,255,.22);
+  outline-offset: -2px;
+}
+
+/* =========================================================
+   MANO (hand)
+   ========================================================= */
 #battlefield .hand{
   display:flex;
   gap:12px;
@@ -249,28 +289,28 @@ body {
   padding:12px 0 4px;
   flex-wrap:nowrap;
 }
-#battlefield .hand .card{ flex:0 0 auto; }
+
+#battlefield .hand .card{
+  flex:0 0 auto;
+  cursor:grab;
+}
+
+#battlefield .hand .card:active{ cursor:grabbing; }
+
 #battlefield .hand::-webkit-scrollbar{ height:8px; }
 #battlefield .hand::-webkit-scrollbar-thumb{ background:#222; border-radius:99px; }
 #battlefield .hand::-webkit-scrollbar-track{ background:transparent; }
 
+/* Event card (se usi eventi in futuro) */
 #battlefield .card[data-type="event"]{
   width:200px;
   height:100px;
-  border-radius:12px;
+  border-radius:var(--radius);
 }
 
-#battlefield .slot .card{
-  transition:transform .12s ease, box-shadow .12s ease;
-  transform-origin:bottom left;
-}
-#battlefield .slot .card:hover{
-  transform:scale(2.3);
-  z-index:50;
-  box-shadow:0 20px 60px rgba(0,0,0,.65);
-}
-
-/* Preview overlay (battlefield) */
+/* =========================================================
+   PREVIEW OVERLAY (ALT+click) — se lo usi ancora
+   ========================================================= */
 #battlefield .card-preview{
   position:fixed;
   inset:0;
@@ -281,7 +321,9 @@ body {
   z-index:9999;
   padding:24px;
 }
+
 #battlefield .card-preview.is-open{ display:flex; }
+
 #battlefield .card-preview__img{
   max-width:min(520px, 92vw);
   max-height:92vh;
@@ -290,28 +332,25 @@ body {
   background:#111;
 }
 
-/* =========================
-   COLLEZIONE CARTE
-   ========================= */
-
-/* contenitore cards */
+/* =========================================================
+   COLLEZIONE CARTE (invariata, ripulita)
+   ========================================================= */
 .cards-grid.grid-mode{
   display:grid;
-  grid-template-columns:repeat(2, 1fr);
+  grid-template-columns:repeat(2,1fr);
   gap:12px;
 }
+
 @media (min-width:768px){
-  .cards-grid.grid-mode{
-    grid-template-columns:repeat(3, 1fr);
-  }
+  .cards-grid.grid-mode{ grid-template-columns:repeat(3,1fr); }
 }
+
 .cards-grid.detail-mode{
   display:flex;
   flex-direction:column;
   gap:25px;
 }
 
-/* card wrapper */
 .ccard{
   border:1px solid var(--border);
   border-radius:16px;
@@ -320,20 +359,19 @@ body {
   box-shadow:0 10px 30px rgba(0,0,0,.35);
 }
 
-/* barra rarità */
 .ccard__rarityBar{
   height:6px;
   width:100%;
-  background:var(--rarityColor, #666);
+  background:var(--rarityColor,#666);
 }
 
-/* immagine */
 .ccard__imgWrap{
   width:100%;
   aspect-ratio:2.5 / 3.5;
   background:#0a0f14;
   overflow:hidden;
 }
+
 .ccard__imgWrap img{
   width:100%;
   height:100%;
@@ -341,7 +379,6 @@ body {
   display:block;
 }
 
-/* meta */
 .ccard__meta{
   padding:14px 14px 16px;
   display:grid;
@@ -368,7 +405,6 @@ body {
   letter-spacing:1px;
 }
 
-/* chips */
 .ccard__chips{
   display:flex;
   gap:10px;
@@ -386,15 +422,14 @@ body {
 }
 
 .chip--faction{
-  border-color: color-mix(in srgb, var(--factionColor, #888) 70%, #2a3440);
-  color: color-mix(in srgb, var(--factionColor, #888) 70%, white);
+  border-color: color-mix(in srgb, var(--factionColor,#888) 70%, #2a3440);
+  color: color-mix(in srgb, var(--factionColor,#888) 70%, white);
 }
 
-/* stats */
 .ccard__stats{
   display:none;
   margin-top:12px;
-  grid-template-columns:repeat(4, 1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:10px;
 }
 
@@ -420,7 +455,6 @@ body {
   font-weight:800;
 }
 
-/* abilità */
 .ccard__abilities{
   display:none;
   margin-top:12px;
@@ -458,7 +492,6 @@ body {
   line-height:1.45;
 }
 
-/* Toggle buttons */
 .ccard__toggle{
   margin-top:10px;
   width:100%;
@@ -470,37 +503,35 @@ body {
   cursor:pointer;
 }
 
-/* Apertura tramite JS */
 .ccard.stats-open .ccard__stats{ display:grid; }
 .ccard.abilities-open .ccard__abilities{ display:block; }
 
-/* Detail mode: sempre aperti, bottoni nascosti */
 .cards-grid.detail-mode .ccard__toggle{ display:none; }
 .cards-grid.detail-mode .ccard__stats{ display:grid; }
 .cards-grid.detail-mode .ccard__abilities{ display:block; }
 
-/* ===== Overlay preview (collezione) ===== */
+/* preview collezione */
 .card-preview{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.78);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  padding: 18px;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:18px;
 }
 .card-preview.is-open{ display:flex; }
 
 .card-preview__sheet{
-  width: min(520px, 96vw);
-  max-height: 92vh;
-  background: rgba(15,19,23,.92);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0,0,0,.65);
-  position: relative;
+  width:min(520px,96vw);
+  max-height:92vh;
+  background:rgba(15,19,23,.92);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.65);
+  position:relative;
 }
 
 .card-preview__close{
@@ -517,43 +548,41 @@ body {
 }
 
 .flip-stage{
-  padding: 18px 18px 10px;
-  display: grid;
-  place-items: center;
-  touch-action: pan-y; /* importante: lascia scroll verticale, noi gestiamo l'orizzontale */
+  padding:18px 18px 10px;
+  display:grid;
+  place-items:center;
+  touch-action: pan-y;
 }
 
 .flip-card{
-  width: min(420px, 92vw);
-  aspect-ratio: 2.5 / 3.5;
-  position: relative;
-  transform-style: preserve-3d;
-  will-change: transform;
-  transform: rotateY(var(--ry, 0deg));
-  transition: transform 180ms ease;
+  width:min(420px,92vw);
+  aspect-ratio:2.5/3.5;
+  position:relative;
+  transform-style:preserve-3d;
+  will-change:transform;
+  transform:rotateY(var(--ry,0deg));
+  transition:transform 180ms ease;
 }
 
 .flip-face{
   position:absolute;
   inset:0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.12);
-  background: #0a0f14;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background:#0a0f14;
   display:grid;
   place-items:center;
 }
 
-.flip-face--back{
-  transform: rotateY(180deg);
-}
+.flip-face--back{ transform:rotateY(180deg); }
 
 .flip-img{
   width:100%;
   height:100%;
-  object-fit: contain;
+  object-fit:contain;
   display:block;
   user-select:none;
   -webkit-user-drag:none;
@@ -561,9 +590,388 @@ body {
 }
 
 .card-preview__hint{
-  padding: 10px 14px 16px;
+  padding:10px 14px 16px;
   text-align:center;
   color: rgba(233,238,245,.7);
-  font-size: 12px;
-  border-top: 1px solid rgba(255,255,255,.08);
+  font-size:12px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+/* Se ti sporcano la carta */
+.unit-title,.unit-stats,.unit-status{ display:none; }
+
+/* =========================
+   ACTION HUD (non blocca il campo)
+   ========================= */
+#actionHud{
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+
+  /* fondamentale: NON cattura click sul campo */
+  pointer-events: none;
+}
+
+/* anche quando è open, NON deve diventare cliccabile */
+#actionHud.is-open{
+  pointer-events: none;
+}
+
+/* SOLO il pannello è cliccabile */
+#actionHud .hud__panel{
+  pointer-events: auto;
+}
+
+.hud__panel{
+  position:fixed;
+  min-width:220px;
+  max-width:320px;
+  padding:12px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(10,12,14,.78);
+  box-shadow:0 18px 70px rgba(0,0,0,.7);
+  backdrop-filter:blur(8px);
+
+  transform: translateY(6px) scale(.98);
+  opacity:0;
+  transition: opacity .14s ease, transform .14s ease;
+}
+
+#actionHud.is-open .hud__panel{
+  opacity:1;
+  transform: translateY(0) scale(1);
+}
+
+.hud__title{
+  font-size:12px;
+  letter-spacing:.6px;
+  color: rgba(233,238,245,.85);
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+
+.hud__close{
+  position:absolute;
+  top:8px;
+  right:10px;
+  width:30px;
+  height:30px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.25);
+  color: rgba(233,238,245,.9);
+  cursor:pointer;
+}
+
+/* stats HUD */
+.hud__stats{
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  font-size:13px;
+  flex-wrap:wrap;
+}
+
+.hud__stat{
+  padding:6px 10px;
+  border-radius:10px;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+}
+
+/* IMP cliccabile */
+.hud__stat.hud__attack{
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  color:inherit;
+  font:inherit;
+}
+.hud__stat.hud__attack:disabled{
+  cursor:default;
+  opacity:.35;
+}
+
+/* abilità */
+#hudAbilities{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+/* in battle.js le attive sono button */
+.hud__ability{
+  width:100%;
+  text-align:left;
+  padding:10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  color:inherit;
+  cursor:pointer;
+  transition: background .15s ease;
+}
+
+.hud__ability:hover{
+  background: rgba(255,255,255,.08);
+}
+
+.hud__ability.is-disabled{
+  opacity:.35;
+  cursor:default;
+  pointer-events:none;
+}
+
+.hud__ability-title{
+  font-weight:600;
+  font-size:13px;
+  margin-bottom:4px;
+}
+
+.hud__ability-text{
+  font-size:12px;
+  opacity:.75;
+  line-height:1.35;
+}
+
+/* riga bottoni Attacca/Annulla */
+.hud__actionsRow{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.hud__btn{
+  flex:1;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color:inherit;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.hud__btn:hover{
+  transform: translateY(-1px);
+  box-shadow:0 10px 26px rgba(0,0,0,.45);
+}
+
+.hud__btn--primary{
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.22);
+}
+
+.hud__btn.is-disabled{
+  opacity:.28;
+  cursor:default;
+  pointer-events:none;
+  transform:none;
+  box-shadow:none;
+}
+
+/* passive */
+#hudPassives{
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:8px;
+  font-size:12px;
+  opacity:.75;
+}
+
+.hud__passive{ margin-top:6px; }
+.hud__passive-text{ opacity:.85; }
+#actionHud { pointer-events: none; }
+#actionHud .hud__panel { pointer-events: auto; }
+/* ===== BATTLEFIELD: due colonne uguali ===== */
+#battlefield{
+  margin: 16px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+@media (min-width:1100px){
+  #battlefield{
+    grid-template-columns: 1fr 1fr; /* stesso spazio */
+  }
+}
+
+/* ===== LOG: in alto e scroll ===== */
+.panel--log .log--scroll{
+  max-height: 140px;
+  overflow: auto;
+}
+
+/* ===== Mano avversario: niente drag “visivamente” ===== */
+.hand--enemy .card{
+  cursor: default;
+}
+.hand--enemy .card:active{
+  cursor: default;
+}
+/* =========================
+   BATTLEFIELD: misure coerenti con carte
+   ========================= */
+
+/* dimensioni base carta (puoi ritoccare qui) */
+:root{
+  --bf-card-w: 170px;
+  --bf-card-h: 250px;
+  --bf-gap: 12px;
+}
+
+/* le row non devono essere alte “a caso”: si adattano alla carta */
+#battlefield .row{
+  min-height: calc(var(--bf-card-h) + 24px);
+  align-items: center;
+  justify-content: center;
+  gap: var(--bf-gap);
+}
+
+/* slot = “sagoma carta” */
+#battlefield .slot{
+  flex: 0 0 auto;
+  width: calc(var(--bf-card-w) + 20px);
+  height: calc(var(--bf-card-h) + 20px);
+  min-height: 0;
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+}
+
+/* carta sul campo = dimensione fissa */
+#battlefield .slot .card.on-board{
+  width: var(--bf-card-w);
+  height: var(--bf-card-h);
+}
+
+/* mano: le carte NON devono “spingere” in verticale */
+#battlefield .hand{
+  align-items: center;
+}
+
+/* carta in mano: stessa dimensione del campo */
+#battlefield .hand .card{
+  width: var(--bf-card-w);
+  height: var(--bf-card-h);
+}
+
+/* disattiva qualsiasi “meta” residuo se per caso rimane nel DOM */
+#battlefield .hand .card .card-meta{
+  display:none !important;
+}
+/* =========================
+   BATTLEFIELD: ROW che abbraccia 3 slot
+   ========================= */
+
+:root{
+  --bf-card-w: 170px;
+  --bf-card-h: 250px;
+  --bf-gap: 12px;
+  --bf-slot-pad: 10px;
+}
+
+/* Row = griglia 3 colonne, larghezza “esatta” (fit-content) */
+#battlefield .row{
+  display: grid;
+  grid-template-columns: repeat(3, calc(var(--bf-card-w) + (var(--bf-slot-pad) * 2)));
+  gap: var(--bf-gap);
+
+  width: fit-content;
+  margin: 10px auto;          /* centra la row nel pannello player */
+  padding: 12px;
+
+  min-height: 0;              /* niente altezze “random” */
+  border-radius: 12px;
+}
+
+/* Slot = sagoma carta + padding */
+#battlefield .slot{
+  width: calc(var(--bf-card-w) + (var(--bf-slot-pad) * 2));
+  height: calc(var(--bf-card-h) + (var(--bf-slot-pad) * 2));
+  padding: var(--bf-slot-pad);
+
+  display: grid;
+  place-items: center;
+
+  overflow: visible;
+  flex: unset;                /* importante: non deve stirarsi */
+}
+
+/* Carta sul campo e in mano: misure fisse */
+#battlefield .slot .card.on-board,
+#battlefield .hand .card{
+  width: var(--bf-card-w);
+  height: var(--bf-card-h);
+}
+
+/* Titolo “Prima linea / Seconda linea” non deve allargare layout */
+#battlefield .row::before{
+  pointer-events: none;
+}
+/* =========================
+   BATTLEFIELD: HAND compatta (larga 3 slot) + scrollbar
+   ========================= */
+
+:root{
+  --bf-card-w: 170px;
+  --bf-card-h: 250px;
+  --bf-gap: 12px;
+  --bf-slot-pad: 10px;
+
+  /* Mano: dimensioni leggermente più piccole */
+  --hand-card-w: 140px;
+  --hand-card-h: 205px;
+}
+
+/* larghezza esatta di una row (3 slot) */
+#battlefield .player{
+  /* lascia il pannello a larghezza normale, ma i contenuti (row/hand) si centrano */
+}
+
+#battlefield .hand{
+  width: calc(
+    (3 * (var(--bf-card-w) + (var(--bf-slot-pad) * 2))) +
+    (2 * var(--bf-gap)) +
+    (2 * 12px) /* padding row-style */
+  );
+
+  margin: 10px auto 0;
+  padding: 12px;
+
+  display: flex;
+  gap: var(--bf-gap);
+  flex-wrap: nowrap;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  border: 1px dashed var(--rowBorder);
+  border-radius: 12px;
+  background: var(--row);
+}
+
+/* scrollbar visibile e coerente */
+#battlefield .hand::-webkit-scrollbar{ height: 10px; }
+#battlefield .hand::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.12);
+  border-radius: 999px;
+}
+#battlefield .hand::-webkit-scrollbar-track{ background: transparent; }
+
+/* carte in mano più piccole */
+#battlefield .hand .card{
+  width: var(--hand-card-w);
+  height: var(--hand-card-h);
+  flex: 0 0 auto;
+}
+
+/* immagini sempre contenute */
+#battlefield .hand .card img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
