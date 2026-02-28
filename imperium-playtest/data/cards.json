@@ -15,337 +15,580 @@
   },
   "cards": [
    {
-      "id": "fabia_communis",
-      "name": "Fabia",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "DOMUS",
-      "classes": ["SPECULATOR"],
-      "image": "cards/Fabia-speculator.png",
-      "stats": { "vit": 4, "imp": 0, "def": 0, "vel": 4 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "active",
-          "name": "Voci di Atrio",
-          "limit": "CD 1",
-          "text": "Guarda una carta casuale dalla mano avversaria; se è una carta Evento Actio, rimescolala nel mazzo avversario."
-        }
-      ]
-    },
+  "id": "fabia_communis",
+  "name": "Fabia",
+  "type": "unit",
+  "rarity": "communis",
+  "faction": "DOMUS",
+  "classes": ["SPECULATOR"],
+  "image": "cards/Fabia-speculator.png",
+  "stats": { "vit": 4, "imp": 0, "def": 0, "vel": 4 },
+  "abilities": [
     {
-      "id": "claudia_rufa_communis",
-      "name": "Claudia Rufa",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "DOMUS",
-      "classes": ["DUX"],
-      "image": "cards/Claudia-communis.png",
-      "stats": { "vit": 5, "imp": 1, "def": 2, "vel": 4 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Spirito Libero",
-          "text": "Se all’inizio del turno Claudia Rufa è l’unica unità in campo, pesca una carta aggiuntiva."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Fascino Romano",
-          "limit": "CD 3",
-          "text": "Un’unità nemica a scelta non può attaccare questo turno."
-        }
-      ]
-    },
+      "slot": 1,
+      "type": "active",
+      "name": "Voci di Atrio",
+      "limit": "CD 1",
+      "cd": 1,
+      "text": "Guarda una carta casuale dalla mano avversaria; se è una carta Evento Actio, rimescolala nel mazzo avversario.",
+      "rules": {
+        "trigger": "ACTIVE_MANUAL",
+        "targeting": { "mode": "RANDOM_CARD_FROM_HAND", "who": "OPPONENT", "count": 1, "storeAs": "c1" },
+        "script": [
+          { "op": "REVEAL_CARD", "cardRef": "c1", "to": "SELF" },
+          {
+            "op": "IF",
+            "condition": {
+              "op": "AND",
+              "args": [
+                { "op": "CARD_TYPE_IS", "cardRef": "c1", "type": "EVENT" },
+                { "op": "CARD_SUBTYPE_IS", "cardRef": "c1", "subtype": "ACTIO" }
+              ]
+            },
+            "then": [
+              { "op": "MOVE_CARD_FROM_HAND_TO_DECK", "who": "OPPONENT", "cardRef": "c1", "position": "SHUFFLE_IN" }
+            ],
+            "else": []
+          }
+        ]
+      }
+    }
+  ]
+},
     {
-      "id": "aulo_communis",
-      "name": "Aulo",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "DOMUS",
-      "classes": ["AUXILIUM"],
-      "image": "cards/Aulo-auxilium.png",
-      "stats": { "vit": 4, "imp": 1, "def": 3, "vel": 1 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "active",
-          "name": "Accesso Negato",
-          "limit": "CD 1",
-          "text": "Scegli un’unità nemica in seconda linea. Quell’unità non può usare abilità fino al tuo prossimo turno."
+    "id": "claudia_rufa_communis",
+    "name": "Claudia Rufa",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["DUX"],
+    "image": "cards/Claudia-communis.png",
+    "stats": { "vit": 5, "imp": 1, "def": 2, "vel": 4 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Spirito Libero",
+        "text": "Se all’inizio del turno Claudia Rufa è l’unica unità in campo, pesca una carta aggiuntiva.",
+        "rules": {
+          "trigger": "TURN_START_SELF",
+          "condition": { "op": "IS_ONLY_UNIT_ON_FIELD", "unit": "SELF" },
+          "script": [{ "op": "DRAW", "amount": 1 }]
         }
-      ]
-    },
-    {
-      "id": "sesto_communis",
-      "name": "Sesto",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "DOMUS",
-      "classes": ["AUXILIUM"],
-      "image": "cards/Sesto-auxilium.png",
-      "stats": { "vit": 5, "imp": 2, "def": 2, "vel": 2 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "active",
-          "name": "Prelievo Discreto",
-          "limit": "CD 2",
-          "text": "Scegli un’unità nemica. Perde 1 VIT. Un’unità DOMUS alleata recupera 1 VIT."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Fascino Romano",
+        "limit": "CD 3",
+        "cd": 3,
+        "text": "Un’unità nemica a scelta non può attaccare questo turno.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ENEMY", "zone": "ANY" },
+          "script": [
+            { "op": "PREVENT_ATTACK", "target": "TARGET", "duration": "UNTIL_END_OF_TURN" }
+          ]
         }
-      ]
-    },
-    {
-      "id": "akhom_communis",
-      "name": "Akhom",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "DOMUS",
-      "classes": ["PUGNATOR"],
-      "image": "cards/Akhom-communis.png",
-      "stats": { "vit": 8, "imp": 4, "def": 2, "vel": 2 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Guardia della Matrona",
-          "text": "Se anche Claudia Rufa è in campo, Akhom ha +1 DEF e intercetta automaticamente il primo attacco diretto a lei ogni turno."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Forza Inarrestabile",
-          "limit": "1 volta per partita",
-          "text": "Akhom può ignorare la DEF con il suo attacco."
+      }
+    ]
+  },
+  {
+    "id": "aulo_communis",
+    "name": "Aulo",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Aulo-auxilium.png",
+    "stats": { "vit": 4, "imp": 1, "def": 3, "vel": 1 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Accesso Negato",
+        "limit": "CD 1",
+        "cd": 1,
+        "text": "Scegli un’unità nemica in seconda linea. Quell’unità non può usare abilità fino al tuo prossimo turno.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ENEMY", "zone": "BACKLINE" },
+          "script": [
+            { "op": "PREVENT_ACTIVE", "target": "TARGET", "duration": "UNTIL_YOUR_NEXT_TURN_START" }
+          ]
         }
-      ]
-    },
-    {
-      "id": "publio_communis",
-      "name": "Publio",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "DOMUS",
-      "classes": ["PUGNATOR"],
-      "image": "cards/Publio-pugnator.png",
-      "stats": { "vit": 5, "imp": 3, "def": 1, "vel": 2 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "active",
-          "name": "Protezione del Patrono",
-          "text": "Sacrifica questa unità. Scegli un tuo Dux DOMUS. Ottiene +2 DEF e +2 IMP fino alla fine del turno."
+      }
+    ]
+  },
+  {
+    "id": "sesto_communis",
+    "name": "Sesto",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Sesto-auxilium.png",
+    "stats": { "vit": 5, "imp": 2, "def": 2, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Prelievo Discreto",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Scegli un’unità nemica. Perde 1 VIT. Un’unità DOMUS alleata recupera 1 VIT.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": [
+            { "id": "t1", "mode": "CHOOSE", "who": "ENEMY", "zone": "ANY" },
+            { "id": "t2", "mode": "CHOOSE", "who": "ALLY", "faction": "DOMUS", "zone": "ANY" }
+          ],
+          "script": [
+            { "op": "DAMAGE", "target": "t1", "amount": 1 },
+            { "op": "HEAL", "target": "t2", "amount": 1 }
+          ]
         }
-      ]
-    },
-    {
-      "id": "marcello_communis",
-      "name": "Marcello",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "DOMUS",
-      "classes": ["DUX"],
-      "image": "cards/Marcello-communis.png",
-      "stats": { "vit": 6, "imp": 1, "def": 3, "vel": 2 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Gestione della Domus",
-          "text": "Finché controlli almeno 1 unità DOMUS Dux, all’inizio del tuo turno puoi pescare una carta in più."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Prelievo Straordinario",
-          "text": "Sacrifica un’unità DOMUS Communis per pescare 2 carte."
+      }
+    ]
+  },
+  {
+    "id": "akhom_communis",
+    "name": "Akhom",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Akhom-communis.png",
+    "stats": { "vit": 8, "imp": 4, "def": 2, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Guardia della Matrona",
+        "text": "Se anche Claudia Rufa è in campo, Akhom ha +1 DEF e intercetta automaticamente il primo attacco diretto a lei ogni turno.",
+        "rules": [
+          {
+            "trigger": "AURA",
+            "condition": { "op": "ALLY_IN_PLAY", "nameId": "claudia_rufa" },
+            "script": [
+              { "op": "MODIFY_STAT", "target": "SELF", "stat": "def", "amount": 1, "mode": "ADD" }
+            ]
+          },
+          {
+            "trigger": "ON_ATTACK_DECLARE",
+            "condition": {
+              "op": "AND",
+              "args": [
+                { "op": "ALLY_IN_PLAY", "nameId": "claudia_rufa" },
+                { "op": "ATTACK_TARGET_IS", "nameId": "claudia_rufa" },
+                { "op": "ONCE_PER_TURN", "key": "akhom_intercept_1" }
+              ]
+            },
+            "script": [{ "op": "REDIRECT_ATTACK_TO_SELF" }]
+          }
+        ]
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Forza Inarrestabile",
+        "limit": "1 volta per partita",
+        "uses": { "perGame": 1 },
+        "text": "Akhom può ignorare la DEF con il suo attacco.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "NONE" },
+          "script": [
+            {
+              "op": "ADD_ATTACK_MOD",
+              "source": "SELF",
+              "mod": { "ignoreDef": true },
+              "duration": "NEXT_ATTACK_ONLY"
+            }
+          ]
         }
-      ]
-    },
-    {
-      "id": "crispo_communis",
-      "name": "Crispo",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "DOMUS",
-      "classes": ["AUXILIUM"],
-      "image": "cards/Crispo-communis.png",
-      "stats": { "vit": 4, "imp": 1, "def": 2, "vel": 3 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "active",
-          "name": "Registri Alterati",
-          "limit": "CD 2",
-          "text": "Guarda la prima carta del tuo mazzo. Puoi lasciarla in cima oppure metterla in fondo."
+      }
+    ]
+  },
+  {
+    "id": "publio_communis",
+    "name": "Publio",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Publio-pugnator.png",
+    "stats": { "vit": 5, "imp": 3, "def": 1, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Protezione del Patrono",
+        "text": "Sacrifica questa unità. Scegli un tuo Dux DOMUS. Ottiene +2 DEF e +2 IMP fino alla fine del turno.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ALLY", "faction": "DOMUS", "classes": ["DUX"], "zone": "ANY" },
+          "script": [
+            { "op": "SACRIFICE_SELF" },
+            { "op": "MODIFY_STAT", "target": "TARGET", "stat": "def", "amount": 2, "mode": "ADD", "duration": "UNTIL_END_OF_TURN" },
+            { "op": "MODIFY_STAT", "target": "TARGET", "stat": "imp", "amount": 2, "mode": "ADD", "duration": "UNTIL_END_OF_TURN" }
+          ]
         }
-      ]
-    },
-    {
-      "id": "brennos_communis",
-      "name": "Brennos",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "HELVETII",
-      "classes": ["RITUS"],
-      "image": "cards/Brennos-comune.png",
-      "stats": { "vit": 5, "imp": 1, "def": 2, "vel": 2 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Spiriti della Foresta",
-          "text": "All'inizio del tuo turno, tutte le unità HELVETII recuperano 1 VIT."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Rito di Guarigione",
-          "limit": "CD 2",
-          "text": "Scegli un'unità HELVETII alleata. Rimuovi 1 STATUS negativo da quell'unità. Quell'unità recupera anche 2 VIT."
+      }
+    ]
+  },
+  {
+    "id": "marcello_communis",
+    "name": "Marcello",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["DUX"],
+    "image": "cards/Marcello-communis.png",
+    "stats": { "vit": 6, "imp": 1, "def": 3, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Gestione della Domus",
+        "text": "Finché controlli almeno 1 unità DOMUS Dux, all’inizio del tuo turno puoi pescare una carta in più.",
+        "rules": {
+          "trigger": "TURN_START_SELF",
+          "condition": { "op": "CONTROL_AT_LEAST", "count": 1, "who": "ALLY", "faction": "DOMUS", "classes": ["DUX"] },
+          "script": [{ "op": "DRAW", "amount": 1 }]
         }
-      ]
-    },
-    {
-      "id": "sairika_communis",
-      "name": "Sairika",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "HELVETII",
-      "classes": ["PUGNATOR"],
-      "image": "cards/Sairika-communis.png",
-      "stats": { "vit": 6, "imp": 4, "def": 1, "vel": 4 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Guerriera Nata",
-          "text": "Quando Sairika attacca un bersaglio con STATUS Ferito, ottiene +1 IMP (per questo attacco)."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Predatorice Silenziosa",
-          "limit": "CD 1",
-          "text": "Quando Sairika attacca un bersaglio più lento, applica STATUS Ferito a quel bersaglio."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Prelievo Straordinario",
+        "text": "Sacrifica un’unità DOMUS Communis per pescare 2 carte.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ALLY", "faction": "DOMUS", "rarity": "communis", "zone": "ANY" },
+          "script": [
+            { "op": "SACRIFICE", "target": "TARGET" },
+            { "op": "DRAW", "amount": 2 }
+          ]
         }
-      ]
-    },
-    {
-      "id": "aela_communis",
-      "name": "Aela",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "HELVETII",
-      "classes": ["SPECULATOR"],
-      "image": "cards/Aela-communis.png",
-      "stats": { "vit": 6, "imp": 2, "def": 1, "vel": 5 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Tra i Rami",
-          "text": "Anche se Aela è in seconda linea, può attaccare le unità nemiche in prima linea."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Aiuto dalla Natura",
-          "limit": "CD 1",
-          "text": "Rimuovi STATUS Ferito da un'unità alleata."
+      }
+    ]
+  },
+  {
+    "id": "crispo_communis",
+    "name": "Crispo",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "DOMUS",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Crispo-communis.png",
+    "stats": { "vit": 4, "imp": 1, "def": 2, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Registri Alterati",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Guarda la prima carta del tuo mazzo. Puoi lasciarla in cima oppure metterla in fondo.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "NONE" },
+          "script": [
+            { "op": "PEEK_DECK_TOP", "amount": 1 },
+            { "op": "CHOOSE_ONE", "choices": ["LEAVE_ON_TOP", "PUT_ON_BOTTOM"] }
+          ]
         }
-      ]
-    },
-    {
-      "id": "storvan_communis",
-      "name": "Storvan",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "HELVETII",
-      "classes": ["PUGNATOR"],
-      "image": "cards/Storvan-communis.png",
-      "stats": { "vit": 7, "imp": 4, "def": 3, "vel": 2 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Maestro d'Armi",
-          "text": "Le unità HELVETII Communis e Rara adiacenti hanno +1 IMP e +1 DEF."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Lezione di Guerra",
-          "limit": "1 volta per partita",
-          "text": "Scegli un'unità HELVETII Communis o Rara. Quell'unità può attaccare 2 volte in questo turno."
+      }
+    ]
+  },
+  {
+    "id": "brennos_communis",
+    "name": "Brennos",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["RITUS"],
+    "image": "cards/Brennos-comune.png",
+    "stats": { "vit": 5, "imp": 1, "def": 2, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Spiriti della Foresta",
+        "text": "All'inizio del tuo turno, tutte le unità HELVETII recuperano 1 VIT.",
+        "rules": {
+          "trigger": "TURN_START_SELF",
+          "script": [
+            { "op": "HEAL", "target": "ALL_ALLIES_FILTERED", "filter": { "faction": "HELVETII" }, "amount": 1 }
+          ]
         }
-      ]
-    },
-    {
-      "id": "varka_communis",
-      "name": "Varka",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "HELVETII",
-      "classes": ["RITUS"],
-      "image": "cards/Varka-communis.png",
-      "stats": { "vit": 5, "imp": 2, "def": 3, "vel": 4 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Memoria del Sangue",
-          "text": "Ogni volta che un'unità HELVETII alleata viene eliminata, Varka guadagna +1 IMP permanente."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Lamento Tribale",
-          "limit": "CD 2",
-          "text": "Applica STATUS Ferito a un'unità LEGIO Pugnator nemica."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Rito di Guarigione",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Scegli un'unità HELVETII alleata. Rimuovi 1 STATUS negativo da quell'unità. Quell'unità recupera anche 2 VIT.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ALLY", "faction": "HELVETII", "zone": "ANY" },
+          "script": [
+            { "op": "REMOVE_STATUS", "target": "TARGET", "which": "ONE_NEGATIVE" },
+            { "op": "HEAL", "target": "TARGET", "amount": 2 }
+          ]
         }
-      ]
-    },
-    {
-      "id": "thrug_communis",
-      "name": "Thrug",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "HELVETII",
-      "classes": ["PUGNATOR"],
-      "image": "cards/Thrug-Pugnator.png",
-      "stats": { "vit": 6, "imp": 3, "def": 2, "vel": 3 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "active",
-          "name": "Resistenza Germanica",
-          "limit": "CD 2",
-          "text": "Thrug subisce 1 danno. In cambio, ottiene +2 DEF fino alla fine del turno avversario successivo."
+      }
+    ]
+  },
+  {
+    "id": "sairika_communis",
+    "name": "Sairika",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Sairika-communis.png",
+    "stats": { "vit": 6, "imp": 4, "def": 1, "vel": 4 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Guerriera Nata",
+        "text": "Quando Sairika attacca un bersaglio con STATUS Ferito, ottiene +1 IMP (per questo attacco).",
+        "rules": {
+          "trigger": "ON_ATTACK_DECLARE",
+          "condition": { "op": "TARGET_HAS_STATUS", "status": "FERITO" },
+          "script": [
+            { "op": "ADD_ATTACK_MOD", "source": "SELF", "mod": { "impBonus": 1 }, "duration": "THIS_ATTACK_ONLY" }
+          ]
         }
-      ]
-    },
-    {
-      "id": "gormund_communis",
-      "name": "Gormund",
-      "type": "unit",
-      "rarity": "communis",
-      "faction": "HELVETII",
-      "classes": ["PUGNATOR"],
-      "image": "cards/Gormund-Pugnator.png",
-      "stats": { "vit": 7, "imp": 4, "def": 1, "vel": 3 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "active",
-          "name": "Furia Tribale",
-          "limit": "CD 2",
-          "text": "Applica STATUS Ferito a Gormund. Se lo fai, Gormund ottiene +2 IMP fino alla fine del turno."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Predatorice Silenziosa",
+        "limit": "CD 1",
+        "cd": 1,
+        "text": "Quando Sairika attacca un bersaglio più lento, applica STATUS Ferito a quel bersaglio.",
+        "rules": [
+          {
+            "trigger": "ACTIVE_MANUAL",
+            "script": [{ "op": "SET_FLAG", "key": "sairika_predatrice_ready", "value": true, "duration": "UNTIL_USED" }]
+          },
+          {
+            "trigger": "ON_ATTACK_HIT",
+            "condition": {
+              "op": "AND",
+              "args": [
+                { "op": "FLAG_IS_TRUE", "key": "sairika_predatrice_ready" },
+                { "op": "SELF_VEL_GT_TARGET_VEL" }
+              ]
+            },
+            "script": [
+              { "op": "APPLY_STATUS", "target": "TARGET", "status": "FERITO" },
+              { "op": "SET_FLAG", "key": "sairika_predatrice_ready", "value": false }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "aela_communis",
+    "name": "Aela",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["SPECULATOR"],
+    "image": "cards/Aela-communis.png",
+    "stats": { "vit": 6, "imp": 2, "def": 1, "vel": 5 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Tra i Rami",
+        "text": "Anche se Aela è in seconda linea, può attaccare le unità nemiche in prima linea.",
+        "rules": {
+          "trigger": "RULE_MOD",
+          "script": [
+            { "op": "ALLOW_ATTACK_FROM_BACKLINE", "source": "SELF", "allowedTargets": "ENEMY_FRONTLINE" }
+          ]
         }
-      ]
-    },
-    {
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Aiuto dalla Natura",
+        "limit": "CD 1",
+        "cd": 1,
+        "text": "Rimuovi STATUS Ferito da un'unità alleata.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ALLY", "zone": "ANY" },
+          "script": [{ "op": "REMOVE_STATUS", "target": "TARGET", "status": "FERITO" }]
+        }
+      }
+    ]
+  },
+     {
+    "id": "storvan_communis",
+    "name": "Storvan",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Storvan-communis.png",
+    "stats": { "vit": 7, "imp": 4, "def": 3, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Maestro d'Armi",
+        "text": "Le unità HELVETII Communis e Rara adiacenti hanno +1 IMP e +1 DEF.",
+        "rules": {
+          "trigger": "AURA",
+          "condition": {
+            "op": "ADJACENT_ALLIES_MATCH",
+            "faction": "HELVETII",
+            "rarityIn": ["communis", "rara"]
+          },
+          "script": [
+            { "op": "MODIFY_STAT", "target": "ALLY_ADJACENT_MATCH", "stat": "imp", "amount": 1, "mode": "ADD" },
+            { "op": "MODIFY_STAT", "target": "ALLY_ADJACENT_MATCH", "stat": "def", "amount": 1, "mode": "ADD" }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Lezione di Guerra",
+        "limit": "1 volta per partita",
+        "uses": { "perGame": 1 },
+        "text": "Scegli un'unità HELVETII Communis o Rara. Quell'unità può attaccare 2 volte in questo turno.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": {
+            "mode": "CHOOSE",
+            "who": "ALLY",
+            "faction": "HELVETII",
+            "rarityIn": ["communis", "rara"],
+            "zone": "ANY"
+          },
+          "script": [
+            {
+              "op": "ADD_ATTACK_MOD",
+              "source": "TARGET",
+              "mod": { "extraAttacks": 1 },
+              "duration": "UNTIL_END_OF_TURN"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "varka_communis",
+    "name": "Varka",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["RITUS"],
+    "image": "cards/Varka-communis.png",
+    "stats": { "vit": 5, "imp": 2, "def": 3, "vel": 4 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Memoria del Sangue",
+        "text": "Ogni volta che un'unità HELVETII alleata viene eliminata, Varka guadagna +1 IMP permanente.",
+        "rules": {
+          "trigger": "ON_ALLY_ELIMINATED",
+          "condition": { "op": "ALLY_MATCH", "faction": "HELVETII" },
+          "script": [
+            { "op": "MODIFY_STAT", "target": "SELF", "stat": "imp", "amount": 1, "mode": "ADD", "duration": "PERMANENT" }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Lamento Tribale",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Applica STATUS Ferito a un'unità LEGIO Pugnator nemica.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": {
+            "mode": "CHOOSE",
+            "who": "ENEMY",
+            "faction": "LEGIO",
+            "classes": ["PUGNATOR"],
+            "zone": "ANY"
+          },
+          "script": [{ "op": "APPLY_STATUS", "target": "TARGET", "status": "FERITO" }]
+        }
+      }
+    ]
+  },
+  {
+    "id": "thrug_communis",
+    "name": "Thrug",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Thrug-Pugnator.png",
+    "stats": { "vit": 6, "imp": 3, "def": 2, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Resistenza Germanica",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Thrug subisce 1 danno. In cambio, ottiene +2 DEF fino alla fine del turno avversario successivo.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "NONE" },
+          "script": [
+            { "op": "DAMAGE", "target": "SELF", "amount": 1 },
+            { "op": "MODIFY_STAT", "target": "SELF", "stat": "def", "amount": 2, "mode": "ADD", "duration": "UNTIL_OPPONENT_NEXT_TURN_END" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "gormund_communis",
+    "name": "Gormund",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "HELVETII",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Gormund-Pugnator.png",
+    "stats": { "vit": 7, "imp": 4, "def": 1, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Furia Tribale",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Applica STATUS Ferito a Gormund. Se lo fai, Gormund ottiene +2 IMP fino alla fine del turno.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "NONE" },
+          "script": [
+            { "op": "APPLY_STATUS", "target": "SELF", "status": "FERITO" },
+            { "op": "MODIFY_STAT", "target": "SELF", "stat": "imp", "amount": 2, "mode": "ADD", "duration": "UNTIL_END_OF_TURN" }
+          ]
+        }
+      }
+    ]
+  },
+  {
     "id": "calo_communis",
     "name": "Calo",
     "type": "unit",
@@ -360,7 +603,16 @@
         "type": "active",
         "name": "Rifornimento Efficiente",
         "limit": "CD 1",
-        "text": "Se Calo è in seconda linea, una tua unità LEGIO in prima linea ottiene +1 DEF fino alla fine del turno avversario."
+        "cd": 1,
+        "text": "Se Calo è in seconda linea, una tua unità LEGIO in prima linea ottiene +1 DEF fino alla fine del turno avversario.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "condition": { "op": "SELF_IN_ZONE", "zone": "BACKLINE" },
+          "targeting": { "mode": "CHOOSE", "who": "ALLY", "faction": "LEGIO", "zone": "FRONTLINE" },
+          "script": [
+            { "op": "MODIFY_STAT", "target": "TARGET", "stat": "def", "amount": 1, "mode": "ADD", "duration": "UNTIL_OPPONENT_TURN_END" }
+          ]
+        }
       }
     ]
   },
@@ -379,7 +631,22 @@
         "type": "active",
         "name": "Colpo Mirato",
         "limit": "CD 1",
-        "text": "Il prossimo attacco ignora 1 DEF."
+        "cd": 1,
+        "text": "Il prossimo attacco ignora 1 DEF.",
+        "rules": [
+          {
+            "trigger": "ACTIVE_MANUAL",
+            "script": [{ "op": "SET_FLAG", "key": "decio_colpo_mirato_ready", "value": true, "duration": "UNTIL_USED" }]
+          },
+          {
+            "trigger": "ON_ATTACK_DECLARE",
+            "condition": { "op": "FLAG_IS_TRUE", "key": "decio_colpo_mirato_ready" },
+            "script": [
+              { "op": "ADD_ATTACK_MOD", "source": "SELF", "mod": { "ignoreDefAmount": 1 }, "duration": "THIS_ATTACK_ONLY" },
+              { "op": "SET_FLAG", "key": "decio_colpo_mirato_ready", "value": false }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -398,7 +665,28 @@
         "type": "active",
         "name": "Carica",
         "limit": "CD 1",
-        "text": "Se attacca un'unità con VEL inferiore, infligge +1 IMP."
+        "cd": 1,
+        "text": "Se attacca un'unità con VEL inferiore, infligge +1 IMP.",
+        "rules": [
+          {
+            "trigger": "ACTIVE_MANUAL",
+            "script": [{ "op": "SET_FLAG", "key": "fabio_carica_ready", "value": true, "duration": "UNTIL_USED" }]
+          },
+          {
+            "trigger": "ON_ATTACK_DECLARE",
+            "condition": {
+              "op": "AND",
+              "args": [
+                { "op": "FLAG_IS_TRUE", "key": "fabio_carica_ready" },
+                { "op": "TARGET_VEL_LT_SELF_VEL" }
+              ]
+            },
+            "script": [
+              { "op": "ADD_ATTACK_MOD", "source": "SELF", "mod": { "impBonus": 1 }, "duration": "THIS_ATTACK_ONLY" },
+              { "op": "SET_FLAG", "key": "fabio_carica_ready", "value": false }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -417,7 +705,18 @@
         "type": "active",
         "name": "Bendaggio di Fortuna",
         "limit": "CD 2",
-        "text": "Un'unità LEGIO Pugnator adiacente alleata recupera 2 VIT."
+        "cd": 2,
+        "text": "Un'unità LEGIO Pugnator adiacente alleata recupera 2 VIT.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": {
+            "mode": "CHOOSE",
+            "who": "ALLY_ADJACENT",
+            "faction": "LEGIO",
+            "classes": ["PUGNATOR"]
+          },
+          "script": [{ "op": "HEAL", "target": "TARGET", "amount": 2 }]
+        }
       }
     ]
   },
@@ -435,14 +734,33 @@
         "slot": 1,
         "type": "passive",
         "name": "Ferocia Batava",
-        "text": "Se Wulfram attacca per primo in un turno, infligge +2 IMP aggiuntivi."
+        "text": "Se Wulfram attacca per primo in un turno, infligge +2 IMP aggiuntivi.",
+        "rules": {
+          "trigger": "ON_ATTACK_DECLARE",
+          "condition": { "op": "IS_FIRST_ATTACKER_THIS_TURN", "unit": "SELF" },
+          "script": [
+            { "op": "ADD_ATTACK_MOD", "source": "SELF", "mod": { "impBonus": 2 }, "duration": "THIS_ATTACK_ONLY" }
+          ]
+        }
       },
       {
         "slot": 2,
         "type": "active",
         "name": "Resistenza Germanica",
         "limit": "CD 1",
-        "text": "Wulfram può ignorare uno STATUS negativo applicato nel turno precedente."
+        "cd": 1,
+        "text": "Wulfram può ignorare uno STATUS negativo applicato nel turno precedente.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "NONE" },
+          "script": [
+            {
+              "op": "REMOVE_STATUS",
+              "target": "SELF",
+              "which": "ONE_NEGATIVE_APPLIED_LAST_TURN"
+            }
+          ]
+        }
       }
     ]
   },
@@ -460,14 +778,27 @@
         "slot": 1,
         "type": "passive",
         "name": "Segnalazione",
-        "text": "Quando un'unità nemica si muove o cambia posizione, subisce 1 IMP."
+        "text": "Quando un'unità nemica si muove o cambia posizione, subisce 1 IMP.",
+        "rules": {
+          "trigger": "ON_UNIT_MOVE",
+          "condition": { "op": "MOVED_UNIT_IS_ENEMY" },
+          "script": [{ "op": "DAMAGE", "target": "MOVED_UNIT", "amount": 1 }]
+        }
       },
       {
         "slot": 2,
         "type": "active",
         "name": "Informazioni Tattiche",
         "limit": "CD 2",
-        "text": "Scegli un'unità nemica in campo. Quella unità non può usare la sua abilità attiva fino alla fine del turno avversario successivo."
+        "cd": 2,
+        "text": "Scegli un'unità nemica in campo. Quella unità non può usare la sua abilità attiva fino alla fine del turno avversario successivo.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ENEMY", "zone": "ANY" },
+          "script": [
+            { "op": "PREVENT_ACTIVE", "target": "TARGET", "duration": "UNTIL_OPPONENT_NEXT_TURN_END" }
+          ]
+        }
       }
     ]
   },
@@ -485,14 +816,43 @@
         "slot": 1,
         "type": "passive",
         "name": "Veterano in Prima Linea",
-        "text": "Finché Macro è in prima linea, le unità LEGIO nella stessa linea hanno +1 DEF."
+        "text": "Finché Macro è in prima linea, le unità LEGIO nella stessa linea hanno +1 DEF.",
+        "rules": {
+          "trigger": "AURA",
+          "condition": { "op": "SELF_IN_ZONE", "zone": "FRONTLINE" },
+          "script": [
+            {
+              "op": "MODIFY_STAT",
+              "target": "ALL_ALLIES_FILTERED",
+              "filter": { "faction": "LEGIO", "sameLineAsSelf": true },
+              "stat": "def",
+              "amount": 1,
+              "mode": "ADD"
+            }
+          ]
+        }
       },
       {
         "slot": 2,
         "type": "active",
         "name": "Ordine di Ferro",
         "limit": "CD 2",
-        "text": "Una unità LEGIO Pugnator nella stessa linea ottiene +1 IMP fino alla fine del turno."
+        "cd": 2,
+        "text": "Una unità LEGIO Pugnator nella stessa linea ottiene +1 IMP fino alla fine del turno.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": {
+            "mode": "CHOOSE",
+            "who": "ALLY",
+            "faction": "LEGIO",
+            "classes": ["PUGNATOR"],
+            "sameLineAsSelf": true,
+            "zone": "ANY"
+          },
+          "script": [
+            { "op": "MODIFY_STAT", "target": "TARGET", "stat": "imp", "amount": 1, "mode": "ADD", "duration": "UNTIL_END_OF_TURN" }
+          ]
+        }
       }
     ]
   },
@@ -510,14 +870,36 @@
         "slot": 1,
         "type": "passive",
         "name": "Medico di Campo",
-        "text": "Le unità LEGIO in prima linea hanno +1 VIT."
+        "text": "Le unità LEGIO in prima linea hanno +1 VIT.",
+        "rules": {
+          "trigger": "AURA",
+          "script": [
+            {
+              "op": "MODIFY_STAT",
+              "target": "ALL_ALLIES_FILTERED",
+              "filter": { "faction": "LEGIO", "zone": "FRONTLINE" },
+              "stat": "vit",
+              "amount": 1,
+              "mode": "ADD"
+            }
+          ]
+        }
       },
       {
         "slot": 2,
         "type": "active",
         "name": "Rattoppare i Corpi",
         "limit": "CD 2",
-        "text": "Scegli un'unità Pugnator. Rimuovi uno STATUS negativo e recupera 2 VIT."
+        "cd": 2,
+        "text": "Scegli un'unità Pugnator. Rimuovi uno STATUS negativo e recupera 2 VIT.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ANY_UNIT", "classes": ["PUGNATOR"], "zone": "ANY" },
+          "script": [
+            { "op": "REMOVE_STATUS", "target": "TARGET", "which": "ONE_NEGATIVE" },
+            { "op": "HEAL", "target": "TARGET", "amount": 2 }
+          ]
+        }
       }
     ]
   },
@@ -535,14 +917,34 @@
         "slot": 1,
         "type": "passive",
         "name": "Aiuto in Bottega",
-        "text": "Un alleato LEGIO riceve +1 DEF."
+        "text": "Un alleato LEGIO riceve +1 DEF.",
+        "rules": {
+          "trigger": "ON_DEPLOY",
+          "script": [
+            {
+              "op": "CHOOSE_TARGET",
+              "targeting": { "mode": "CHOOSE", "who": "ALLY", "faction": "LEGIO", "zone": "ANY" },
+              "storeAs": "t1"
+            },
+            { "op": "MODIFY_STAT", "target": "t1", "stat": "def", "amount": 1, "mode": "ADD", "duration": "PERMANENT" }
+          ]
+        }
       },
       {
         "slot": 2,
         "type": "active",
         "name": "Occhi Attenti",
         "limit": "CD 3",
-        "text": "Puoi guardare la prima carta del tuo mazzo. Puoi rimetterla sopra oppure sotto."
+        "cd": 3,
+        "text": "Puoi guardare la prima carta del tuo mazzo. Puoi rimetterla sopra oppure sotto.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "NONE" },
+          "script": [
+            { "op": "PEEK_DECK_TOP", "amount": 1 },
+            { "op": "CHOOSE_ONE", "choices": ["LEAVE_ON_TOP", "PUT_ON_BOTTOM"] }
+          ]
+        }
       }
     ]
   },
@@ -560,443 +962,934 @@
         "slot": 1,
         "type": "passive",
         "name": "Addestramento Castrum",
-        "text": "Se questa unità è schierata accanto a un’altra unità LEGIO, ottiene +1 IMP."
+        "text": "Se questa unità è schierata accanto a un’altra unità LEGIO, ottiene +1 IMP.",
+        "rules": {
+          "trigger": "AURA",
+          "condition": { "op": "HAS_ADJACENT_ALLY", "faction": "LEGIO" },
+          "script": [
+            { "op": "MODIFY_STAT", "target": "SELF", "stat": "imp", "amount": 1, "mode": "ADD" }
+          ]
+        }
       },
       {
         "slot": 2,
         "type": "active",
         "name": "Gladio Addestrato",
         "limit": "CD 2",
-        "text": "Quando Giulio Aquila attacca una unità Pugnator nemica, la IMP è raddoppiata."
+        "cd": 2,
+        "text": "Quando Giulio Aquila attacca una unità Pugnator nemica, la IMP è raddoppiata.",
+        "rules": [
+          {
+            "trigger": "ACTIVE_MANUAL",
+            "script": [{ "op": "SET_FLAG", "key": "aquila_gladio_ready", "value": true, "duration": "UNTIL_USED" }]
+          },
+          {
+            "trigger": "ON_ATTACK_DECLARE",
+            "condition": {
+              "op": "AND",
+              "args": [
+                { "op": "FLAG_IS_TRUE", "key": "aquila_gladio_ready" },
+                { "op": "TARGET_IS_ENEMY" },
+                { "op": "TARGET_HAS_CLASS", "class": "PUGNATOR" }
+              ]
+            },
+            "script": [
+              { "op": "ADD_ATTACK_MOD", "source": "SELF", "mod": { "impMultiplier": 2 }, "duration": "THIS_ATTACK_ONLY" },
+              { "op": "SET_FLAG", "key": "aquila_gladio_ready", "value": false }
+            ]
+          }
+        ]
       }
     ]
   },
   {
-  "id": "lilith_communis",
-  "name": "Lilith",
-  "type": "unit",
-  "rarity": "communis",
-  "faction": "UMBRAE",
-  "classes": ["RITUS"],
-  "image": "cards/Lilith-ritus.png",
-  "stats": { "vit": 5, "imp": 1, "def": 1, "vel": 4 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "active",
-      "name": "Maledizione",
-      "limit": "CD 2",
-      "text": "Applica Marchiato a un'unità nemica. Se quella unità viene eliminata mentre ha Marchiato attivo, pesca 1 carta."
-    }
-  ]
-},
-{
-  "id": "noctis_communis",
-  "name": "Noctis",
-  "type": "unit",
-  "rarity": "communis",
-  "faction": "UMBRAE",
-  "classes": ["RITUS"],
-  "image": "cards/Noctis-ritus.png",
-  "stats": { "vit": 5, "imp": 2, "def": 0, "vel": 2 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "active",
-      "name": "Rito del Sangue",
-      "text": "Noctis subisce -2 VIT. Applica Marchiato e Corrotto a un'unità nemica a scelta."
-    }
-  ]
-},
-{
-  "id": "vex_communis",
-  "name": "Vex",
-  "type": "unit",
-  "rarity": "communis",
-  "faction": "UMBRAE",
-  "classes": ["PUGNATOR"],
-  "image": "cards/Vex-Pugnator.png",
-  "stats": { "vit": 4, "imp": 4, "def": 1, "vel": 5 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "active",
-      "name": "Fuga Tattica",
-      "limit": "CD 2",
-      "text": "Dopo aver attaccato, Vex può scambiare posizione con un'unità Umbrae alleata."
-    }
-  ]
-},
-{
-  "id": "selene_communis",
-  "name": "Selene",
-  "type": "unit",
-  "rarity": "communis",
-  "faction": "UMBRAE",
-  "classes": ["AUXILIUM"],
-  "image": "cards/Selene-communis.png",
-  "stats": { "vit": 5, "imp": 1, "def": 1, "vel": 6 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "passive",
-      "name": "Spezie d'Oriente",
-      "text": "Le unità UMBRAE adiacenti hanno +1 VIT."
-    },
-    {
-      "slot": 2,
-      "type": "active",
-      "name": "Contatti al Porto",
-      "limit": "CD 2",
-      "text": "Pesca 1 carta. Se è un'unità UMBRAE o DOMUS Communis, puoi schierarla immediatamente senza spendere Azione Comando."
-    }
-  ]
-},
-{
-  "id": "livia_communis",
-  "name": "Livia",
-  "type": "unit",
-  "rarity": "communis",
-  "faction": "UMBRAE",
-  "classes": ["AUXILIUM"],
-  "image": "cards/Livia-communis.png",
-  "stats": { "vit": 4, "imp": 1, "def": 2, "vel": 5 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "passive",
-      "name": "Tra la Folla",
-      "text": "Finché Livia è in seconda linea, non può essere bersagliata da abilità nemiche."
-    },
-    {
-      "slot": 2,
-      "type": "active",
-      "name": "Voci del Foro",
-      "text": "Scarta 2 carte e pescane 3 dal tuo mazzo."
-    }
-  ]
-},
- {
-      "id": "claudia_rufa_rara",
-      "name": "Claudia Rufa",
-      "type": "unit",
-      "rarity": "rara",
-      "faction": "DOMUS",
-      "classes": ["DUX"],
-      "image": "cards/Claudia-rara.png",
-      "stats": { "vit": 6, "imp": 1, "def": 3, "vel": 5 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Lingua Sciolta",
-          "text": "Quando Claudia Rufa entra in campo, scegli una carta nella mano avversaria. L’avversario deve rivelarla. Se è una carta Pactum, viene scartata."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Vino e Segreti",
-          "text": "Scarta una carta dalla tua mano per applicare STATUS Corrotto a un’unità nemica."
+    "id": "lilith_communis",
+    "name": "Lilith",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "UMBRAE",
+    "classes": ["RITUS"],
+    "image": "cards/Lilith-ritus.png",
+    "stats": { "vit": 5, "imp": 1, "def": 1, "vel": 4 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Maledizione",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Applica Marchiato a un'unità nemica. Se quella unità viene eliminata mentre ha Marchiato attivo, pesca 1 carta.",
+        "rules": [
+          {
+            "trigger": "ACTIVE_MANUAL",
+            "targeting": { "mode": "CHOOSE", "who": "ENEMY", "zone": "ANY" },
+            "script": [
+              { "op": "APPLY_STATUS", "target": "TARGET", "status": "MARCHIATO" },
+              { "op": "SET_FLAG_ON_UNIT", "target": "TARGET", "key": "lilith_marked_by_lilith", "value": true, "duration": "WHILE_STATUS_PRESENT", "status": "MARCHIATO" }
+            ]
+          },
+          {
+            "trigger": "ON_UNIT_ELIMINATED",
+            "condition": {
+              "op": "AND",
+              "args": [
+                { "op": "ELIMINATED_UNIT_HAS_STATUS", "status": "MARCHIATO" },
+                { "op": "ELIMINATED_UNIT_FLAG_IS_TRUE", "key": "lilith_marked_by_lilith" }
+              ]
+            },
+            "script": [{ "op": "DRAW", "amount": 1 }]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "noctis_communis",
+    "name": "Noctis",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "UMBRAE",
+    "classes": ["RITUS"],
+    "image": "cards/Noctis-ritus.png",
+    "stats": { "vit": 5, "imp": 2, "def": 0, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Rito del Sangue",
+        "text": "Noctis subisce -2 VIT. Applica Marchiato e Corrotto a un'unità nemica a scelta.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ENEMY", "zone": "ANY" },
+          "script": [
+            { "op": "DAMAGE", "target": "SELF", "amount": 2 },
+            { "op": "APPLY_STATUS", "target": "TARGET", "status": "MARCHIATO" },
+            { "op": "APPLY_STATUS", "target": "TARGET", "status": "CORROTTO" }
+          ]
         }
-      ]
-    },
-    {
-      "id": "marcello_rara",
-      "name": "Marcello",
-      "type": "unit",
-      "rarity": "rara",
-      "faction": "DOMUS",
-      "classes": ["DUX"],
-      "image": "cards/Marcello-rara.png",
-      "stats": { "vit": 7, "imp": 2, "def": 2, "vel": 3 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Rete Fondiaria",
-          "text": "Ogni volta che un’unità DOMUS viene eliminata, puoi pescare 1 carta. Se era una Communis, applica STATUS Corrotto all’unità nemica che ha causato l’eliminazione."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Centralizzazione",
-          "text": "Sacrifica un’unità DOMUS Communis. Un’unità nemica a tua scelta non può usare l’abilità attiva il prossimo turno."
+      }
+    ]
+  },
+  {
+    "id": "vex_communis",
+    "name": "Vex",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "UMBRAE",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Vex-Pugnator.png",
+    "stats": { "vit": 4, "imp": 4, "def": 1, "vel": 5 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "active",
+        "name": "Fuga Tattica",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Dopo aver attaccato, Vex può scambiare posizione con un'unità Umbrae alleata.",
+        "rules": [
+          {
+            "trigger": "ACTIVE_MANUAL",
+            "script": [{ "op": "SET_FLAG", "key": "vex_fuga_ready", "value": true, "duration": "UNTIL_END_OF_TURN" }]
+          },
+          {
+            "trigger": "ON_ATTACK_RESOLVED",
+            "condition": { "op": "FLAG_IS_TRUE", "key": "vex_fuga_ready" },
+            "script": [
+              {
+                "op": "CHOOSE_TARGET",
+                "targeting": { "mode": "CHOOSE", "who": "ALLY", "faction": "UMBRAE", "zone": "ANY", "notSelf": true },
+                "storeAs": "t1"
+              },
+              { "op": "SWAP_POSITION", "a": "SELF", "b": "t1" },
+              { "op": "SET_FLAG", "key": "vex_fuga_ready", "value": false }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "selene_communis",
+    "name": "Selene",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "UMBRAE",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Selene-communis.png",
+    "stats": { "vit": 5, "imp": 1, "def": 1, "vel": 6 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Spezie d'Oriente",
+        "text": "Le unità UMBRAE adiacenti hanno +1 VIT.",
+        "rules": {
+          "trigger": "AURA",
+          "condition": { "op": "ADJACENT_ALLIES_MATCH", "faction": "UMBRAE" },
+          "script": [
+            { "op": "MODIFY_STAT", "target": "ALLY_ADJACENT_MATCH", "stat": "vit", "amount": 1, "mode": "ADD" }
+          ]
         }
-      ]
-    },
-    {
-      "id": "akhom_rara",
-      "name": "Akhom",
-      "type": "unit",
-      "rarity": "rara",
-      "faction": "DOMUS",
-      "classes": ["PUGNATOR"],
-      "image": "cards/Akhom-rara.png",
-      "stats": { "vit": 9, "imp": 5, "def": 2, "vel": 3 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Guardia Giurata",
-          "text": "Se Claudia Rufa è in campo, Akhom ha +1 DEF e intercetta tutti gli attacchi diretti a lei."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Ira Incatenata",
-          "limit": "CD 1",
-          "text": "Akhom perde 2 VIT, ma il suo prossimo attacco infligge +2 IMP e ignora DEF."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Contatti al Porto",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Pesca 1 carta. Se è un'unità UMBRAE o DOMUS Communis, puoi schierarla immediatamente senza spendere Azione Comando.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "NONE" },
+          "script": [
+            { "op": "DRAW", "amount": 1, "storeAs": "drawnCard" },
+            {
+              "op": "IF",
+              "condition": {
+                "op": "AND",
+                "args": [
+                  { "op": "CARD_IS_UNIT", "cardRef": "drawnCard" },
+                  { "op": "CARD_RARITY_IN", "cardRef": "drawnCard", "rarityIn": ["communis"] },
+                  { "op": "CARD_FACTION_IN", "cardRef": "drawnCard", "factionIn": ["UMBRAE", "DOMUS"] }
+                ]
+              },
+              "then": [
+                { "op": "ALLOW_FREE_DEPLOY_OF_CARD", "cardRef": "drawnCard", "duration": "IMMEDIATE_ONLY" }
+              ],
+              "else": []
+            }
+          ]
         }
-      ]
-    },
-    {
-      "id": "aela_rara",
-      "name": "Aela",
-      "type": "unit",
-      "rarity": "rara",
-      "faction": "HELVETII",
-      "classes": ["SPECULATOR"],
-      "image": "cards/Aela-rara.png",
-      "stats": { "vit": 7, "imp": 4, "def": 1, "vel": 5 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Tra i rami",
-          "text": "Anche se è in seconda linea può attaccare la prima linea nemica."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Movimento silenzioso",
-          "limit": "CD 3",
-          "text": "Aela quando attacca ignora la DEF nemica."
+      }
+    ]
+  },
+  {
+    "id": "livia_communis",
+    "name": "Livia",
+    "type": "unit",
+    "rarity": "communis",
+    "faction": "UMBRAE",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Livia-communis.png",
+    "stats": { "vit": 4, "imp": 1, "def": 2, "vel": 5 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Tra la Folla",
+        "text": "Finché Livia è in seconda linea, non può essere bersagliata da abilità nemiche.",
+        "rules": {
+          "trigger": "RULE_MOD",
+          "condition": { "op": "SELF_IN_ZONE", "zone": "BACKLINE" },
+          "script": [{ "op": "UNTARGETABLE_BY_ENEMY_ABILITIES", "target": "SELF" }]
         }
-      ]
-    },
-    {
-      "id": "brennos_rara",
-      "name": "Brennos",
-      "type": "unit",
-      "rarity": "rara",
-      "faction": "HELVETII",
-      "classes": ["RITUS"],
-      "image": "cards/Brennos-rara.png",
-      "stats": { "vit": 7, "imp": 2, "def": 3, "vel": 3 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Spirito della foresta",
-          "text": "Tutte le unità HELVETII Ferite recuperano 1 VIT a inizio turno."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Canale rituale",
-          "limit": "CD 1",
-          "text": "Trasferisci fino a 3 VIT da Brennos a un'unità HELVETII alleata."
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Voci del Foro",
+        "text": "Scarta 2 carte e pescane 3 dal tuo mazzo.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "NONE" },
+          "script": [
+            { "op": "DISCARD_FROM_HAND", "amount": 2, "mode": "CHOOSE" },
+            { "op": "DRAW", "amount": 3 }
+          ]
         }
-      ]
-    },
-    {
-      "id": "sairika_rara",
-      "name": "Sairika",
-      "type": "unit",
-      "rarity": "rara",
-      "faction": "HELVETII",
-      "classes": ["PUGNATOR"],
-      "image": "cards/Sairika-rara.png",
-      "stats": { "vit": 8, "imp": 4, "def": 1, "vel": 3 },
-      "abilities": [
-        {
-          "slot": 1,
-          "type": "passive",
-          "name": "Paura negli occhi",
-          "text": "Le unità nemiche con STATUS Ferito infliggono -2 IMP."
-        },
-        {
-          "slot": 2,
-          "type": "active",
-          "name": "Predatrice scatenata",
-          "limit": "CD 1",
-          "text": "Quando Sairika attacca una unità LEGIO infligge STATUS Ferito e ha +2 IMP."
+      }
+    ]
+  },
+{
+    "id": "claudia_rufa_rara",
+    "name": "Claudia Rufa",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "DOMUS",
+    "classes": ["DUX"],
+    "image": "cards/Claudia-rara.png",
+    "stats": { "vit": 6, "imp": 1, "def": 3, "vel": 5 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Lingua Sciolta",
+        "text": "Quando Claudia Rufa entra in campo, scegli una carta nella mano avversaria. L’avversario deve rivelarla. Se è una carta Pactum, viene scartata.",
+        "rules": {
+          "trigger": "ON_DEPLOY",
+          "script": [
+            {
+              "op": "CHOOSE_TARGET",
+              "targeting": { "mode": "CHOOSE_CARD_FROM_HAND", "who": "OPPONENT", "count": 1 },
+              "storeAs": "c1"
+            },
+            { "op": "REVEAL_CARD", "cardRef": "c1", "to": "ALL" },
+            {
+              "op": "IF",
+              "condition": { "op": "CARD_TYPE_IS", "cardRef": "c1", "type": "PACTUM" },
+              "then": [{ "op": "DISCARD_CARD_FROM_HAND", "who": "OPPONENT", "cardRef": "c1" }],
+              "else": []
+            }
+          ]
         }
-      ]
-    },
-     {
-  "id": "giulio_aquila_rara",
-  "name": "Giulio Aquila",
-  "type": "unit",
-  "rarity": "rara",
-  "faction": "LEGIO",
-  "classes": ["PUGNATOR"],
-  "image": "cards/Aquila-rara.png",
-  "stats": { "vit": 9, "imp": 2, "def": 3, "vel": 3 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "passive",
-      "name": "Protezione di Diana",
-      "text": "Tutte le unità LEGIO in prima linea ottengono +1 DEF."
-    },
-    {
-      "slot": 2,
-      "type": "active",
-      "name": "Disciplina del Limes",
-      "text": "Applica STATUS Ferito ad un Pugnator alleato. Giulio Aquila +2 IMP per questo turno."
-    }
-  ]
-},
-{
-  "id": "cornelio_aristo_rara",
-  "name": "Cornelio Aristo",
-  "type": "unit",
-  "rarity": "rara",
-  "faction": "LEGIO",
-  "classes": ["AUXILIUM"],
-  "image": "cards/Aristo-rara.png",
-  "stats": { "vit": 7, "imp": 2, "def": 3, "vel": 3 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "passive",
-      "name": "Tenda Medica",
-      "text": "Le unità LEGIO in prima linea hanno +1 VIT e +1 DEF."
-    },
-    {
-      "slot": 2,
-      "type": "active",
-      "name": "Cure Urgenti",
-      "limit": "CD 2",
-      "text": "Scegli un’unità LEGIO e rimuovi STATUS Ferito. Recupera anche 3 VIT."
-    }
-  ]
-},
-{
-  "id": "tito_flavio_macro_rara",
-  "name": "Tito Flavio Macro",
-  "type": "unit",
-  "rarity": "rara",
-  "faction": "LEGIO",
-  "classes": ["PUGNATOR"],
-  "image": "cards/Macro-rara.png",
-  "stats": { "vit": 11, "imp": 4, "def": 5, "vel": 2 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "passive",
-      "name": "Disciplina del Castrum",
-      "text": "Finché Tito Flavio Macro è in prima linea, le unità LEGIO nella stessa colonna hanno +1 DEF +1 IMP. Le unità LEGIO adiacenti sono immuni a Prigioniero."
-    },
-    {
-      "slot": 2,
-      "type": "active",
-      "name": "Addestramento Forzato",
-      "limit": "CD 2",
-      "text": "Scegli un’unità LEGIO in campo. Quella unità ottiene +2 IMP fino alla fine del turno. Se è anche adiacente a Tito Flavio Macro, ottiene anche +1 DEF."
-    }
-  ]
-},
-{
-  "id": "minervina_rara",
-  "name": "Minervina",
-  "type": "unit",
-  "rarity": "rara",
-  "faction": "LEGIO",
-  "classes": ["AUXILIUM"],
-  "image": "cards/Minervina-rara.png",
-  "stats": { "vit": 6, "imp": 2, "def": 2, "vel": 6 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "passive",
-      "name": "Figlia del Fabbro",
-      "text": "Quando un’unità LEGIO alleata riceve un potenziamento, dura 1 turno in più."
-    },
-    {
-      "slot": 2,
-      "type": "active",
-      "name": "Strumenti Affilati",
-      "limit": "CD 2",
-      "text": "Scegli un’unità LEGIO alleata. Quella unità ha +2 IMP fino alla fine del turno."
-    }
-  ]
-},
-{
-  "id": "tito_silano_rara",
-  "name": "Tito Silano",
-  "type": "unit",
-  "rarity": "rara",
-  "faction": "LEGIO",
-  "classes": ["SPECULATOR"],
-  "image": "cards/Silano-rara.png",
-  "stats": { "vit": 7, "imp": 4, "def": 2, "vel": 5 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "passive",
-      "name": "Doppio Gioco",
-      "text": "Tito Silano riceve tutti i benefici da abilità ed Eventi DOMUS come se facesse parte di quella fazione."
-    },
-    {
-      "slot": 2,
-      "type": "active",
-      "name": "Accordo nell’Ombra",
-      "limit": "CD 2",
-      "text": "Scegli un’unità nemica. Se una unità DOMUS è in campo, applica Corrotto a quell’unità e Tito Silano guadagna +1 IMP permanente."
-    }
-  ]
-},
-{
-  "id": "selene_rara",
-  "name": "Selene",
-  "type": "unit",
-  "rarity": "rara",
-  "faction": "UMBRAE",
-  "classes": ["AUXILIUM", "SPECULATOR"],
-  "image": "cards/Selene-rara.png",
-  "stats": { "vit": 7, "imp": 1, "def": 2, "vel": 7 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "passive",
-      "name": "La Mercante sa Tutto",
-      "text": "Ogni volta che un'unità nemica entra in campo, guarda una carta casuale dalla mano avversaria."
-    },
-    {
-      "slot": 2,
-      "type": "active",
-      "name": "Doppio Gioco",
-      "limit": "CD 3",
-      "text": "Se hai due unità Speculator in campo, guarda una carta casuale nella mano del tuo avversario, poi rimettila in cima al suo mazzo."
-    }
-  ]
-},
-{
-  "id": "livia_rara",
-  "name": "Livia",
-  "type": "unit",
-  "rarity": "rara",
-  "faction": "UMBRAE",
-  "classes": ["AUXILIUM"],
-  "image": "cards/Livia-rara.png",
-  "stats": { "vit": 6, "imp": 2, "def": 3, "vel": 5 },
-  "abilities": [
-    {
-      "slot": 1,
-      "type": "passive",
-      "name": "Sguardo Felino",
-      "text": "Le unità nemiche con STATUS Marchiato hanno -2 VEL."
-    },
-    {
-      "slot": 2,
-      "type": "active",
-      "name": "Carezza Insidiosa",
-      "limit": "1 volta per partita",
-      "text": "Scegli una unità. Se quell'unità ha uno STATUS negativo, pesca 1 carta. Se non lo ha, applica STATUS Marchiato."
-    }
-  ]
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Vino e Segreti",
+        "text": "Scarta una carta dalla tua mano per applicare STATUS Corrotto a un’unità nemica.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "cost": { "op": "DISCARD_FROM_HAND", "amount": 1, "mode": "CHOOSE" },
+          "targeting": { "mode": "CHOOSE", "who": "ENEMY", "zone": "ANY" },
+          "script": [{ "op": "APPLY_STATUS", "target": "TARGET", "status": "CORROTTO" }]
+        }
+      }
+    ]
+  },
+  {
+    "id": "marcello_rara",
+    "name": "Marcello",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "DOMUS",
+    "classes": ["DUX"],
+    "image": "cards/Marcello-rara.png",
+    "stats": { "vit": 7, "imp": 2, "def": 2, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Rete Fondiaria",
+        "text": "Ogni volta che un’unità DOMUS viene eliminata, puoi pescare 1 carta. Se era una Communis, applica STATUS Corrotto all’unità nemica che ha causato l’eliminazione.",
+        "rules": {
+          "trigger": "ON_ALLY_ELIMINATED",
+          "condition": { "op": "ALLY_MATCH", "faction": "DOMUS" },
+          "script": [
+            { "op": "DRAW", "amount": 1 },
+            {
+              "op": "IF",
+              "condition": {
+                "op": "AND",
+                "args": [
+                  { "op": "ELIMINATED_ALLY_RARITY_IS", "rarity": "communis" },
+                  { "op": "ELIMINATION_HAS_SOURCE_ENEMY_UNIT" }
+                ]
+              },
+              "then": [
+                { "op": "APPLY_STATUS", "target": "ELIMINATION_SOURCE_UNIT", "status": "CORROTTO" }
+              ],
+              "else": []
+            }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Centralizzazione",
+        "text": "Sacrifica un’unità DOMUS Communis. Un’unità nemica a tua scelta non può usare l’abilità attiva il prossimo turno.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": [
+            { "id": "s1", "mode": "CHOOSE", "who": "ALLY", "faction": "DOMUS", "rarity": "communis", "zone": "ANY" },
+            { "id": "t1", "mode": "CHOOSE", "who": "ENEMY", "zone": "ANY" }
+          ],
+          "script": [
+            { "op": "SACRIFICE", "target": "s1" },
+            { "op": "PREVENT_ACTIVE", "target": "t1", "duration": "UNTIL_OPPONENT_TURN_END" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "akhom_rara",
+    "name": "Akhom",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "DOMUS",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Akhom-rara.png",
+    "stats": { "vit": 9, "imp": 5, "def": 2, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Guardia Giurata",
+        "text": "Se Claudia Rufa è in campo, Akhom ha +1 DEF e intercetta tutti gli attacchi diretti a lei.",
+        "rules": [
+          {
+            "trigger": "AURA",
+            "condition": { "op": "ALLY_IN_PLAY", "nameId": "claudia_rufa" },
+            "script": [{ "op": "MODIFY_STAT", "target": "SELF", "stat": "def", "amount": 1, "mode": "ADD" }]
+          },
+          {
+            "trigger": "ON_ATTACK_DECLARE",
+            "condition": {
+              "op": "AND",
+              "args": [
+                { "op": "ALLY_IN_PLAY", "nameId": "claudia_rufa" },
+                { "op": "ATTACK_TARGET_NAMEID_IS", "nameId": "claudia_rufa" }
+              ]
+            },
+            "script": [{ "op": "REDIRECT_ATTACK_TO_SELF" }]
+          }
+        ]
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Ira Incatenata",
+        "limit": "CD 1",
+        "cd": 1,
+        "text": "Akhom perde 2 VIT, ma il suo prossimo attacco infligge +2 IMP e ignora DEF.",
+        "rules": [
+          {
+            "trigger": "ACTIVE_MANUAL",
+            "script": [
+              { "op": "DAMAGE", "target": "SELF", "amount": 2 },
+              { "op": "SET_FLAG", "key": "akhom_ira_ready", "value": true, "duration": "UNTIL_USED" }
+            ]
+          },
+          {
+            "trigger": "ON_ATTACK_DECLARE",
+            "condition": { "op": "FLAG_IS_TRUE", "key": "akhom_ira_ready" },
+            "script": [
+              {
+                "op": "ADD_ATTACK_MOD",
+                "source": "SELF",
+                "mod": { "impBonus": 2, "ignoreDef": true },
+                "duration": "THIS_ATTACK_ONLY"
+              },
+              { "op": "SET_FLAG", "key": "akhom_ira_ready", "value": false }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "aela_rara",
+    "name": "Aela",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "HELVETII",
+    "classes": ["SPECULATOR"],
+    "image": "cards/Aela-rara.png",
+    "stats": { "vit": 7, "imp": 4, "def": 1, "vel": 5 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Tra i rami",
+        "text": "Anche se è in seconda linea può attaccare la prima linea nemica.",
+        "rules": {
+          "trigger": "RULE_MOD",
+          "script": [{ "op": "ALLOW_ATTACK_FROM_BACKLINE", "source": "SELF", "allowedTargets": "ENEMY_FRONTLINE" }]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Movimento silenzioso",
+        "limit": "CD 3",
+        "cd": 3,
+        "text": "Aela quando attacca ignora la DEF nemica.",
+        "rules": [
+          {
+            "trigger": "ACTIVE_MANUAL",
+            "script": [{ "op": "SET_FLAG", "key": "aela_silent_ready", "value": true, "duration": "UNTIL_END_OF_TURN" }]
+          },
+          {
+            "trigger": "ON_ATTACK_DECLARE",
+            "condition": { "op": "FLAG_IS_TRUE", "key": "aela_silent_ready" },
+            "script": [
+              { "op": "ADD_ATTACK_MOD", "source": "SELF", "mod": { "ignoreDef": true }, "duration": "THIS_ATTACK_ONLY" }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "brennos_rara",
+    "name": "Brennos",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "HELVETII",
+    "classes": ["RITUS"],
+    "image": "cards/Brennos-rara.png",
+    "stats": { "vit": 7, "imp": 2, "def": 3, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Spirito della foresta",
+        "text": "Tutte le unità HELVETII Ferite recuperano 1 VIT a inizio turno.",
+        "rules": {
+          "trigger": "TURN_START_SELF",
+          "script": [
+            {
+              "op": "HEAL",
+              "target": "ALL_ALLIES_FILTERED",
+              "filter": { "faction": "HELVETII", "hasStatus": "FERITO" },
+              "amount": 1
+            }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Canale rituale",
+        "limit": "CD 1",
+        "cd": 1,
+        "text": "Trasferisci fino a 3 VIT da Brennos a un'unità HELVETII alleata.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": [
+            { "id": "t1", "mode": "CHOOSE", "who": "ALLY", "faction": "HELVETII", "zone": "ANY" },
+            { "id": "x", "mode": "CHOOSE_NUMBER", "min": 1, "max": 3 }
+          ],
+          "script": [
+            { "op": "DAMAGE", "target": "SELF", "amount": { "ref": "x" } },
+            { "op": "HEAL", "target": "t1", "amount": { "ref": "x" } }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "sairika_rara",
+    "name": "Sairika",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "HELVETII",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Sairika-rara.png",
+    "stats": { "vit": 8, "imp": 4, "def": 1, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Paura negli occhi",
+        "text": "Le unità nemiche con STATUS Ferito infliggono -2 IMP.",
+        "rules": {
+          "trigger": "AURA",
+          "script": [
+            {
+              "op": "MODIFY_STAT",
+              "target": "ALL_ENEMIES_FILTERED",
+              "filter": { "hasStatus": "FERITO" },
+              "stat": "imp",
+              "amount": -2,
+              "mode": "ADD"
+            }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Predatrice scatenata",
+        "limit": "CD 1",
+        "cd": 1,
+        "text": "Quando Sairika attacca una unità LEGIO infligge STATUS Ferito e ha +2 IMP.",
+        "rules": [
+          {
+            "trigger": "ACTIVE_MANUAL",
+            "script": [{ "op": "SET_FLAG", "key": "sairika_scatenata_ready", "value": true, "duration": "UNTIL_USED" }]
+          },
+          {
+            "trigger": "ON_ATTACK_DECLARE",
+            "condition": {
+              "op": "AND",
+              "args": [
+                { "op": "FLAG_IS_TRUE", "key": "sairika_scatenata_ready" },
+                { "op": "TARGET_IS_ENEMY" },
+                { "op": "TARGET_FACTION_IS", "faction": "LEGIO" }
+              ]
+            },
+            "script": [
+              { "op": "ADD_ATTACK_MOD", "source": "SELF", "mod": { "impBonus": 2 }, "duration": "THIS_ATTACK_ONLY" }
+            ]
+          },
+          {
+            "trigger": "ON_ATTACK_HIT",
+            "condition": {
+              "op": "AND",
+              "args": [
+                { "op": "FLAG_IS_TRUE", "key": "sairika_scatenata_ready" },
+                { "op": "TARGET_FACTION_IS", "faction": "LEGIO" }
+              ]
+            },
+            "script": [
+              { "op": "APPLY_STATUS", "target": "TARGET", "status": "FERITO" },
+              { "op": "SET_FLAG", "key": "sairika_scatenata_ready", "value": false }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "giulio_aquila_rara",
+    "name": "Giulio Aquila",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "LEGIO",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Aquila-rara.png",
+    "stats": { "vit": 9, "imp": 2, "def": 3, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Protezione di Diana",
+        "text": "Tutte le unità LEGIO in prima linea ottengono +1 DEF.",
+        "rules": {
+          "trigger": "AURA",
+          "script": [
+            {
+              "op": "MODIFY_STAT",
+              "target": "ALL_ALLIES_FILTERED",
+              "filter": { "faction": "LEGIO", "zone": "FRONTLINE" },
+              "stat": "def",
+              "amount": 1,
+              "mode": "ADD"
+            }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Disciplina del Limes",
+        "text": "Applica STATUS Ferito ad un Pugnator alleato. Giulio Aquila +2 IMP per questo turno.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ALLY", "classes": ["PUGNATOR"], "zone": "ANY" },
+          "script": [
+            { "op": "APPLY_STATUS", "target": "TARGET", "status": "FERITO" },
+            { "op": "MODIFY_STAT", "target": "SELF", "stat": "imp", "amount": 2, "mode": "ADD", "duration": "UNTIL_END_OF_TURN" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "cornelio_aristo_rara",
+    "name": "Cornelio Aristo",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "LEGIO",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Aristo-rara.png",
+    "stats": { "vit": 7, "imp": 2, "def": 3, "vel": 3 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Tenda Medica",
+        "text": "Le unità LEGIO in prima linea hanno +1 VIT e +1 DEF.",
+        "rules": {
+          "trigger": "AURA",
+          "script": [
+            {
+              "op": "MODIFY_STAT",
+              "target": "ALL_ALLIES_FILTERED",
+              "filter": { "faction": "LEGIO", "zone": "FRONTLINE" },
+              "stat": "vit",
+              "amount": 1,
+              "mode": "ADD"
+            },
+            {
+              "op": "MODIFY_STAT",
+              "target": "ALL_ALLIES_FILTERED",
+              "filter": { "faction": "LEGIO", "zone": "FRONTLINE" },
+              "stat": "def",
+              "amount": 1,
+              "mode": "ADD"
+            }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Cure Urgenti",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Scegli un’unità LEGIO e rimuovi STATUS Ferito. Recupera anche 3 VIT.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ALLY", "faction": "LEGIO", "zone": "ANY" },
+          "script": [
+            { "op": "REMOVE_STATUS", "target": "TARGET", "status": "FERITO" },
+            { "op": "HEAL", "target": "TARGET", "amount": 3 }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tito_flavio_macro_rara",
+    "name": "Tito Flavio Macro",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "LEGIO",
+    "classes": ["PUGNATOR"],
+    "image": "cards/Macro-rara.png",
+    "stats": { "vit": 11, "imp": 4, "def": 5, "vel": 2 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Disciplina del Castrum",
+        "text": "Finché Tito Flavio Macro è in prima linea, le unità LEGIO nella stessa colonna hanno +1 DEF +1 IMP. Le unità LEGIO adiacenti sono immuni a Prigioniero.",
+        "rules": [
+          {
+            "trigger": "AURA",
+            "condition": { "op": "SELF_IN_ZONE", "zone": "FRONTLINE" },
+            "script": [
+              {
+                "op": "MODIFY_STAT",
+                "target": "ALL_ALLIES_FILTERED",
+                "filter": { "faction": "LEGIO", "sameColumnAsSelf": true },
+                "stat": "def",
+                "amount": 1,
+                "mode": "ADD"
+              },
+              {
+                "op": "MODIFY_STAT",
+                "target": "ALL_ALLIES_FILTERED",
+                "filter": { "faction": "LEGIO", "sameColumnAsSelf": true },
+                "stat": "imp",
+                "amount": 1,
+                "mode": "ADD"
+              }
+            ]
+          },
+          {
+            "trigger": "AURA",
+            "script": [
+              {
+                "op": "IMMUNITY_STATUS",
+                "target": "ALL_ALLIES_FILTERED",
+                "filter": { "faction": "LEGIO", "adjacentToSelf": true },
+                "status": "PRIGIONIERO"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Addestramento Forzato",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Scegli un’unità LEGIO in campo. Quella unità ottiene +2 IMP fino alla fine del turno. Se è anche adiacente a Tito Flavio Macro, ottiene anche +1 DEF.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ALLY", "faction": "LEGIO", "zone": "ANY" },
+          "script": [
+            { "op": "MODIFY_STAT", "target": "TARGET", "stat": "imp", "amount": 2, "mode": "ADD", "duration": "UNTIL_END_OF_TURN" },
+            {
+              "op": "IF",
+              "condition": { "op": "TARGET_IS_ADJACENT_TO_SELF" },
+              "then": [
+                { "op": "MODIFY_STAT", "target": "TARGET", "stat": "def", "amount": 1, "mode": "ADD", "duration": "UNTIL_END_OF_TURN" }
+              ],
+              "else": []
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "minervina_rara",
+    "name": "Minervina",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "LEGIO",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Minervina-rara.png",
+    "stats": { "vit": 6, "imp": 2, "def": 2, "vel": 6 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Figlia del Fabbro",
+        "text": "Quando un’unità LEGIO alleata riceve un potenziamento, dura 1 turno in più.",
+        "rules": {
+          "trigger": "RULE_MOD",
+          "script": [
+            {
+              "op": "EXTEND_BUFF_DURATION",
+              "who": "ALLY",
+              "filter": { "faction": "LEGIO" },
+              "extraTurns": 1
+            }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Strumenti Affilati",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Scegli un’unità LEGIO alleata. Quella unità ha +2 IMP fino alla fine del turno.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ALLY", "faction": "LEGIO", "zone": "ANY" },
+          "script": [
+            { "op": "MODIFY_STAT", "target": "TARGET", "stat": "imp", "amount": 2, "mode": "ADD", "duration": "UNTIL_END_OF_TURN" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "tito_silano_rara",
+    "name": "Tito Silano",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "LEGIO",
+    "classes": ["SPECULATOR"],
+    "image": "cards/Silano-rara.png",
+    "stats": { "vit": 7, "imp": 4, "def": 2, "vel": 5 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Doppio Gioco",
+        "text": "Tito Silano riceve tutti i benefici da abilità ed Eventi DOMUS come se facesse parte di quella fazione.",
+        "rules": {
+          "trigger": "RULE_MOD",
+          "script": [
+            { "op": "TREAT_AS_FACTION_FOR_EFFECTS", "target": "SELF", "faction": "DOMUS" }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Accordo nell’Ombra",
+        "limit": "CD 2",
+        "cd": 2,
+        "text": "Scegli un’unità nemica. Se una unità DOMUS è in campo, applica Corrotto a quell’unità e Tito Silano guadagna +1 IMP permanente.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ENEMY", "zone": "ANY" },
+          "script": [
+            {
+              "op": "IF",
+              "condition": { "op": "CONTROL_AT_LEAST", "count": 1, "who": "ALLY", "faction": "DOMUS" },
+              "then": [
+                { "op": "APPLY_STATUS", "target": "TARGET", "status": "CORROTTO" },
+                { "op": "MODIFY_STAT", "target": "SELF", "stat": "imp", "amount": 1, "mode": "ADD", "duration": "PERMANENT" }
+              ],
+              "else": []
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "selene_rara",
+    "name": "Selene",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "UMBRAE",
+    "classes": ["AUXILIUM", "SPECULATOR"],
+    "image": "cards/Selene-rara.png",
+    "stats": { "vit": 7, "imp": 1, "def": 2, "vel": 7 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "La Mercante sa Tutto",
+        "text": "Ogni volta che un'unità nemica entra in campo, guarda una carta casuale dalla mano avversaria.",
+        "rules": {
+          "trigger": "ON_ENEMY_DEPLOY",
+          "script": [{ "op": "PEEK_HAND_RANDOM", "who": "OPPONENT", "count": 1, "revealTo": "SELF" }]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Doppio Gioco",
+        "limit": "CD 3",
+        "cd": 3,
+        "text": "Se hai due unità Speculator in campo, guarda una carta casuale nella mano del tuo avversario, poi rimettila in cima al suo mazzo.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "condition": { "op": "CONTROL_AT_LEAST", "count": 2, "who": "ALLY", "classes": ["SPECULATOR"] },
+          "targeting": { "mode": "RANDOM_CARD_FROM_HAND", "who": "OPPONENT", "count": 1, "storeAs": "c1" },
+          "script": [
+            { "op": "REVEAL_CARD", "cardRef": "c1", "to": "SELF" },
+            { "op": "MOVE_CARD_FROM_HAND_TO_DECK_TOP", "who": "OPPONENT", "cardRef": "c1" }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "livia_rara",
+    "name": "Livia",
+    "type": "unit",
+    "rarity": "rara",
+    "faction": "UMBRAE",
+    "classes": ["AUXILIUM"],
+    "image": "cards/Livia-rara.png",
+    "stats": { "vit": 6, "imp": 2, "def": 3, "vel": 5 },
+    "abilities": [
+      {
+        "slot": 1,
+        "type": "passive",
+        "name": "Sguardo Felino",
+        "text": "Le unità nemiche con STATUS Marchiato hanno -2 VEL.",
+        "rules": {
+          "trigger": "AURA",
+          "script": [
+            {
+              "op": "MODIFY_STAT",
+              "target": "ALL_ENEMIES_FILTERED",
+              "filter": { "hasStatus": "MARCHIATO" },
+              "stat": "vel",
+              "amount": -2,
+              "mode": "ADD"
+            }
+          ]
+        }
+      },
+      {
+        "slot": 2,
+        "type": "active",
+        "name": "Carezza Insidiosa",
+        "limit": "1 volta per partita",
+        "uses": { "perGame": 1 },
+        "text": "Scegli una unità. Se quell'unità ha uno STATUS negativo, pesca 1 carta. Se non lo ha, applica STATUS Marchiato.",
+        "rules": {
+          "trigger": "ACTIVE_MANUAL",
+          "targeting": { "mode": "CHOOSE", "who": "ANY_UNIT", "zone": "ANY" },
+          "script": [
+            {
+              "op": "IF",
+              "condition": { "op": "TARGET_HAS_ANY_NEGATIVE_STATUS" },
+              "then": [{ "op": "DRAW", "amount": 1 }],
+              "else": [{ "op": "APPLY_STATUS", "target": "TARGET", "status": "MARCHIATO" }]
+            }
+          ]
+        }
+      }
+    ]
 },
 {
       "id": "lucio_valerio_messalla_insignis",
@@ -2196,4 +3089,4 @@
   ]
 }
 ]
-  }
+}
