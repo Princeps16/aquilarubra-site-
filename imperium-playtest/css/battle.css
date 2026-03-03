@@ -1028,3 +1028,50 @@
 }
 
 .card.selected { outline: 3px solid gold; transform: scale(1.03); }
+
+/* =========================
+   HUD MOBILE (modal centrato)
+========================= */
+@media (max-width: 768px) {
+  /* overlay: blocca click sotto e centra visivamente */
+  #actionHud.is-open {
+    position: fixed;
+    inset: 0;
+    display: block;
+    background: rgba(0,0,0,.55);
+    z-index: 9999;
+  }
+
+  /* pannello: sempre visibile, centrato, compatto */
+  #actionHud .hud__panel {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+
+    width: min(420px, calc(100vw - 24px)) !important;
+    max-height: min(72vh, 520px) !important;
+
+    overflow: auto !important;
+    -webkit-overflow-scrolling: touch;
+
+    border-radius: 16px;
+  }
+
+  /* stats row più compatta (se hai layout a pillole) */
+  #actionHud .hud__stat {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+
+  #actionHud .hud__ability {
+    padding: 10px;
+  }
+
+  /* chiusura sempre raggiungibile */
+  #hudClose {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+}
