@@ -980,3 +980,49 @@
   box-shadow: 0 30px 100px rgba(0,0,0,.8);
   border: 1px solid rgba(255,255,255,.15);
 }
+
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
+
+@media (max-width: 768px) {
+
+  .board {
+    padding: 8px;
+  }
+
+  .player-area {
+    gap: 6px;
+  }
+
+  .row {
+    gap: 6px;
+  }
+
+  .slot {
+    width: 30%;
+    aspect-ratio: 3 / 4;
+    min-height: auto;
+  }
+
+  .card {
+    transform: scale(0.85);
+  }
+
+  .hand {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 8px 4px;
+  }
+
+  .hand .card {
+    min-width: 120px;
+    transform: scale(1);
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+}
