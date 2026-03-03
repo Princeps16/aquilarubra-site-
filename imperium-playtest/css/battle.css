@@ -1026,3 +1026,5 @@
   }
 
 }
+
+.card.selected { outline: 3px solid gold; transform: scale(1.03); }
