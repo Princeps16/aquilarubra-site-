@@ -15,6 +15,9 @@ let MODE = null;
 let SELECTED_UID = null;
 let SELECTED_CARD_ID = null; // inspect mode for hand cards
 
+// Mobile deploy selection (tap-to-place)
+let SELECTED_HAND = null; // { owner, handIndex, cardId } | null
+
 /* =========================
    DOM helpers
    ========================= */
@@ -59,6 +62,12 @@ function isMyTurn(owner) {
   return owner === STATE.activePlayer && STATE.winner === null;
 }
 
+function isTouchLikeEvent(e) {
+  // pointerType exists on PointerEvent; fallback to coarse pointer heuristics
+  return (e && typeof e.pointerType === "string" && e.pointerType !== "mouse")
+    || (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
+}
+
 /* =========================
    Topbar status (Turno — Player — Fase — Gloria)
    ========================= */
@@ -79,9 +88,9 @@ function updateTurnLine() {
     `Turno <strong>${STATE.turn}</strong> — ` +
     `Player <strong>P${STATE.activePlayer}</strong> — ` +
     `Fase <strong>${STATE.phase}</strong> — ` +
-    `Gloria P0:<strong>${g0}</strong> · P1:<strong>${g1}</strong>`;  updateCommandPips();
+    `Gloria P0:<strong>${g0}</strong> · P1:<strong>${g1}</strong>`;
+  updateCommandPips();
 }
-
 
 function updateCommandPips() {
   const host = document.getElementById("commandPips");
@@ -106,8 +115,6 @@ function updateCommandPips() {
   host.innerHTML = mk(0) + mk(1);
 }
 
-
-
 /* =========================
    Render
    ========================= */
@@ -126,6 +133,13 @@ function renderAll() {
     highlightAbilityTargets(MODE);
   } else {
     clearHighlights();
+  }
+
+  // Mobile: highlight slot validi se ho una carta selezionata
+  if (SELECTED_HAND) {
+    highlightDeploySlotsForSelected();
+  } else {
+    clearSlotHighlights();
   }
 
   if (SELECTED_UID) {
@@ -154,6 +168,11 @@ function renderHand(pIndex) {
     cardEl.dataset.type = card.type;
     cardEl.dataset.handIndex = String(handIndex);
     cardEl.dataset.owner = String(pIndex);
+
+    // selected state (mobile tap-to-place)
+    if (SELECTED_HAND && SELECTED_HAND.owner === pIndex && SELECTED_HAND.handIndex === handIndex) {
+      cardEl.classList.add("selected");
+    }
 
     const img = document.createElement("img");
     img.src = card.image?.startsWith("data/") ? card.image : `data/${card.image}`;
@@ -266,6 +285,7 @@ function endTurn() {
   STATE = applyAction(STATE, { type: "END_TURN", player: STATE.activePlayer });
   MODE = null;
   clearHighlights();
+  clearSelectedHand();
   renderAll();
 
   if (SELECTED_UID) openHud(SELECTED_UID);
@@ -299,6 +319,7 @@ function initHud() {
     if (e.key === "Escape") {
       MODE = null;
       clearHighlights();
+      clearSelectedHand();
       closeHud();
       hidePreview();
       renderAll();
@@ -317,6 +338,7 @@ function initHud() {
       if (STATE.phase !== "COMMAND") return;
       STATE = applyAction(STATE, { type: "TO_ATTACK_PHASE", player: STATE.activePlayer });
       MODE = null;
+      clearSelectedHand();
       renderAll();
       return;
     }
@@ -326,34 +348,35 @@ function initHud() {
       if (STATE.phase !== "ATTACK") return;
       STATE = applyAction(STATE, { type: "RESOLVE_ATTACKS", player: STATE.activePlayer });
       MODE = null;
+      clearSelectedHand();
       renderAll();
       return;
     }
 
-const queueBtn = e.target.closest("[data-action='queue-attack']");
-if (queueBtn) {
-  if (!isMyTurn(unit.owner)) return;
+    const queueBtn = e.target.closest("[data-action='queue-attack']");
+    if (queueBtn) {
+      if (!isMyTurn(unit.owner)) return;
 
-  // AUTO: se sei in COMMAND, passa subito in ATTACK
-  if (STATE.phase === "COMMAND") {
-    STATE = applyAction(STATE, { type: "TO_ATTACK_PHASE", player: STATE.activePlayer });
-  }
-  if (STATE.phase !== "ATTACK") return;
+      // AUTO: se sei in COMMAND, passa subito in ATTACK
+      if (STATE.phase === "COMMAND") {
+        STATE = applyAction(STATE, { type: "TO_ATTACK_PHASE", player: STATE.activePlayer });
+      }
+      if (STATE.phase !== "ATTACK") return;
 
-  const card = getCardById(unit.cardId); // FIX: prima era undefined
-  const targets = getValidAttackTargets(STATE, unit.uid);
+      const card = getCardById(unit.cardId);
+      const targets = getValidAttackTargets(STATE, unit.uid);
 
-  if (!targets.length) {
-    STATE.log.push(`Nessun bersaglio valido per l'attacco (${card?.name || unit.cardId}).`);
-    renderAll();
-    return;
-  }
+      if (!targets.length) {
+        STATE.log.push(`Nessun bersaglio valido per l'attacco (${card?.name || unit.cardId}).`);
+        renderAll();
+        return;
+      }
 
-  STATE.log.push(`Seleziona un bersaglio: ${card?.name || unit.cardId}`);
-  MODE = { kind: "QUEUE_ATTACK", attackerUid: unit.uid };
-  renderAll();
-  return;
-}
+      STATE.log.push(`Seleziona un bersaglio: ${card?.name || unit.cardId}`);
+      MODE = { kind: "QUEUE_ATTACK", attackerUid: unit.uid };
+      renderAll();
+      return;
+    }
 
     const cancelBtn = e.target.closest("[data-action='cancel']");
     if (cancelBtn) {
@@ -416,7 +439,6 @@ function openCardHud(cardId) {
   SELECTED_UID = null;
   SELECTED_CARD_ID = cardId;
   refreshHud();
-  // in inspect mode we don't anchor to a unit
   HUD.root?.classList.add("is-open");
   HUD.root?.setAttribute("aria-hidden", "false");
 }
@@ -441,9 +463,7 @@ function getStats(unit) {
 }
 
 function refreshHud() {
-  // =========================
   // Inspect mode (hand cards)
-  // =========================
   if (SELECTED_CARD_ID) {
     const card = getCardById(SELECTED_CARD_ID);
     if (!card) { closeHud(); return; }
@@ -496,9 +516,7 @@ function refreshHud() {
     return;
   }
 
-  // =========================
   // Unit HUD (board)
-  // =========================
   const unit = getUnitByUid(SELECTED_UID);
   if (!unit) { closeHud(); return; }
 
@@ -649,7 +667,7 @@ function highlightAbilityTargets(mode) {
 }
 
 /* =========================
-   DND deploy: hand -> slot
+   Deploy helpers (DND + TAP)
    ========================= */
 function baseIdFromCardId(cardId) {
   return String(cardId).replace(/_(communis|rara|insignis|mythica|aeterna|apex)$/i, "");
@@ -722,6 +740,36 @@ function canDrop(cardEl, slotEl) {
   return sameBase && nextStep && turnOk;
 }
 
+function clearSlotHighlights() {
+  $all(".slot").forEach(s => s.classList.remove("is-over", "is-invalid"));
+}
+
+function highlightDeploySlotsForSelected() {
+  clearSlotHighlights();
+  if (!SELECTED_HAND) return;
+
+  const { owner, handIndex } = SELECTED_HAND;
+  const handEl = document.querySelector(`#handP${owner} .card[data-hand-index="${handIndex}"]`);
+  if (!handEl) return;
+
+  $all(`.slot[data-owner="${owner}"]`).forEach(slot => {
+    const lane = slot.dataset.row;
+    if (lane !== "front" && lane !== "back") return;
+
+    const ok = canDrop(handEl, slot);
+    if (ok) slot.classList.add("is-over");
+    else slot.classList.add("is-invalid");
+  });
+}
+
+function clearSelectedHand() {
+  SELECTED_HAND = null;
+  clearSlotHighlights();
+}
+
+/* =========================
+   DND deploy: hand -> slot (DESKTOP)
+   ========================= */
 document.addEventListener("dragstart", (e) => {
   const card = e.target.closest("#handP0 .card, #handP1 .card");
   if (!card) return;
@@ -737,7 +785,7 @@ document.addEventListener("dragstart", (e) => {
 
 document.addEventListener("dragend", () => {
   draggedCard = null;
-  $all(".slot").forEach(s => s.classList.remove("is-over", "is-invalid"));
+  clearSlotHighlights();
 });
 
 document.addEventListener("dragover", (e) => {
@@ -791,12 +839,64 @@ document.addEventListener("drop", (e) => {
   }
 
   MODE = null;
+  clearSelectedHand();
   clearHighlights();
   renderAll();
 });
 
 /* =========================
-   Click logic (board + preview)
+   TAP deploy: hand -> slot (MOBILE)
+   ========================= */
+function tryTapDeployToSlot(slotEl) {
+  if (!SELECTED_HAND) return false;
+  if (!slotEl) return false;
+
+  const lane = slotEl.dataset.row;
+  const col = Number(slotEl.dataset.col);
+  const slotOwner = Number(slotEl.dataset.owner);
+
+  if (lane !== "front" && lane !== "back") return false;
+  if (STATE.winner !== null) return false;
+  if (STATE.phase !== "COMMAND") return false;
+  if (!isMyTurn(slotOwner)) return false;
+  if (slotOwner !== SELECTED_HAND.owner) return false;
+
+  const owner = SELECTED_HAND.owner;
+  const handIndex = SELECTED_HAND.handIndex;
+
+  const cardEl = document.querySelector(`#handP${owner} .card[data-hand-index="${handIndex}"]`);
+  if (!cardEl) return false;
+
+  if (!canDrop(cardEl, slotEl)) return false;
+
+  const existing = STATE.players[owner].board?.[lane]?.[col] || null;
+
+  if (existing) {
+    STATE = applyAction(STATE, {
+      type: "ASCEND",
+      player: owner,
+      fromUid: existing.uid,
+      handIndex
+    });
+  } else {
+    STATE = applyAction(STATE, {
+      type: "PLAY_UNIT",
+      player: owner,
+      handIndex,
+      lane,
+      slot: col
+    });
+  }
+
+  MODE = null;
+  clearSelectedHand();
+  clearHighlights();
+  renderAll();
+  return true;
+}
+
+/* =========================
+   Click logic (board + preview + HAND TAP SYSTEM)
    ========================= */
 document.addEventListener("click", (e) => {
   // click su preview per chiuderlo
@@ -810,6 +910,7 @@ document.addEventListener("click", (e) => {
 
   const cardEl = e.target.closest(".card.on-board");
   const handCard = e.target.closest(".hand .card");
+  const slotEl = e.target.closest(".slot");
 
   // In modalità target-pick: click su unità = scegli target
   if (MODE && cardEl) {
@@ -819,10 +920,45 @@ document.addEventListener("click", (e) => {
     return;
   }
 
-  // click su carta in mano: HUD (solo lettura)
-  // (ALT+click apre la preview grande, se ti serve)
+  // MOBILE: se ho una carta selezionata e tocco uno slot, provo a piazzare
+  if (!MODE && SELECTED_HAND && slotEl) {
+    const placed = tryTapDeployToSlot(slotEl);
+    if (placed) return;
+    // se slot non valido: lascio la selezione e basta (nessun HUD)
+    return;
+  }
+
+  // click su carta in mano:
   if (!MODE && handCard) {
+    const owner = Number(handCard.dataset.owner);
+    const handIndex = Number(handCard.dataset.handIndex);
     const cardId = handCard.dataset.cardId;
+    const card = getCardById(cardId);
+
+    // Se siamo in COMMAND e la carta è unità del player attivo: TAP-TO-PLACE
+    const canArmForDeploy =
+      STATE.phase === "COMMAND" &&
+      STATE.winner === null &&
+      owner === STATE.activePlayer &&
+      isMyTurn(owner) &&
+      card?.type === "unit";
+
+    if (canArmForDeploy) {
+      // Se tocchi la stessa carta già selezionata: apri inspect (utile su mobile)
+      if (SELECTED_HAND && SELECTED_HAND.owner === owner && SELECTED_HAND.handIndex === handIndex) {
+        openCardHud(cardId);
+        return;
+      }
+
+      // altrimenti seleziona per deploy
+      SELECTED_HAND = { owner, handIndex, cardId };
+      // chiudi eventuale HUD aperto (per non sovrapporre)
+      if (SELECTED_UID || SELECTED_CARD_ID) closeHud();
+      renderAll();
+      return;
+    }
+
+    // ALT+click apre la preview grande
     if (e.altKey) {
       showPreviewFromCardId(cardId);
     } else {
@@ -833,13 +969,17 @@ document.addEventListener("click", (e) => {
 
   // click su unità: HUD
   if (!MODE && cardEl) {
+    clearSelectedHand();
     openHud(cardEl.dataset.uid);
     return;
   }
 
-  // click vuoto: chiudi HUD e cancella MODE
+  // click vuoto: chiudi HUD e cancella MODE / selection
   if (MODE) {
     MODE = null;
+    renderAll();
+  } else if (SELECTED_HAND) {
+    clearSelectedHand();
     renderAll();
   } else if (SELECTED_UID || SELECTED_CARD_ID) {
     closeHud();
@@ -862,12 +1002,8 @@ function onPickTarget(targetUid) {
       targetUid
     });
 
-    // esci dalla modalità target-pick
     MODE = null;
-
     renderAll();
-
-    // opzionale: riapri HUD dell'attaccante per continuare fluido
     openHud(attacker.uid);
     return;
   }
@@ -997,7 +1133,6 @@ function initLogDock() {
     }
   });
 }
-
 
 /* =========================
    Boot
