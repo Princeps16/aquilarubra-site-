@@ -1,0 +1,138 @@
+/* =========================================================
+   HOME LAYOUT
+   ========================================================= */
+
+.home-hero{
+  padding:60px 20px 20px;
+  text-align:center;
+}
+
+.home-title{
+  font-size:40px;
+  letter-spacing:2px;
+  margin:0;
+}
+
+.home-subtitle{
+  margin-top:12px;
+  color:var(--muted);
+}
+
+.home-grid{
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:20px;
+  max-width:900px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.home-card{
+  padding:30px;
+  border-radius:var(--radius2);
+  border:1px solid var(--border);
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  text-decoration:none;
+  color:var(--text);
+  transition:.2s ease;
+  position:relative;
+}
+
+.home-card:hover{
+  transform:translateY(-4px);
+  border-color:#3a4755;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+
+.home-card h2{
+  margin:0 0 10px;
+}
+
+.home-tag{
+  position:absolute;
+  right:14px;
+  bottom:14px;
+  font-size:11px;
+  color:var(--muted);
+  border:1px solid var(--border);
+  padding:4px 8px;
+  border-radius:999px;
+}
+
+@media (max-width:720px){
+  .home-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.home-hero{
+  padding:40px 0 10px;
+  text-align:center;
+}
+
+.home-logo{
+  display:block;
+  margin:0 auto 14px;
+  height:260px;   /* ingrandisci qui */
+  width:auto;
+}
+
+.home-subtitle{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.home-grid{
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:14px;
+}
+
+.home-card{
+  display:block;
+  padding:18px;
+  border-radius:var(--radius2);
+  border:1px solid var(--border);
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  text-decoration:none;
+  color:var(--text);
+  position:relative;
+  transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+  min-height:120px;
+}
+
+.home-card h2{
+  margin:0 0 8px;
+  font-size:18px;
+}
+
+.home-card:hover{
+  transform:translateY(-2px);
+  border-color:#34404d;
+  box-shadow:0 14px 40px rgba(0,0,0,.35);
+}
+
+.home-card--disabled{
+  opacity:.65;
+  pointer-events:none; /* disabilita click */
+}
+
+.tag{
+  position:absolute;
+  right:12px;
+  bottom:12px;
+  font-size:11px;
+  padding:4px 8px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  color:var(--muted);
+  background:#0b1117;
+}
+
+@media (max-width:720px){
+  .home-grid{ grid-template-columns:1fr; }
+  .home-logo{ height:160px; }
+}
