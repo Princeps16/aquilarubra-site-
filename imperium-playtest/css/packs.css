@@ -1,0 +1,322 @@
+/* packs.css — packs opening (stabile)
+   Obiettivi:
+   - 5 carte in fila (desktop)
+   - carte più grandi
+   - mai tagliate (object-fit:contain)
+   - info visibili SOLO dopo flip
+   - animazione flip (JS aggiunge .is-flipping)
+*/
+
+/* =========================
+   HEADER / CONTROLS
+========================= */
+.creditsBox{
+  height:32px;
+  display:flex;
+  align-items:center;
+  padding:0 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#0b1117;
+  color:var(--text);
+  font-weight:700;
+}
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:32px;
+  padding:0 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#0b1117;
+  color:var(--text);
+  cursor:pointer;
+}
+.btn:disabled{ opacity:.5; cursor:not-allowed; }
+.btn--ghost{ opacity:.85; }
+
+/* =========================
+   PACK PANEL
+========================= */
+.packPanel{
+  margin-top:18px;
+  border:1px solid var(--border);
+  border-radius:var(--radius2);
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  padding:18px;
+
+  display:grid;
+  grid-template-columns: 260px 1fr;
+  gap:18px;
+  align-items:center;
+}
+.packArt{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:160px;
+}
+#packImg{
+  width:220px;
+  height:auto;
+  display:block;
+  filter: drop-shadow(0 18px 38px rgba(0,0,0,.55));
+  transform-origin:center;
+}
+.packActions{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  align-items:flex-end;
+  justify-content:center;
+}
+.packActions .btn{ min-width:220px; }
+
+@media (max-width: 720px){
+  .packPanel{ grid-template-columns:1fr; }
+  .packActions{ align-items:stretch; }
+  .packActions .btn{ width:100%; min-width:0; }
+}
+
+/* =========================
+   REVEAL GRID (5 IN FILA)
+   Cambia SOLO --cardW per grandezza carte
+========================= */
+.revealGrid{
+  --cardW: 280px; /* <-- PIÙ GRANDE. Cambia qui se vuoi */
+  display:grid;
+  grid-template-columns: repeat(5, var(--cardW));
+  gap:24px;
+  justify-content:center;
+  align-items:start;
+  margin-top:18px;
+}
+
+@media (max-width: 1400px){
+  .revealGrid{ grid-template-columns: repeat(3, var(--cardW)); }
+}
+@media (max-width: 860px){
+  .revealGrid{ grid-template-columns: repeat(2, var(--cardW)); }
+}
+
+/* =========================
+   CARD TILE
+========================= */
+.cardTile{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:linear-gradient(180deg, #0b1117, #070b10);
+  padding:12px;
+  box-sizing:border-box;
+  cursor:pointer;
+}
+
+/* rarità: solo bordo */
+.r-communis{ border-color:#2f4157; }
+.r-rara{ border-color:#3a58a6; }
+.r-insignis{ border-color:#7b3aa6; }
+.r-mythica{ border-color:#c9a331; }
+.r-aeterna{ border-color:#c94b31; }
+.r-saga{ border-color:#d6b85a; }
+
+/* =========================
+   CARTA (NO CROP)
+========================= */
+.cardFlip{
+  width:100%;
+  aspect-ratio: 2 / 3;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000;
+  position:relative;
+
+  transform-style:preserve-3d;
+  will-change:transform;
+  perspective: 1000px;
+}
+.cardFlip__img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:contain;          /* <-- mai tagliare */
+  object-position:center;
+  background:#000;
+}
+
+/* animazione flip: il JS mette .is-flipping sul tile */
+.cardTile.is-flipping .cardFlip{
+  animation: flip360 520ms ease-in-out 1;
+}
+@keyframes flip360{
+  0%   { transform: rotateY(0deg); }
+  50%  { transform: rotateY(180deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+/* =========================
+   INFO: visibili SOLO dopo flip
+========================= */
+.cardMeta,
+.cardDetails{
+  display:none;
+}
+
+.cardTile.is-flipped .cardMeta{
+  display:flex;
+  margin-top:10px;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:10px;
+  font-size:12px;
+  color:var(--muted);
+  animation: infoIn 180ms ease;
+}
+.cardTile.is-flipped .cardDetails{
+  display:block;
+  margin-top:10px;
+  color:var(--text);
+  animation: infoIn 180ms ease;
+}
+@keyframes infoIn{
+  from{ opacity:0; transform:translateY(6px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.cardName{
+  font-weight:800;
+  color:var(--text);
+  font-size:14px;
+  line-height:1.1;
+}
+
+.statRow{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:10px;
+  padding:10px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;
+  background:#0b1117;
+}
+.statRow div{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  align-items:center;
+  justify-content:center;
+}
+.statRow b{ font-size:14px; }
+
+.abilList{
+  margin:10px 0 0;
+  padding:0;
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.abilList li{
+  padding:10px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:12px;
+  background:#0b1117;
+  font-size:12px;
+  color:var(--text);
+}
+.chip{
+  display:inline-flex;
+  align-items:center;
+  padding:2px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.08);
+  background:#070b10;
+  font-size:10px;
+  font-weight:800;
+  margin-right:6px;
+}
+
+/* =========================
+   PACK OPENING ANIM (solo packImg)
+========================= */
+#packPanel.is-opening #packImg{
+  animation: packShake 650ms ease-in-out 1;
+}
+#packPanel.is-opened #packImg{
+  animation: packBurst 260ms ease forwards;
+}
+@keyframes packShake{
+  0%{ transform:translateX(0) rotate(0) scale(1); }
+  15%{ transform:translateX(-7px) rotate(-2deg) scale(1.02); }
+  30%{ transform:translateX(7px) rotate(2deg) scale(1.02); }
+  45%{ transform:translateX(-6px) rotate(-1.5deg) scale(1.02); }
+  60%{ transform:translateX(6px) rotate(1.5deg) scale(1.02); }
+  100%{ transform:translateX(0) rotate(0) scale(1); }
+}
+@keyframes packBurst{
+  to{ transform:scale(1.15); opacity:0; filter:blur(2px); }
+}
+
+/* =========================
+   DISCOVERY TOAST
+========================= */
+.discoveryToast{
+  position:fixed;
+  left:50%;
+  bottom:24px;
+  transform:translateX(-50%);
+  width:min(520px, calc(100vw - 24px));
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  box-shadow:0 20px 60px rgba(0,0,0,.55);
+  padding:12px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  z-index:9999;
+  opacity:0;
+  pointer-events:none;
+}
+.discoveryToast.is-on{
+  opacity:1;
+  pointer-events:auto;
+  animation: toastIn 180ms ease;
+}
+@keyframes toastIn{
+  from{ transform:translateX(-50%) translateY(10px); opacity:0; }
+  to{ transform:translateX(-50%) translateY(0); opacity:1; }
+}
+.discoveryToast__img{
+  width:70px;
+  aspect-ratio:2/3;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.06);
+  overflow:hidden;
+  background:#000;
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.discoveryToast__img img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  background:#000;
+}
+.discoveryToast__title{ font-weight:900; line-height:1.1; }
+.discoveryToast__meta{ font-size:12px; color:var(--muted); margin-top:4px; }
+.discoveryToast__close{
+  margin-left:auto;
+  height:30px;
+  padding:0 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#0b1117;
+  color:var(--text);
+  cursor:pointer;
+  font-weight:900;
+}

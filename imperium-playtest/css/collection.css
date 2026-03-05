@@ -1,0 +1,314 @@
+/* =========================================================
+   COLLEZIONE (solo index)
+   ========================================================= */
+
+.cards-grid.grid-mode{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+@media (min-width:768px){
+  .cards-grid.grid-mode{ grid-template-columns:repeat(3,1fr); }
+}
+
+.cards-grid.detail-mode{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+}
+
+.ccard{
+  border:1px solid var(--border);
+  border-radius:16px;
+  overflow:hidden;
+  background:#0c1116;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+.ccard__rarityBar{
+  height:6px;
+  width:100%;
+  background:var(--rarityColor,#666);
+}
+
+.ccard__imgWrap{
+  width:100%;
+  aspect-ratio:2.5 / 3.5;
+  background:#0a0f14;
+  overflow:hidden;
+}
+
+.ccard__imgWrap img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
+.ccard__meta{
+  padding:14px 14px 16px;
+  display:grid;
+  gap:12px;
+}
+
+.ccard__name{
+  margin:0;
+  font-size:18px;
+  font-weight:800;
+}
+
+.ccard__type{
+  font-size:12px;
+  letter-spacing:.6px;
+  color:var(--muted);
+  text-transform:uppercase;
+}
+
+.ccard__type--under{
+  margin-top:4px;
+  font-size:.85rem;
+  opacity:.7;
+  letter-spacing:1px;
+}
+
+.ccard__chips{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.chip{
+  border:1px solid #2a3440;
+  background:rgba(255,255,255,.02);
+  color:var(--text);
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:12px;
+  letter-spacing:.4px;
+}
+
+.chip--faction{
+  border-color: color-mix(in srgb, var(--factionColor,#888) 70%, #2a3440);
+  color: color-mix(in srgb, var(--factionColor,#888) 70%, white);
+}
+
+.ccard__stats{
+  display:none;
+  margin-top:12px;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.stat{
+  border:1px solid #1e2a35;
+  background:rgba(255,255,255,.015);
+  border-radius:14px;
+  padding:10px 8px 8px;
+  text-align:center;
+}
+
+.stat span{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:.6px;
+}
+
+.stat b{
+  display:block;
+  margin-top:4px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.ccard__abilities{
+  display:none;
+  margin-top:12px;
+}
+
+.ccard__ability{
+  border:1px solid #1b2732;
+  background:rgba(255,255,255,.015);
+  border-radius:16px;
+  padding:12px 12px 10px;
+}
+
+.ability__head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+
+.ability__title{ font-weight:800; }
+
+.ability__tags{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.ability__tags .atag{ display:none; }
+.ability__tags .atag--limit{ display:inline; font-size:12px; color:#9fb0c0; }
+
+.ability__text{
+  margin:10px 0 0;
+  color:#d7e1ee;
+  line-height:1.45;
+}
+
+.ccard__toggle{
+  margin-top:10px;
+  width:100%;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(0,0,0,.18);
+  color:inherit;
+  cursor:pointer;
+}
+
+.ccard.stats-open .ccard__stats{ display:grid; }
+.ccard.abilities-open .ccard__abilities{ display:block; }
+
+.cards-grid.detail-mode .ccard__toggle{ display:none; }
+.cards-grid.detail-mode .ccard__stats{ display:grid; }
+.cards-grid.detail-mode .ccard__abilities{ display:block; }
+
+/* preview collezione */
+.card-preview{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.78);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:18px;
+}
+.card-preview.is-open{ display:flex; }
+
+.card-preview__sheet{
+  width:min(520px,96vw);
+  max-height:92vh;
+  background:rgba(15,19,23,.92);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 24px 80px rgba(0,0,0,.65);
+  position:relative;
+}
+
+.card-preview__close{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.25);
+  color:#fff;
+  cursor:pointer;
+}
+
+.flip-stage{
+  padding:18px 18px 10px;
+  display:grid;
+  place-items:center;
+  touch-action: pan-y;
+}
+
+.flip-card{
+  width:min(420px,92vw);
+  aspect-ratio:2.5/3.5;
+  position:relative;
+  transform-style:preserve-3d;
+  will-change:transform;
+  transform:rotateY(var(--ry,0deg));
+  transition:transform 180ms ease;
+}
+
+.flip-face{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background:#0a0f14;
+  display:grid;
+  place-items:center;
+}
+
+.flip-face--back{ transform:rotateY(180deg); }
+
+.flip-img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  user-select:none;
+  -webkit-user-drag:none;
+  pointer-events:none;
+}
+
+.card-preview__hint{
+  padding:10px 14px 16px;
+  text-align:center;
+  color: rgba(233,238,245,.7);
+  font-size:12px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+/* =========================
+   CARD LOCKED (non possedute)
+========================= */
+
+.ccard.is-locked{
+  filter: grayscale(1);
+  opacity:.35;
+}
+
+.ccard__owned{
+  font-size:12px;
+  font-weight:700;
+  opacity:.85;
+}
+
+/* =========================
+   BADGE NEW
+========================= */
+
+.ccard{
+  position:relative;
+}
+
+.ccard__new{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:#0b1117;
+  border:1px solid var(--border);
+  padding:3px 8px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+
+.ccard.is-locked .ccard__imgWrap img{
+  filter: brightness(.45) contrast(.9);
+}
+
+.ccard.is-locked .ccard__abilities,
+.ccard.is-locked .ccard__stats{
+  display:none;
+}
+
+.ccard.is-locked .ccard__name{
+  opacity:.8;
+}

@@ -1,0 +1,1063 @@
+/* =========================================================
+   BATTLE (solo battle)
+   ========================================================= */
+
+:root{
+  /* battlefield sizes */
+  --bf-card-w: 170px;
+  --bf-card-h: 250px;
+  --bf-gap: 12px;
+  --bf-slot-pad: 10px;
+
+  /* rows / slots */
+  --row:#0e0e0e;
+  --rowBorder:#333;
+  --slot:#141414;
+  --slotBorder:#444;
+
+  /* cards on battlefield */
+  --cardBg:#111;
+  --cardBorder:#444;
+
+  /* hand slightly smaller */
+  --hand-card-w: 125px;
+  --hand-card-h: 183px;
+}
+
+/* ===== Battlefield grid (2 players) ===== */
+#battlefield{
+  margin:16px 0;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:18px;
+  align-items:start;
+}
+
+@media (min-width:1100px){
+  #battlefield{ grid-template-columns:1fr 1fr; }
+}
+
+.player{
+  border:1px solid var(--rowBorder);
+  padding:20px;
+  border-radius:var(--radius2);
+  background:linear-gradient(180deg,#0f1216,#0b0d10);
+}
+
+/* ===== Rows: 3 columns exact ===== */
+#battlefield .row{
+  display:grid;
+  grid-template-columns: repeat(3, calc(var(--bf-card-w) + (var(--bf-slot-pad) * 2)));
+  gap: var(--bf-gap);
+
+  width: fit-content;
+  margin: 10px auto;
+  padding: 12px;
+
+  border:1px dashed var(--rowBorder);
+  border-radius:12px;
+  background: var(--row);
+
+  position:relative;
+}
+
+#battlefield .row.front{ border-color:#555; }
+#battlefield .row.back{ opacity:.92; }
+#battlefield .row.reserve{
+  background:#0b0b0b;
+  border-color:#2b2b2b;
+  opacity:.95;
+}
+
+#battlefield .row.front::before{ content:"Prima linea"; }
+#battlefield .row.back::before{ content:"Seconda linea"; }
+#battlefield .row.reserve::before{ content:"Eventi di Campo"; }
+
+#battlefield .row::before{
+  position:absolute;
+  top:-12px;
+  left:10px;
+  font-size:12px;
+  opacity:.55;
+  letter-spacing:.4px;
+  color:var(--muted);
+  pointer-events:none;
+}
+
+/* ===== Slots ===== */
+#battlefield .slot{
+  width: calc(var(--bf-card-w) + (var(--bf-slot-pad) * 2));
+  height: calc(var(--bf-card-h) + (var(--bf-slot-pad) * 2));
+  padding: var(--bf-slot-pad);
+
+  display:grid;
+  place-items:center;
+
+  border:1px dashed var(--slotBorder);
+  border-radius:var(--radius);
+  background:var(--slot);
+
+  transition:.15s ease;
+  overflow: visible;
+}
+
+#battlefield .slot.is-over{
+  border-style:solid;
+  border-color:#777;
+  background:#1b1b1b;
+}
+
+#battlefield .slot.is-invalid{ border-color:#aa4444; }
+
+/* ===== Card base (battle) ===== */
+#battlefield .card{
+  width: var(--bf-card-w);
+  height: var(--bf-card-h);
+  border-radius:var(--radius);
+  border:1px solid var(--cardBorder);
+  background:var(--cardBg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  user-select:none;
+}
+
+#battlefield .card.on-board{
+  position:relative;
+  cursor:pointer; /* click -> HUD */
+}
+
+#battlefield .card img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+  pointer-events:none;
+}
+
+/* ===== NO hover zoom; zoom only via .is-zoom (JS) ===== */
+#battlefield .slot .card{
+  transition: transform .12s ease, box-shadow .12s ease;
+  transform-origin:center;
+}
+
+#battlefield .slot .card:hover{
+  transform:none;
+  box-shadow:none;
+}
+
+#battlefield .slot .card.is-zoom{
+  transform: scale(2.3);
+  z-index: 2000;
+  box-shadow: 0 20px 60px rgba(0,0,0,.65);
+  overflow: visible;
+}
+
+/* ===== Target highlight ===== */
+#battlefield .card.on-board.is-target{
+  outline: 2px solid rgba(255,255,255,.22);
+  outline-offset: -2px;
+}
+
+/* ===== Hand (player) ===== */
+#battlefield .hand{
+  width: calc(
+    (3 * (var(--bf-card-w) + (var(--bf-slot-pad) * 2))) +
+    (2 * var(--bf-gap)) +
+    (2 * 12px)
+  );
+
+  margin: 10px auto 0;
+  padding: 12px;
+
+  display:flex;
+  gap: var(--bf-gap);
+  flex-wrap:nowrap;
+  align-items:center;
+
+  overflow-x:auto;
+  overflow-y:hidden;
+
+  border: 1px dashed var(--rowBorder);
+  border-radius: 12px;
+  background: var(--row);
+}
+
+#battlefield .hand::-webkit-scrollbar{ height: 10px; }
+#battlefield .hand::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.12);
+  border-radius: 999px;
+}
+#battlefield .hand::-webkit-scrollbar-track{ background: transparent; }
+
+#battlefield .hand .card{
+  width: var(--hand-card-w);
+  height: var(--hand-card-h);
+  flex: 0 0 auto;
+  cursor: grab;
+}
+
+#battlefield .hand .card:active{ cursor: grabbing; }
+
+/* mano avversario: no drag visivo */
+#battlefield .hand--enemy .card,
+#battlefield .hand--enemy .card:active{
+  cursor: default;
+}
+
+/* ===== Log ===== */
+.panel--log .log--scroll{
+  max-height: 140px;
+  overflow: auto;
+}
+
+/* ===== Action HUD (non blocca il campo) ===== */
+#actionHud{
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+}
+
+#actionHud.is-open{ pointer-events: none; }
+
+#actionHud .hud__panel{ pointer-events: auto; }
+
+.hud__panel{
+  position:fixed;
+  min-width:220px;
+  max-width:320px;
+  padding:12px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(10,12,14,.78);
+  box-shadow:0 18px 70px rgba(0,0,0,.7);
+  backdrop-filter:blur(8px);
+
+  transform: translateY(6px) scale(.98);
+  opacity:0;
+  transition: opacity .14s ease, transform .14s ease;
+}
+
+#actionHud.is-open .hud__panel{
+  opacity:1;
+  transform: translateY(0) scale(1);
+}
+
+.hud__title{
+  font-size:12px;
+  letter-spacing:.6px;
+  color: rgba(233,238,245,.85);
+  margin-bottom:10px;
+  text-transform:uppercase;
+}
+
+.hud__close{
+  position:absolute;
+  top:8px;
+  right:10px;
+  width:30px;
+  height:30px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.25);
+  color: rgba(233,238,245,.9);
+  cursor:pointer;
+}
+
+.hud__stats{
+  display:flex;
+  gap:10px;
+  margin-bottom:12px;
+  font-size:13px;
+  flex-wrap:wrap;
+}
+
+.hud__stat{
+  padding:6px 10px;
+  border-radius:10px;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+}
+
+/* IMP cliccabile */
+.hud__stat.hud__attack{
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  color:inherit;
+  font:inherit;
+}
+
+.hud__stat.hud__attack:disabled{
+  cursor:default;
+  opacity:.35;
+}
+
+#hudAbilities{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.hud__ability{
+  width:100%;
+  text-align:left;
+  padding:10px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  color:inherit;
+  cursor:pointer;
+  transition: background .15s ease;
+}
+
+.hud__ability:hover{ background: rgba(255,255,255,.08); }
+
+.hud__ability.is-disabled{
+  opacity:.35;
+  cursor:default;
+  pointer-events:none;
+}
+
+.hud__ability-title{
+  font-weight:600;
+  font-size:13px;
+  margin-bottom:4px;
+}
+
+.hud__ability-text{
+  font-size:12px;
+  opacity:.75;
+  line-height:1.35;
+}
+
+.hud__actionsRow{
+  display:flex;
+  gap:10px;
+  margin-top:12px;
+}
+
+.hud__btn{
+  flex:1;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color:inherit;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.hud__btn:hover{
+  transform: translateY(-1px);
+  box-shadow:0 10px 26px rgba(0,0,0,.45);
+}
+
+.hud__btn--primary{
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.22);
+}
+
+.hud__btn.is-disabled{
+  opacity:.28;
+  cursor:default;
+  pointer-events:none;
+  transform:none;
+  box-shadow:none;
+}
+
+#hudPassives{
+  border-top:1px solid rgba(255,255,255,.1);
+  padding-top:8px;
+  font-size:12px;
+  opacity:.75;
+}
+
+.hud__passive{ margin-top:6px; }
+.hud__passive-text{ opacity:.85; }
+
+/* pulizia: se esistono vecchi elementi meta */
+.unit-title,.unit-stats,.unit-status{ display:none; }
+.panel--log .log--scroll{
+  display:flex;
+  flex-direction:column-reverse;
+}
+/* =========================
+   COMPACT MODE (battlefield)
+   Incolla in fondo a battle.css
+   ========================= */
+
+/* 1) pannelli player meno “ciccioni” */
+.player{
+  padding: 12px;
+}
+
+/* 2) riduci spazio tra i due player */
+#battlefield{
+  gap: 12px;
+  margin: 10px 0;
+}
+
+/* 3) riduci dimensioni carte + mano */
+:root{
+  --bf-card-w: 150px;
+  --bf-card-h: 220px;
+  --bf-gap: 10px;
+  --bf-slot-pad: 8px;
+
+  --hand-card-w: 120px;
+  --hand-card-h: 176px;
+}
+
+/* 4) righe più compatte e meno aria interna */
+#battlefield .row{
+  padding: 10px;
+  margin: 8px auto;
+}
+
+/* 5) label “Prima/Seconda” più vicino */
+#battlefield .row::before{
+  top: -10px;
+  font-size: 11px;
+  opacity: .6;
+}
+
+/* 6) mano più vicina al pannello e meno padding */
+#battlefield .hand{
+  margin: 8px auto 0;
+  padding: 10px;
+}
+
+/* 7) log più basso (meno altezza fissa) */
+.panel--log .log--scroll{
+  max-height: 110px;
+}
+
+/* 8) topbar più bassa (se ti serve) */
+.topbar{
+  padding: 10px 14px;
+}
+.brand__logo{
+  height: 86px;
+}
+/* =========================================================
+   BATTLE HEADER COMPACT + CENTERED
+   ========================================================= */
+
+/* Wrapper header: funziona anche se non hai un contenitore dedicato */
+.battle-header{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+  padding:12px 14px;
+  margin:10px 0 12px;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  background:rgba(10,12,14,.45);
+  backdrop-filter: blur(6px);
+}
+
+/* Titolo più compatto */
+.battle-title{
+  margin:0;
+  font-size:32px;
+  letter-spacing:.3px;
+}
+
+/* link "torna" in linea */
+.battle-back{
+  color:#cfe2ff;
+  text-decoration:underline;
+  opacity:.85;
+  white-space:nowrap;
+}
+
+/* riga status turno */
+.battle-status{
+  font-size:14px;
+  color: rgba(233,238,245,.78);
+  white-space:nowrap;
+}
+
+/* Bottoni grandi e centrati */
+.battle-actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:center;
+}
+
+.battle-actions button,
+.battle-actions a{
+  height:40px;
+  padding:0 16px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.10);
+  color:#fff;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.battle-actions button:hover,
+.battle-actions a:hover{
+  background: rgba(255,255,255,.16);
+}
+
+/* =========================================================
+   PLAYER PANEL: scritte in orizzontale + centratura
+   ========================================================= */
+
+/* Titoli Avversario/Giocatore allineati */
+.player h2, .player h3{
+  margin:0 0 8px;
+}
+
+/* Se hai un blocco stats tipo .meta o .player-info */
+.player .meta,
+.player .player-meta,
+.player .player-info{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 14px;
+  align-items:center;
+  justify-content:flex-start; /* cambia in center se vuoi tutto centrato */
+  font-size:14px;
+  color: rgba(233,238,245,.78);
+}
+
+/* Ogni riga “Mazzo / Carte / Scarti” in pill */
+.player .meta > div,
+.player .player-meta > div,
+.player .player-info > div,
+.player .meta span,
+.player .player-meta span,
+.player .player-info span{
+  display:inline-flex;
+  gap:6px;
+  align-items:baseline;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  white-space:nowrap;
+}
+
+/* =========================================================
+   LOG: più compatto
+   ========================================================= */
+.panel--log{
+  margin-bottom:10px;
+}
+.panel--log .log--scroll{
+  max-height: 96px;
+  line-height:1.35;
+  font-size:13px;
+}
+
+/* =========================================================
+   Spazi verticali generali
+   ========================================================= */
+.container{
+  padding:14px;
+}
+/* =========================================================
+   BATTLEBAR: header orizzontale centrato
+   ========================================================= */
+
+.battlebar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+  background: rgba(10,12,14,.78);
+  backdrop-filter: blur(10px);
+}
+
+.battlebar__inner{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 14px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 14px;
+  align-items: center;
+}
+
+.battlebar__left{
+  display:flex;
+  align-items: baseline;
+  gap: 12px;
+  min-width: 0;
+}
+
+.battlebar__title{
+  margin:0;
+  font-size: 22px;
+  letter-spacing: .3px;
+  white-space: nowrap;
+}
+
+.battlebar__back{
+  color: rgba(233,238,245,.78);
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.battlebar__center{
+  display:flex;
+  justify-content:center;
+  min-width: 0;
+}
+
+.battlebar__status{
+  font-size: 13px;
+  color: rgba(233,238,245,.78);
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.05);
+  max-width: 520px;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.battlebar__right{
+  display:flex;
+  justify-content:flex-end;
+  gap: 10px;
+}
+
+.battlebar__btn{
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.battlebar__btn--primary{
+  background: rgba(255,255,255,.16);
+  border-color: rgba(255,255,255,.22);
+}
+
+.battlebar__btn--ghost{
+  background: rgba(0,0,0,.18);
+}
+
+@media (max-width: 860px){
+  .battlebar__inner{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+  .battlebar__left{ justify-content:center; flex-wrap:wrap; }
+  .battlebar__right{ justify-content:center; }
+}
+
+/* =========================================================
+   Compattazione generale battle
+   ========================================================= */
+
+.battle-wrap{
+  padding-top: 12px;
+}
+
+.panel--log .log--scroll{
+  max-height: 100px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.player{
+  padding: 12px;
+}
+
+.player__head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 12px;
+}
+
+.player__title{
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Mazzo/Scarti orizzontali e compatti */
+.zones{
+  display:flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content:flex-end;
+}
+
+.zone{
+  display:flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+}
+
+.zone__title{
+  font-size: 12px;
+  color: rgba(233,238,245,.70);
+}
+
+/* Mano: titolo in riga */
+.handHead{
+  display:flex;
+  gap: 10px;
+  align-items: baseline;
+  margin-top: 6px;
+}
+.handTitle{
+  margin: 0;
+}
+/* disabilita preview gigante sotto al campo */
+
+/* ===== Log Dock (floating, apribile) ===== */
+.logDock{
+  position: fixed;
+  left: 14px;
+  top: 92px; /* sotto la battlebar */
+  z-index: 9997;
+
+  width: 380px;
+  max-width: calc(100vw - 28px);
+
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  background: rgba(10,12,14,.62);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 18px 70px rgba(0,0,0,.55);
+
+  overflow: hidden;
+}
+
+.logDock__toggle{
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  background: rgba(0,0,0,.22);
+  color: var(--text);
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+
+.logDock__toggle:hover{ background: rgba(255,255,255,.06); }
+
+.logDock__panel{
+  max-height: 60vh;
+  overflow: auto;
+  padding: 10px 12px 12px;
+}
+
+.logDock.is-closed{
+  width: 120px;
+}
+
+.logDock.is-closed .logDock__panel{
+  display: none;
+}
+
+.logDock .log{
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.logDock .log > div{
+  padding: 2px 0;
+  opacity: .92;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+@media (max-width: 720px){
+  .logDock{
+    left: 10px;
+    top: 78px;
+    width: 320px;
+  }
+}
+
+#toCommandBtn{display:none !important;}
+
+
+/* =========================
+   Command pips (azioni comando)
+   ========================= */
+.battlebar__command{
+  margin-top:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  font-size:12px;
+  color:var(--muted);
+}
+.cmdgroup{display:flex; align-items:center; gap:8px;}
+.cmdlabel{opacity:.9;}
+.cmdpips{display:flex; gap:6px;}
+.cmdpip{
+  width:10px; height:10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.06);
+  box-shadow:0 0 0 rgba(0,0,0,0);
+}
+.cmdpip.is-on{
+  background:rgba(255,255,255,.75);
+  border-color:rgba(255,255,255,.6);
+  box-shadow:0 0 12px rgba(255,255,255,.18);
+}
+
+
+/* =========================
+   STATUS badges on-unit
+   ========================= */
+.statusBadges{
+  position:absolute;
+  left:6px;
+  top:6px;
+  display:flex;
+  gap:4px;
+  z-index:6;
+  pointer-events:none;
+}
+.statusBadge{
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:800;
+  line-height:1;
+  color:#fff;
+  background:rgba(0,0,0,.65);
+  box-shadow:0 2px 8px rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.18);
+}
+.statusBadge.stFerito{ background:rgba(180, 40, 40, .85); }
+.statusBadge.stPrigioniero{ background:rgba(80, 80, 80, .88); }
+.statusBadge.stMarchiato{ background:rgba(160, 120, 20, .88); }
+.statusBadge.stCorrotto{ background:rgba(95, 35, 140, .88); }
+.statusBadge.stDisciplina{ background:rgba(35, 120, 160, .88); }
+/* =========================
+   Player meta (Gloria + Comando sopra le linee)
+   ========================= */
+.battleMeta{
+  width: fit-content;
+  margin: 6px auto 8px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  border: 1px dashed rgba(255,255,255,.14);
+  border-radius: 12px;
+  background: rgba(0,0,0,.18);
+}
+
+.gloriaBox{
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(255,255,255,.9);
+}
+
+.gloriaBox span{
+  display: inline-block;
+  min-width: 20px;
+  text-align: center;
+}
+
+.cmdBox{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12px;
+  color: rgba(255,255,255,.75);
+}
+
+/* cmdpips/cmdpip già definiti: li riusiamo qui */
+
+/* =========================
+   UI Prompt Modal
+   ========================= */
+.uiprompt{
+  position: fixed;
+  inset: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,.72);
+  z-index: 9999;
+}
+
+.uiprompt.hidden{ display:none; }
+
+.uiprompt__panel{
+  width: min(420px, 92vw);
+  border-radius: 18px;
+  padding: 14px 14px 12px;
+  background: rgba(20,20,20,.96);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 24px 80px rgba(0,0,0,.55);
+}
+
+.uiprompt__title{
+  font-weight: 800;
+  font-size: 14px;
+  color: rgba(255,255,255,.92);
+  margin-bottom: 10px;
+}
+
+.uiprompt__card{
+  display:flex;
+  gap: 12px;
+  align-items:center;
+  padding: 10px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 12px;
+}
+
+#uiPromptImg{
+  width: 92px;
+  height: 134px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+.uiprompt__name{
+  font-weight: 800;
+  color: rgba(255,255,255,.92);
+  line-height: 1.2;
+}
+
+/* =========================
+   CARD PREVIEW MODAL
+   ========================= */
+#cardPreview{
+  position: fixed;
+  inset: 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(0,0,0,.78);
+  z-index: 10000;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity .15s ease;
+}
+
+#cardPreview.is-open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.card-preview__img{
+  width: min(360px, 85vw);
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.8);
+  border: 1px solid rgba(255,255,255,.15);
+}
+
+
+/* =========================================================
+   PACTUM COLUMN (reserve a dedicated column, no overlap)
+   ========================================================= */
+
+/* Each player panel becomes a 2-column grid:
+   - ME:  [PACTUM] [BATTLEFIELD]
+   - ENEMY: [BATTLEFIELD] [PACTUM]
+*/
+.player{
+  display:grid;
+  grid-template-columns: 170px 1fr;
+  column-gap: 18px;
+  align-items:start;
+}
+
+/* enemy flips columns */
+.player.enemy{
+  grid-template-columns: 1fr 170px;
+}
+
+/* Keep the existing board/rows in the main column */
+.player .rows{
+  grid-column: 2;
+}
+.player.enemy .rows{
+  grid-column: 1;
+}
+
+/* Pactum side becomes normal flow in its column (not absolute) */
+.pactumSide{
+  position: sticky;
+  top: 90px;
+  grid-column: 1;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  z-index:5;
+}
+.player.enemy .pactumSide{
+  grid-column: 2;
+}
+
+/* remove left/right absolute variants */
+.pactumSide--left,
+.pactumSide--right{
+  left:auto !important;
+  right:auto !important;
+  top:auto !important;
+}
+
+/* Make pactum slots match column width */
+.pactumSlot{
+  width: 100%;
+  max-width: 170px;
+  height: 240px;
+}
+
+/* Ensure rows can use full remaining space */
+#battlefield .row{
+  width: 100%;
+}
+
+/* Responsive: shrink pactum column a bit */
+@media (max-width: 1400px){
+  .player{ grid-template-columns: 150px 1fr; }
+  .player.enemy{ grid-template-columns: 1fr 150px; }
+  .pactumSlot{ max-width:150px; height:220px; }
+}
+@media (max-width: 1100px){
+  /* On small screens move pactum above rows */
+  .player, .player.enemy{
+    grid-template-columns: 1fr;
+    row-gap: 14px;
+  }
+  .pactumSide{ grid-column: 1; position:relative; top:auto; flex-direction:row; }
+  .pactumSlot{ max-width: 160px; width:160px; height:200px; }
+  .player .rows, .player.enemy .rows{ grid-column: 1; }
+}
+
