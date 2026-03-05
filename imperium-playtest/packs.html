@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pacchetti - Aquila Rubra Imperium</title>
+
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/packs.css">
+<script src="packs.js" defer></script>
+
+</head>
+
+<body>
+
+<main class="container">
+
+<header class="topbar">
+
+<div class="topbar__left">
+<a class="brand" href="index.html">
+
+<div>
+<div style="font-weight:700;">AQUILA RUBRA IMPERIUM</div>
+<div class="muted" style="font-size:12px;">Apertura pacchetti</div>
+</div>
+
+</a>
+</div>
+
+<div class="topbar__right">
+
+<div class="field">
+<label>Crediti</label>
+<div id="creditsBox" class="creditsBox">0</div>
+</div>
+
+<button id="grantBtn" class="btn btn--ghost" type="button">
++500 (test)
+</button>
+
+</div>
+
+</header>
+
+
+<section id="packPanel" class="packPanel">
+
+<div class="packArt">
+<img id="packImg" src="assets/pack.png" alt="Pacchetto">
+</div>
+
+<div class="packActions">
+
+<button id="buyOpenBtn" class="btn">
+Apri pacchetto
+(<span id="packCost">100</span>)
+</button>
+
+</div>
+
+</section>
+
+
+<div id="status" class="status"></div>
+
+<section id="revealGrid" class="revealGrid"></section>
+
+</main></body>
+</html>

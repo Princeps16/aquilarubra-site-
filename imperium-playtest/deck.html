@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deck Builder – Aquila Rubra Imperium</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/deck.css">
+</head>
+
+<body class="page-deck">
+  <header class="topbar">
+    <div class="topbar__left">
+      <a class="brand" href="index.html" aria-label="Torna alla home">
+        <img class="brand__logo" src="assets/AQUILARUBRAIMPERIUM.png" alt="Aquila Rubra Imperium">
+      </a>
+      <div class="topstats">
+        <div class="pill" id="deckCountPill">Deck: 0 / 30</div>
+        <div class="pill" id="slotPill">Slot: —</div>
+      </div>
+    </div>
+
+    <div class="topbar__right deckFilters">
+      <label class="field">
+        <span>Fazione</span>
+        <select id="factionFilter"></select>
+      </label>
+      <label class="field">
+        <span>Rarità</span>
+        <select id="rarityFilter"></select>
+      </label>
+      <label class="field">
+        <span>Tipo</span>
+        <select id="typeFilter"></select>
+      </label>
+      <label class="field">
+        <span>Cerca</span>
+        <input id="searchInput" type="text" placeholder="Nome o ID..." />
+      </label>
+
+      <button id="ownedOnlyBtn" class="btn btn--ghost" type="button">Solo possedute</button>
+      <button id="clearDeckBtn" class="btn btn--ghost" type="button">Svuota</button>
+      <button id="exportDeckBtn" class="btn" type="button">Export</button>
+      <button id="importDeckBtn" class="btn btn--ghost" type="button">Import</button>
+    </div>
+  </header>
+
+  <main class="container deckLayout">
+    <section class="deckLeft">
+      <div id="status" class="status">Caricamento...</div>
+      <section id="cardsGrid" class="deckGrid" aria-label="Carte disponibili"></section>
+    </section>
+
+    <aside class="deckRight" aria-label="Mazzi">
+      <h2 class="deckTitle">Mazzi</h2>
+
+      <div class="deckSlotBar">
+        <label class="field">
+          <span>Slot</span>
+          <select id="deckSlot"></select>
+        </label>
+
+        <label class="field" style="min-width:180px;">
+          <span>Nome</span>
+          <input id="deckName" type="text" placeholder="Nome mazzo">
+        </label>
+
+        <button id="setActiveBtn" class="btn" type="button">Imposta attivo</button>
+      </div>
+
+      <div class="deckMeta">
+        <div class="muted">Regole copie: Communis max 2, altre max 1. Totale 30.</div>
+        <div id="deckWarnings" class="deckWarnings"></div>
+      </div>
+
+      <div id="deckList" class="deckList"></div>
+
+      <textarea id="ioBox" class="ioBox" placeholder="Export/Import JSON..." spellcheck="false"></textarea>
+    </aside>
+  </main>
+
+  <script type="module" src="deck.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imperium – Collezione</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/collection.css">
+</head>
+
+<body class="page-collection">
+  <header class="topbar">
+    <div class="topbar__left">
+      <a class="brand" href="index.html" aria-label="Torna alla home">
+        <img class="brand__logo" src="assets/AQUILARUBRAIMPERIUM.png" alt="Aquila Rubra Imperium">
+      </a>
+      <div class="topstats" aria-label="Statistiche collezione">
+        <div class="pill" id="progressPill">—</div>
+        <div class="pill" id="shardsPill">—</div>
+      </div>
+    </div>
+
+    <div class="topbar__right">
+      <label class="field">
+        <span>Fazione</span>
+        <select id="factionFilter"></select>
+      </label>
+      <label class="field">
+        <span>Rarità</span>
+        <select id="rarityFilter"></select>
+      </label>
+      <label class="field">
+        <span>Tipo</span>
+        <select id="typeFilter"></select>
+      </label>
+      <label class="field">
+        <span>Mostra</span>
+        <select id="ownedFilter"></select>
+      </label>
+      <label class="field">
+        <span>Cerca</span>
+        <input id="searchInput" type="text" placeholder="Nome..." />
+      </label>
+    </div>
+  </header>
+
+  <div class="view-toggle">
+    <button id="gridViewBtn" class="active">Griglia</button>
+    <button id="detailViewBtn">Dettaglio</button>
+  </div>
+
+  <main class="container">
+    <div id="status" class="status">Caricamento...</div>
+    <section id="grid" class="cards-grid grid-mode" aria-label="Griglia carte"></section>
+  </main>
+
+  <div id="cardPreview" class="card-preview" aria-hidden="true">
+    <div class="card-preview__sheet" role="dialog" aria-label="Anteprima carta">
+      <button class="card-preview__close" type="button" aria-label="Chiudi">✕</button>
+
+      <div id="flipStage" class="flip-stage">
+        <div id="flipCard" class="flip-card" data-side="front" aria-label="Carta">
+          <div class="flip-face flip-face--front">
+            <img id="cardPreviewFront" class="flip-img" src="" alt="">
+          </div>
+          <div class="flip-face flip-face--back">
+            <img id="cardPreviewBack" class="flip-img" src="" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="card-preview__hint">Trascina o clicca per girare</div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
