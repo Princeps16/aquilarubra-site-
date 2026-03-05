@@ -7,11 +7,11 @@
 
 export function createEmptyPlayer() {
   return {
-    effectStack: [],
     deck: [],
     hand: [],
     discard: [],
-    pactum: [], // max 2 (placeholder)
+    pactum: [], // max 2
+    pactumRuntime: {}, // idx -> { cooldowns:{[slot]:n}, uses:{[slot]:n} }
     board: { front: [null, null, null], back: [null, null, null] },
 
     gloria: 0,
@@ -185,6 +185,37 @@ function placeUnitOnBoard(state, unit, lane, slot) {
 /* =========================
    Runtime fields + status
    ========================= */
+
+
+function ensurePactumRuntime(player, idx) {
+  if (!player.pactumRuntime) player.pactumRuntime = {};
+  const key = String(idx);
+  if (!player.pactumRuntime[key]) player.pactumRuntime[key] = { cooldowns: {}, uses: {} };
+  if (!player.pactumRuntime[key].cooldowns) player.pactumRuntime[key].cooldowns = {};
+  if (!player.pactumRuntime[key].uses) player.pactumRuntime[key].uses = {};
+  return player.pactumRuntime[key];
+}
+
+function makePactumSelf(state, owner, idx) {
+  const me = state.players[owner];
+  const cardId = me.pactum?.[idx] || null;
+  if (!cardId) return null;
+  const rt = ensurePactumRuntime(me, idx);
+  return {
+    uid: `pactum:${owner}:${idx}`,
+    owner,
+    cardId,
+    cooldowns: rt.cooldowns,
+    uses: rt.uses,
+    // flags compat
+    flags: rt.flags || (rt.flags = {}),
+  };
+}
+
+function parseCdFromText(text) {
+  const m = String(text || "").match(/\bCD\s*(\d+)\b/i);
+  return m ? Math.max(0, Number(m[1]) || 0) : 0;
+}
 
 function ensureRuntimeFields(unit) {
   unit.flags ??= {};
@@ -1456,6 +1487,62 @@ if (action.type === "TO_COMMAND_PHASE") {
     checkVictory(next);
     return next;
   }
+  if (action.type === "ACTIVATE_PACTUM") {
+    if (next.phase !== "COMMAND" && next.phase !== "ATTACK") return next;
+
+    const idxSlot = Number(action.idx);
+    if (!Number.isFinite(idxSlot)) return next;
+
+    const me = next.players[pIndex];
+    const cardId = me.pactum?.[idxSlot] || null;
+    if (!cardId) return next;
+
+    const self = makePactumSelf(next, pIndex, idxSlot);
+    if (!self) return next;
+
+    const card = getCard(next, cardId);
+    const ability = (card?.abilities || []).find((a) => a.type === "active" && a.slot === action.slot);
+    if (!ability) return next;
+
+    // per-turn gate (same mechanism as unit abilities)
+    const usedKey = `${self.uid}:${ability.slot}`;
+    if (me.perTurn?.usedAbilities?.[usedKey]) return next;
+
+    const rt = ensurePactumRuntime(me, idxSlot);
+    const cdLeft = Number(rt.cooldowns?.[ability.slot] ?? 0);
+    if (cdLeft > 0) return next;
+
+    const usesLeft = rt.uses?.[ability.slot] ?? null;
+    if (usesLeft !== null && usesLeft <= 0) return next;
+
+    // payload targets
+    const payload = action.payload || {};
+    const ctx = { pactum: self, player: pIndex };
+    if (payload.targetUid) ctx.target = getUnitByUid(next, payload.targetUid);
+    if (payload.targets && typeof payload.targets === "object") {
+      for (const [k, uid] of Object.entries(payload.targets)) ctx[k] = getUnitByUid(next, uid);
+    }
+
+    // run script
+    const rb = ability.rules || {};
+    runScript(next, self, ctx, rb.script || [], rb.trigger || "ON_ACTIVE");
+
+    // set cooldown from text "CD X" (if present)
+    const cd = parseCdFromText(ability.text);
+    if (cd > 0) rt.cooldowns[ability.slot] = cd;
+
+    if (usesLeft !== null) rt.uses[ability.slot] = Math.max(0, usesLeft - 1);
+
+    if (me.perTurn?.usedAbilities) me.perTurn.usedAbilities[usedKey] = true;
+
+    log(next, `→ Pactum attivato: ${card?.name || cardId} [${ability.slot}]`);
+
+    reapplyContinuous(next, { player: pIndex });
+    checkVictory(next);
+    return next;
+  }
+
+
 
 if (action.type === "QUEUE_ATTACK") {
   // FIX: se la UI non ha fatto TO_ATTACK_PHASE, ci entriamo automaticamente
@@ -1631,40 +1718,4 @@ function resolvePendingAttacks(state) {
   }
 
   state.pendingAttacks = [];
-}
-// ===== Effect Stack System =====
-export function pushEffect(state,effect){
-  if(!state.effectStack) state.effectStack=[]
-  state.effectStack.push(effect)
-}
-
-export function resolveEffectStack(state){
-  if(!state.effectStack) return
-  while(state.effectStack.length>0){
-    const effect = state.effectStack.shift()
-    if(effect?.script){
-      executeAbilityScript(state,effect.ctx||{},effect.script)
-    }
-  }
-}
-
-// ===== Trigger System =====
-export function triggerEvent(state,trigger){
-  for(const p of state.players){
-    for(const line of ["front","back"]){
-      const row=p.board?.[line]||[]
-      for(const unit of row){
-        if(!unit || !unit.card) continue
-        const abilities = unit.card.abilities || []
-        for(const ab of abilities){
-          if(ab?.rules?.trigger===trigger){
-            pushEffect(state,{
-              ctx:{self:p,source:unit},
-              script:ab.rules.script
-            })
-          }
-        }
-      }
-    }
-  }
 }
