@@ -1068,6 +1068,27 @@
   height:auto;
 }
 
+/* La carta dentro lo slot Pactum deve “riempire” lo slot */
+.pactumSlot .card,
+.pactumSlot .cardTile{
+  width: 100% !important;
+  height: 100% !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Se la tua card ha un wrapper interno, evitiamo clipping */
+.pactumSlot > *{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Disattiva eventuale zoom hover dentro i Pactum */
+.pactumSlot .card:hover,
+.pactumSlot .cardTile:hover{
+  transform: none !important;
+}
+
 /* Hand spans full width under everything */
 .handHead{ grid-column: 1 / -1; }
 .hand{ grid-column: 1 / -1; width:100%; max-width:100%; }
@@ -1091,3 +1112,256 @@
   .pactumSlot{ max-width: 170px; }
 }
 
+.card.zooming{
+  position:relative;
+  z-index:999;
+  transform:scale(3.2);
+  box-shadow:0 40px 120px rgba(0,0,0,.8);
+  transition:transform .12s ease;
+}
+
+/* =========================================================
+   Pactum side slots + Zoom overlay (spostato da battle.html)
+   ========================================================= */
+
+    /* Pactum: 2 slot laterali, verticali, sempre visibili */
+    .player{ position:relative; overflow:visible; }
+    .pactumSide{
+      position:absolute;
+      top: 0;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      z-index:999;
+      pointer-events:auto;
+    }
+    /* Dentro al riquadro per evitare clipping */
+    .pactumSide--left{ left: 14px; }
+    .pactumSide--right{ right: 14px; }
+
+    .pactumSlot{
+      width: 140px;
+      height: 210px;
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      position:relative;
+    }
+    .pactumSlot .zoneHint{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      font-size:11px;
+      letter-spacing:.08em;
+      opacity:.7;
+    }
+  
+    /* Pactum cards: fit inside pactumSlot */
+    .pactumSlot{ overflow:hidden; }
+    .pactumSlot .card{
+      width:100% !important;
+      height:100% !important;
+      max-width:100% !important;
+      max-height:100% !important;
+      margin:0 !important;
+      padding:0 !important;
+      border-radius:12px;
+      position:relative;
+      display:block;
+    }
+    .pactumSlot .card:not(.zooming){
+      box-shadow:none !important;
+      transform:none !important;
+    }
+    .pactumSlot .card img{
+      width:100% !important;
+      height:100% !important;
+      display:block;
+      object-fit:cover;
+    }
+
+    /* Zoom (press & hold) — niente hover zoom */
+    .card{ transition: transform .12s ease, box-shadow .12s ease; transform-origin:center; }
+    .card:hover{ transform:none; }
+
+    /* Zoom overlay (viewport-based, uniforme su PC e smartphone) */
+    #zoomOverlay{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.78);
+      z-index:10000;
+      padding:min(4vh,24px) min(4vw,24px);
+    }
+    #zoomOverlay.is-on{ display:flex; }
+
+    #zoomOverlay .zoomWrap{
+      width:100%;
+      max-width:92vw;
+      max-height:92vh;
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:center;
+    }
+    #zoomOverlay .zoomCard{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 auto;
+    }
+    #zoomOverlay .zoomCard img{
+      max-height:92vh;
+      max-width:min(92vw, 640px);
+      width:auto;
+      height:auto;
+      border-radius:16px;
+      box-shadow:0 50px 140px rgba(0,0,0,.85);
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+    #zoomOverlay .zoomInfo{
+      flex:1 1 auto;
+      max-width:520px;
+      max-height:92vh;
+      overflow:auto;
+      border-radius:16px;
+      background:rgba(10,14,20,.92);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 30px 90px rgba(0,0,0,.55);
+      padding:14px 14px;
+    }
+    #zoomOverlay .zoomInfo h3{
+      margin:0 0 6px 0;
+      font-size:16px;
+      letter-spacing:.01em;
+    }
+    #zoomOverlay .zoomInfo .meta{
+      font-size:12px;
+      opacity:.82;
+      margin-bottom:10px;
+    }
+    #zoomOverlay .zoomInfo .stats{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:10px;
+    }
+    #zoomOverlay .zoomInfo .stat{
+      font-size:12px;
+      padding:6px 8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      white-space:nowrap;
+    }
+    #zoomOverlay .zoomInfo .sectTitle{
+      margin:10px 0 6px;
+      font-size:12px;
+      letter-spacing:.08em;
+      opacity:.75;
+      text-transform:uppercase;
+    }
+    #zoomOverlay .zoomInfo .ab{
+      border-radius:12px;
+      padding:10px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      margin-bottom:8px;
+    }
+    #zoomOverlay .zoomInfo .abTitle{
+      font-size:12px;
+      opacity:.9;
+      margin-bottom:4px;
+    }
+    #zoomOverlay .zoomInfo .abText{
+      font-size:12px;
+      opacity:.82;
+      line-height:1.35;
+    }
+
+    /* Mobile: info sotto la carta */
+    @media (max-width: 979px){
+      #zoomOverlay .zoomWrap{
+        flex-direction:column;
+        align-items:center;
+      }
+      #zoomOverlay .zoomCard img{
+        max-width:min(92vw, 520px);
+      }
+      #zoomOverlay .zoomInfo{
+        width:100%;
+        max-width:92vw;
+        max-height:42vh;
+      }
+    }
+
+    /* Desktop: carta più grande, info a lato */
+    @media (min-width: 980px){
+      #zoomOverlay .zoomCard img{ max-width:min(62vw, 720px); }
+    }
+
+
+/* =========================================================
+   Mobile battlefield layout (no horizontal page scroll)
+   ========================================================= */
+@media (max-width: 720px){
+  :root{
+    --bf-card-w: 128px;
+    --bf-card-h: 188px;
+    --bf-gap: 10px;
+    --bf-slot-pad: 8px;
+    --hand-card-w: 110px;
+    --hand-card-h: 160px;
+  }
+
+  .player{ padding:12px; }
+
+  #battlefield .row{
+    max-width:none;
+    margin:12px 0;
+    padding:10px;
+    gap:12px;
+    grid-template-columns: repeat(3, max-content);
+    justify-content:flex-start;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;
+  }
+  #battlefield .slot{ scroll-snap-align:start; }
+
+  #battlefield .hand{
+    width: min(100%, calc(
+      (3 * (var(--bf-card-w) + (var(--bf-slot-pad) * 2))) +
+      (2 * var(--bf-gap)) +
+      (2 * 12px)
+    ));
+    max-width:100%;
+    padding:10px;
+  }
+
+  .pactumSide{
+    position:static;
+    flex-direction:row;
+    justify-content:center;
+    margin:10px auto 0;
+    gap:10px;
+  }
+  .pactumSlot{
+    width: 120px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 380px){
+  :root{
+    --bf-card-w: 112px;
+    --bf-card-h: 165px;
+    --hand-card-w: 100px;
+    --hand-card-h: 146px;
+  }
+  .pactumSlot{ width:110px; height:165px; }
+}

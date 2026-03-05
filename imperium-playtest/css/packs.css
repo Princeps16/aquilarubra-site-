@@ -320,3 +320,18 @@
   cursor:pointer;
   font-weight:900;
 }
+
+
+/* =========================
+   Mobile: 1 col + cardW adattivo
+========================= */
+@media (max-width: 520px){
+  .revealGrid{
+    --cardW: min(86vw, 340px);
+    grid-template-columns: 1fr;
+    justify-content:stretch;
+    gap:16px;
+  }
+  .cardTile{ padding:10px; }
+  .discoveryToast{ bottom:14px; }
+}

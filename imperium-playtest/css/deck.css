@@ -125,3 +125,25 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size:12px;
 }
+
+
+/* =========================================================
+   Mobile: filtri e bottoni più usabili (senza rompere desktop)
+   ========================================================= */
+@media (max-width: 720px){
+  .page-deck .deckFilters{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+    align-items:end;
+  }
+  .page-deck .deckFilters .field{ min-width:0; }
+  #searchInput{ width:100%; }
+  .page-deck .deckFilters .btn{
+    width:100%;
+    justify-content:center;
+  }
+}
+@media (max-width: 420px){
+  .page-deck .deckFilters{ grid-template-columns:1fr; }
+}

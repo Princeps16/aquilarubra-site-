@@ -136,3 +136,19 @@ body{
   background:var(--focus);
   color:#fff;
 }
+
+/* =========================================================
+   MOBILE POLISH (non rompe desktop)
+   ========================================================= */
+@media (max-width:720px){
+  .container{ padding:12px; }
+  .topbar{ padding:12px 12px; gap:12px; }
+  .topbar__left{ min-width:0; }
+  .brand__logo{ height:72px; }
+  .view-toggle{ padding:0 12px 10px; }
+  .view-toggle button{ min-width:0; flex:1 1 auto; }
+}
+@media (max-width:420px){
+  .topbar__right{ grid-template-columns:1fr; }
+  .topbar__right .field:last-child{ grid-column:auto; }
+}
