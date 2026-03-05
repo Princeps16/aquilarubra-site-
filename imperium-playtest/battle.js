@@ -206,6 +206,7 @@ function renderHand(pIndex) {
     cardEl.dataset.type = card.type;
     cardEl.dataset.handIndex = String(handIndex);
     cardEl.dataset.owner = String(pIndex);
+    cardEl.dataset.zone = "hand";
 
     const img = document.createElement("img");
     img.src = card.image?.startsWith("data/") ? card.image : `data/${card.image}`;
@@ -894,6 +895,10 @@ function __updateTouchOver(slot){
   slot.classList.add(ok ? "is-over" : "is-invalid");
 }
 
+function __cancelZoomHold(){
+  try { __clearZoom(); } catch {}
+}
+
 document.addEventListener("pointerdown", (e) => {
   // solo touch/pen, solo carte in mano
   if (e.pointerType === "mouse") return;
@@ -904,10 +909,10 @@ document.addEventListener("pointerdown", (e) => {
 
   // Solo se è possibile giocare (stesso gating del dragstart)
   const owner = Number(card.dataset.owner);
-  if (STATE?.winner) return;
-  if (!STATE?.players?.[owner]) return;
-  if (STATE.turn !== owner) return;
-  if (STATE.phase !== "COMMAND") return;
+  if (STATE?.winner !== null) return;
+  if (STATE?.phase !== "COMMAND") return;
+  if (owner !== STATE.activePlayer) return;
+  if (!isMyTurn(owner)) return;
 
   TOUCH_DND = {
     cardEl: card,
