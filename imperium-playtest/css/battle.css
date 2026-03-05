@@ -649,6 +649,13 @@
 }
 
 @media (max-width: 860px){
+  /* Evita che il Log Dock copra gli slot: su mobile va in basso a destra */
+  .logDock{
+    left: auto;
+    right: 12px;
+    top: auto;
+    bottom: 12px;
+  }
   .battlebar__inner{
     grid-template-columns: 1fr;
     justify-items: center;
@@ -783,9 +790,11 @@
 
 @media (max-width: 720px){
   .logDock{
-    left: 10px;
-    top: 78px;
+    right: 10px;
+    bottom: 10px;
     width: 320px;
+    left: auto;
+    top: auto;
   }
 }
 
