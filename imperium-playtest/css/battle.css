@@ -46,19 +46,14 @@
 
 /* ===== Rows: 3 columns exact ===== */
 #battlefield .row{
+  width:100%;
+  max-width:920px;     /* prima era più piccolo */
+  margin:16px auto;
+  padding:16px;
+
   display:grid;
-  grid-template-columns: repeat(3, calc(var(--bf-card-w) + (var(--bf-slot-pad) * 2)));
-  gap: var(--bf-gap);
-
-  width: fit-content;
-  margin: 10px auto;
-  padding: 12px;
-
-  border:1px dashed var(--rowBorder);
-  border-radius:12px;
-  background: var(--row);
-
-  position:relative;
+  grid-template-columns:repeat(3, 1fr);
+  gap:18px;
 }
 
 #battlefield .row.front{ border-color:#555; }
@@ -402,8 +397,8 @@
 
 /* 3) riduci dimensioni carte + mano */
 :root{
-  --bf-card-w: 150px;
-  --bf-card-h: 220px;
+  --bf-card-w: 220px;
+  --bf-card-h: 320px;
   --bf-gap: 10px;
   --bf-slot-pad: 8px;
 
@@ -983,81 +978,116 @@
 
 
 /* =========================================================
-   PACTUM COLUMN (reserve a dedicated column, no overlap)
+   LAYOUT FIX: player panels grid + ordered HUD
    ========================================================= */
 
-/* Each player panel becomes a 2-column grid:
-   - ME:  [PACTUM] [BATTLEFIELD]
-   - ENEMY: [BATTLEFIELD] [PACTUM]
-*/
+:root{
+  --pactum-col: 170px;
+  --row-gap: 16px;
+  --slot-pad: 10px;
+}
+
+/* Player panel becomes a grid with reserved pactum column */
 .player{
   display:grid;
-  grid-template-columns: 170px 1fr;
+  grid-template-columns: var(--pactum-col) 1fr;
+  grid-template-areas:
+    "head head"
+    "meta meta"
+    "pactum rows"
+    "hand hand";
   column-gap: 18px;
+  row-gap: 10px;
   align-items:start;
+  overflow: visible;
 }
 
-/* enemy flips columns */
+/* Enemy flips pactum to the right */
 .player.enemy{
-  grid-template-columns: 1fr 170px;
+  grid-template-columns: 1fr var(--pactum-col);
+  grid-template-areas:
+    "head head"
+    "meta meta"
+    "rows pactum"
+    "hand hand";
 }
 
-/* Keep the existing board/rows in the main column */
-.player .rows{
-  grid-column: 2;
-}
-.player.enemy .rows{
-  grid-column: 1;
+/* Head + meta */
+.player__head{ grid-area: head; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+.player__title{ margin:0; }
+.player .zones{ display:flex; gap:14px; align-items:center; }
+
+/* Meta line centered and tidy */
+.battleMeta{ grid-area: meta; display:flex; justify-content:center; gap:18px; margin-top: -4px; }
+.battleMeta .gloriaBox,
+.battleMeta .cmdBox{ display:flex; align-items:center; gap:8px; }
+
+/* Rows area */
+.rows{ grid-area: rows; width:100%; max-width:100%; }
+.row{
+  width:100%;
+  max-width:100%;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--row-gap);
+  padding: 12px;
+  box-sizing:border-box;
 }
 
-/* Pactum side becomes normal flow in its column (not absolute) */
+/* Slots: fill the whole available cell (bigger cards) */
+.slot{
+  width:100%;
+  aspect-ratio: 2 / 3; /* card-like proportion */
+  padding: var(--slot-pad);
+  box-sizing:border-box;
+}
+.slot .card{
+  width:100%;
+  height:100%;
+}
+.slot .card img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+/* Pactum column: stacked, no overlap */
 .pactumSide{
+  grid-area: pactum;
   position: sticky;
   top: 90px;
-  grid-column: 1;
   display:flex;
   flex-direction:column;
   gap:12px;
-  z-index:5;
+  z-index:20;
 }
-.player.enemy .pactumSide{
-  grid-column: 2;
-}
-
-/* remove left/right absolute variants */
-.pactumSide--left,
-.pactumSide--right{
-  left:auto !important;
-  right:auto !important;
-  top:auto !important;
-}
-
-/* Make pactum slots match column width */
 .pactumSlot{
-  width: 100%;
-  max-width: 170px;
-  height: 240px;
+  width:100%;
+  max-width: var(--pactum-col);
+  aspect-ratio: 2 / 3;
+  height:auto;
 }
 
-/* Ensure rows can use full remaining space */
-#battlefield .row{
-  width: 100%;
-}
+/* Hand spans full width under everything */
+.handHead{ grid-column: 1 / -1; }
+.hand{ grid-column: 1 / -1; width:100%; max-width:100%; }
 
-/* Responsive: shrink pactum column a bit */
-@media (max-width: 1400px){
-  .player{ grid-template-columns: 150px 1fr; }
-  .player.enemy{ grid-template-columns: 1fr 150px; }
-  .pactumSlot{ max-width:150px; height:220px; }
+/* Responsive tuning */
+@media (max-width: 1500px){
+  :root{ --pactum-col: 150px; --row-gap: 14px; }
 }
-@media (max-width: 1100px){
-  /* On small screens move pactum above rows */
+@media (max-width: 1200px){
+  /* Stack pactum above rows on small screens */
   .player, .player.enemy{
     grid-template-columns: 1fr;
-    row-gap: 14px;
+    grid-template-areas:
+      "head"
+      "meta"
+      "pactum"
+      "rows"
+      "hand";
   }
-  .pactumSide{ grid-column: 1; position:relative; top:auto; flex-direction:row; }
-  .pactumSlot{ max-width: 160px; width:160px; height:200px; }
-  .player .rows, .player.enemy .rows{ grid-column: 1; }
+  .pactumSide{ position:relative; top:auto; flex-direction:row; }
+  .pactumSlot{ max-width: 170px; }
 }
 
