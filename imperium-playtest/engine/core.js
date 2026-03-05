@@ -7,6 +7,7 @@
 
 export function createEmptyPlayer() {
   return {
+    effectStack: [],
     deck: [],
     hand: [],
     discard: [],
@@ -1630,4 +1631,40 @@ function resolvePendingAttacks(state) {
   }
 
   state.pendingAttacks = [];
+}
+// ===== Effect Stack System =====
+export function pushEffect(state,effect){
+  if(!state.effectStack) state.effectStack=[]
+  state.effectStack.push(effect)
+}
+
+export function resolveEffectStack(state){
+  if(!state.effectStack) return
+  while(state.effectStack.length>0){
+    const effect = state.effectStack.shift()
+    if(effect?.script){
+      executeAbilityScript(state,effect.ctx||{},effect.script)
+    }
+  }
+}
+
+// ===== Trigger System =====
+export function triggerEvent(state,trigger){
+  for(const p of state.players){
+    for(const line of ["front","back"]){
+      const row=p.board?.[line]||[]
+      for(const unit of row){
+        if(!unit || !unit.card) continue
+        const abilities = unit.card.abilities || []
+        for(const ab of abilities){
+          if(ab?.rules?.trigger===trigger){
+            pushEffect(state,{
+              ctx:{self:p,source:unit},
+              script:ab.rules.script
+            })
+          }
+        }
+      }
+    }
+  }
 }
