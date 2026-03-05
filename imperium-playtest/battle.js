@@ -5,8 +5,6 @@ import {
   getValidAttackTargets
 } from "./engine/core.js";
 
-
-import { getActiveDeck, expandDeck } from "./deckstore.js";
 const DATA_URL = "data/cards.json";
 
 let DB = null;
@@ -16,6 +14,7 @@ let STATE = null;
 let MODE = null;
 let SELECTED_UID = null;
 let SELECTED_CARD_ID = null; // inspect mode for hand cards
+let SELECTED_CARD_CTX = null; // { zone:'pactum', owner, idx } or null
 
 /* =========================
    DOM helpers
@@ -38,6 +37,29 @@ function escapeHtml(s) {
 function getCardById(cardId) {
   return DB?.cards?.find(c => c.id === cardId) || null;
 }
+
+function isPactumCard(card){
+  if(!card) return false;
+  const id = String(card.id||"").toLowerCase();
+  const subtype = String(card.subtype||card.kind||card.group||"").toLowerCase();
+  const name = String(card.name||"").toLowerCase();
+
+  if(subtype.includes("pactum")) return true;
+
+  // Treat VIGILIA / FATUM as Pactum-reserve cards
+  if(id.includes("_vigilia") || id.includes("_fatum")) return true;
+  if(name.includes("vigilia") || name.includes("fatum")) return true;
+
+  const abilities = Array.isArray(card.abilities) ? card.abilities : [];
+  for(const ab of abilities){
+    const an = String(ab?.name||"").toLowerCase();
+    const at = String(ab?.text||"").toLowerCase();
+    if(an.includes("vigilia") || an.includes("fatum")) return true;
+    if(at.includes("vigilia") || at.includes("fatum")) return true;
+  }
+  return false;
+}
+
 
 function getUnitByUid(uid) {
   if (!STATE) return null;
@@ -113,76 +135,14 @@ function updateCommandPips() {
 /* =========================
    Render
    ========================= */
-
-function renderEventZones(pIndex) {
-  const p = STATE.players[pIndex];
-  const wrapEvents = document.getElementById(pIndex === 0 ? "eventsP0" : "eventsP1");
-  const wrapPactum = document.getElementById(pIndex === 0 ? "pactumP0" : "pactumP1");
-
-  if (wrapEvents) {
-    const slots = [...wrapEvents.querySelectorAll(".eventSlot")];
-    slots.forEach((slotEl) => {
-      const idx = Number(slotEl.dataset.idx);
-      const cardId = p.events?.[idx] || null;
-      slotEl.innerHTML = `<div class="zoneHint">EVENT</div>`;
-      if (cardId) {
-        const card = getCardById(cardId);
-        if (card) {
-          const el = document.createElement("div");
-          el.className = "card on-event";
-          el.dataset.cardId = cardId;
-          el.dataset.owner = String(pIndex);
-          el.dataset.zone = "event";
-          el.dataset.idx = String(idx);
-
-          const img = document.createElement("img");
-          img.src = card.image?.startsWith("data/") ? card.image : `data/${card.image}`;
-          img.alt = card.name;
-          el.appendChild(img);
-
-          slotEl.innerHTML = "";
-          slotEl.appendChild(el);
-        }
-      }
-    });
-  }
-
-  if (wrapPactum) {
-    const slots = [...wrapPactum.querySelectorAll(".pactumSlot")];
-    slots.forEach((slotEl) => {
-      const idx = Number(slotEl.dataset.idx);
-      const cardId = p.pactum?.[idx] || null;
-      slotEl.innerHTML = `<div class="zoneHint">PACTUM</div>`;
-      if (cardId) {
-        const card = getCardById(cardId);
-        if (card) {
-          const el = document.createElement("div");
-          el.className = "card on-pactum";
-          el.dataset.cardId = cardId;
-          el.dataset.owner = String(pIndex);
-          el.dataset.zone = "pactum";
-          el.dataset.idx = String(idx);
-
-          const img = document.createElement("img");
-          img.src = card.image?.startsWith("data/") ? card.image : `data/${card.image}`;
-          img.alt = card.name;
-          el.appendChild(img);
-
-          slotEl.innerHTML = "";
-          slotEl.appendChild(el);
-        }
-      }
-    });
-  }
-}
 function renderAll() {
   updateTurnLine();
   renderHand(0);
   renderHand(1);
   renderBoard(0);
   renderBoard(1);
-  renderEventZones(0);
-  renderEventZones(1);
+  renderPactum(0);
+  renderPactum(1);
   renderPiles();
   renderLog();
 
@@ -190,6 +150,8 @@ function renderAll() {
     highlightAttackTargets(MODE.attackerUid);
   } else if (MODE?.kind === "ABILITY") {
     highlightAbilityTargets(MODE);
+  } else if (MODE?.kind === "PACTUM_ABILITY") {
+    highlightPactumTargets(MODE);
   } else {
     clearHighlights();
   }
@@ -273,6 +235,35 @@ function renderBoard(pIndex) {
     uEl.appendChild(vit);
 
     slotEl.appendChild(uEl);
+  }
+}
+
+
+function renderPactum(pIndex) {
+  // Pactum slots: data-zone="pactum", data-idx="0|1"
+  const slots = $all(`.pactumSlot[data-owner="${pIndex}"]`);
+  for (const slotEl of slots) {
+    const idx = Number(slotEl.dataset.idx);
+    const cardId = STATE.players[pIndex].pactum?.[idx] || null;
+
+    slotEl.innerHTML = "";
+    if (!cardId) continue;
+
+    const card = getCardById(cardId);
+
+    const cEl = document.createElement("div");
+    cEl.className = "card pactum-card";
+    cEl.dataset.cardId = cardId;
+    cEl.dataset.owner = String(pIndex);
+    cEl.dataset.zone = "pactum";
+    cEl.dataset.idx = String(idx);
+
+    const img = document.createElement("img");
+    img.src = card?.image?.startsWith("data/") ? card.image : `data/${card?.image}`;
+    img.alt = card?.name || cardId;
+    cEl.appendChild(img);
+
+    slotEl.appendChild(cEl);
   }
 }
 
@@ -472,15 +463,17 @@ if (queueBtn) {
 function openHud(uid) {
   SELECTED_UID = uid;
   SELECTED_CARD_ID = null;
+  SELECTED_CARD_CTX = null;
   refreshHud();
   positionHudToSelected();
   HUD.root?.classList.add("is-open");
   HUD.root?.setAttribute("aria-hidden", "false");
 }
 
-function openCardHud(cardId) {
+function openCardHud(cardId, ctx = null) {
   SELECTED_UID = null;
   SELECTED_CARD_ID = cardId;
+  SELECTED_CARD_CTX = ctx;
   refreshHud();
   // in inspect mode we don't anchor to a unit
   HUD.root?.classList.add("is-open");
@@ -492,6 +485,7 @@ function closeHud() {
   HUD.root?.setAttribute("aria-hidden", "true");
   SELECTED_UID = null;
   SELECTED_CARD_ID = null;
+  SELECTED_CARD_CTX = null;
 }
 
 function getStats(unit) {
@@ -745,7 +739,6 @@ function minTurnForRarity(r) {
 
 let draggedCard = null;
 
-
 function canDrop(cardEl, slotEl) {
   if (!cardEl || !slotEl) return false;
   if (STATE.winner !== null) return false;
@@ -758,69 +751,56 @@ function canDrop(cardEl, slotEl) {
   if (cardOwner !== STATE.activePlayer) return false;
   if (!isMyTurn(cardOwner)) return false;
 
-  const ctype = String(cardEl.dataset.type || "").toLowerCase();
-  const zone = (slotEl.dataset.zone || "").toLowerCase();
+  const dragType = cardEl.dataset.type;
+  if (dragType !== "unit" && dragType !== "event") return false;
 
-  const lane = slotEl.dataset.row;              // "front" | "back" (solo per slot unità)
-  const isBoardSlot = (lane === "front" || lane === "back");
+  const me = STATE.players[cardOwner];
+  const draggedId = cardEl.dataset.cardId;
+  const dragged = getCardById(draggedId);
+  if (!dragged) return false;
 
-  // ===== Slot UNITÀ (front/back) =====
-  if (isBoardSlot) {
-    if (ctype !== "unit") return false;
+  const zone = slotEl.dataset.zone || "board";
+  const idx = Number(slotEl.dataset.idx);
 
-    const col = Number(slotEl.dataset.col);
-    if (!Number.isFinite(col)) return false;
-
-    const me = STATE.players[cardOwner];
-    const draggedId = cardEl.dataset.cardId;
-    const dragged = getCardById(draggedId);
-    if (!dragged) return false;
-
-    const existing = me.board?.[lane]?.[col] || null;
-
-    // Slot vuoto: deploy standard (engine gestisce turni/copie/azioni)
-    if (!existing) return true;
-
-    // Slot pieno: consentito SOLO se è un'ASCESA (rarità immediatamente successiva, stesso personaggio)
-    if (STATE.turn === 1) return false;
-    if (me.perTurn?.commandActionsLeft <= 0) return false;
-    if (me.perTurn?.ascendUsed) return false;
-
-    const fromCard = getCardById(existing.cardId);
-    if (!fromCard) return false;
-
-    const sameBase = baseIdFromCardId(fromCard.id) === baseIdFromCardId(dragged.id);
-    const nextStep = rarityIndex(dragged.rarity) === rarityIndex(fromCard.rarity) + 1;
-    const turnOk = STATE.turn >= minTurnForRarity(dragged.rarity);
-
-    return sameBase && nextStep && turnOk;
-  }
-
-  // ===== Slot RISERVA (PACTUM) =====
+  // Pactum slots accept only Vigilia/Fatum event cards
   if (zone === "pactum") {
-    if (ctype !== "event") return false;
+    if (dragType !== "event") return false;
+    if (!isPactumCard(dragged)) return false;
+    if (idx !== 0 && idx !== 1) return false;
 
-    const me = STATE.players[cardOwner];
+    // costa 1 azione comando
     if (me.perTurn?.commandActionsLeft <= 0) return false;
 
-    const idx = Number(slotEl.dataset.idx);
-    if (!Number.isFinite(idx)) return false;
-
-    const draggedId = cardEl.dataset.cardId;
-    const dragged = getCardById(draggedId);
-    if (!dragged) return false;
-
-    if (!isEventCard(dragged)) return false;
-    if (!isPactumCard(dragged)) return false;
-
-    const cur = me.pactum?.[idx] || null;
-    return !cur; // solo slot vuoto
+    if (!me.pactum) me.pactum = [null, null];
+    const existing = me.pactum[idx] || null;
+    return !existing; // solo slot libero
   }
 
-  // ===== Slot non riconosciuto =====
-  return false;
-}
 
+
+  const lane = slotEl.dataset.row;
+  const col = Number(slotEl.dataset.col);
+  if (lane !== "front" && lane !== "back") return false;
+
+  const existing = me.board?.[lane]?.[col] || null;
+
+  // Slot vuoto: deploy standard (engine gestisce turni/copie/azioni)
+  if (!existing) return true;
+
+  // Slot pieno: consentito SOLO se è un'ASCESA (rarità immediatamente successiva, stesso personaggio)
+  if (STATE.turn === 1) return false;
+  if (me.perTurn?.commandActionsLeft <= 0) return false;
+  if (me.perTurn?.ascendUsed) return false;
+
+  const fromCard = getCardById(existing.cardId);
+  if (!fromCard) return false;
+
+  const sameBase = baseIdFromCardId(fromCard.id) === baseIdFromCardId(dragged.id);
+  const nextStep = rarityIndex(dragged.rarity) === rarityIndex(fromCard.rarity) + 1;
+  const turnOk = STATE.turn >= minTurnForRarity(dragged.rarity);
+
+  return sameBase && nextStep && turnOk;
+}
 
 document.addEventListener("dragstart", (e) => {
   const card = e.target.closest("#handP0 .card, #handP1 .card");
@@ -837,11 +817,11 @@ document.addEventListener("dragstart", (e) => {
 
 document.addEventListener("dragend", () => {
   draggedCard = null;
-  $all(".slot, .eventSlot, .pactumSlot").forEach(s => s.classList.remove("is-over", "is-invalid"));
+  $all(".slot").forEach(s => s.classList.remove("is-over", "is-invalid"));
 });
 
 document.addEventListener("dragover", (e) => {
-  const slot = e.target.closest(".slot, .eventSlot, .pactumSlot");
+  const slot = e.target.closest(".slot");
   if (!slot || !draggedCard) return;
 
   const ok = canDrop(draggedCard, slot);
@@ -857,7 +837,7 @@ document.addEventListener("dragover", (e) => {
 });
 
 document.addEventListener("drop", (e) => {
-  const slot = e.target.closest(".slot, .eventSlot, .pactumSlot");
+  const slot = e.target.closest(".slot");
   if (!slot || !draggedCard) return;
 
   e.preventDefault();
@@ -865,52 +845,53 @@ document.addEventListener("drop", (e) => {
 
   if (!canDrop(draggedCard, slot)) return;
 
-  const zone = slot.dataset.zone || "";
+
   const handIndex = Number(draggedCard.dataset.handIndex);
   const owner = Number(draggedCard.dataset.owner);
+  const zone = slot.dataset.zone || "board";
+  const idx = Number(slot.dataset.idx);
 
-  if (zone === "event" || zone === "pactum") {
-    const idx = Number(slot.dataset.idx);
-    const player = STATE.players[owner];
-    const cardId = player.hand?.[handIndex];
-    const card = getCardById(cardId);
-    if (!card) return;
-
-    if (!isEventCard(card)) return;
-    if (zone === "pactum" && !isPactumCard(card)) return;
-
-    if (zone === "event" && player.events?.[idx]) return;
-    if (zone === "pactum" && player.pactum?.[idx]) return;
-
-    if (player.perTurn && typeof player.perTurn.commandActionsLeft === "number") {
-      player.perTurn.commandActionsLeft = Math.max(0, player.perTurn.commandActionsLeft - 1);
+  if (zone === "pactum") {
+    const me = STATE.players[owner];
+    const cardId = me.hand?.[handIndex] || draggedCard.dataset.cardId;
+    if (!me.pactum) me.pactum = [null, null];
+    me.pactum[idx] = cardId;
+    // spend 1 Command Action for Pactum
+    if (me.perTurn && typeof me.perTurn.commandActionsLeft === "number") {
+      me.perTurn.commandActionsLeft = Math.max(0, me.perTurn.commandActionsLeft - 1);
     }
 
-    player.hand.splice(handIndex, 1);
-    if (zone === "event") player.events[idx] = cardId;
-    else player.pactum[idx] = cardId;
+    // remove from hand
+    if (Array.isArray(me.hand)) me.hand.splice(handIndex, 1);
 
+    // visual cleanup
+    MODE = null;
+    clearHighlights();
+    renderAll();
+    return;
+  }
+
+  const lane = slot.dataset.row;
+  const col = Number(slot.dataset.col);
+  const existing = STATE.players[owner].board?.[lane]?.[col] || null;
+
+  if (existing) {
+    // ASCESA: carta sopra la versione precedente nello stesso slot
+    STATE = applyAction(STATE, {
+      type: "ASCEND",
+      player: owner,
+      fromUid: existing.uid,
+      handIndex
+    });
   } else {
-    const lane = slot.dataset.row;
-    const col = Number(slot.dataset.col);
-    const existing = STATE.players[owner].board?.[lane]?.[col] || null;
-
-    if (existing) {
-      STATE = applyAction(STATE, {
-        type: "ASCEND",
-        player: owner,
-        fromUid: existing.uid,
-        handIndex
-      });
-    } else {
-      STATE = applyAction(STATE, {
-        type: "PLAY_UNIT",
-        player: owner,
-        handIndex,
-        lane,
-        slot: col
-      });
-    }
+    // DEPLOY standard su slot vuoto
+    STATE = applyAction(STATE, {
+      type: "PLAY_UNIT",
+      player: owner,
+      handIndex,
+      lane,
+      slot: col
+    });
   }
 
   MODE = null;
@@ -932,8 +913,8 @@ document.addEventListener("click", (e) => {
   if (e.target.closest(".hud__panel")) return;
 
   const cardEl = e.target.closest(".card.on-board");
+  const pactumCard = e.target.closest(".pactumSlot .card.pactum-card");
   const handCard = e.target.closest(".hand .card");
-  const eventCard = e.target.closest(".eventSlot .card, .pactumSlot .card");
 
   // In modalità target-pick: click su unità = scegli target
   if (MODE && cardEl) {
@@ -943,7 +924,15 @@ document.addEventListener("click", (e) => {
     return;
   }
 
-  // click su carta in mano: HUD (solo lettura)
+  
+  // click su Pactum in campo: HUD carta (con contesto)
+  if (!MODE && pactumCard) {
+    const cardId = pactumCard.dataset.cardId;
+    openCardHud(cardId, { zone: "pactum", owner: Number(pactumCard.dataset.owner), idx: Number(pactumCard.dataset.idx) });
+    return;
+  }
+
+// click su carta in mano: HUD (solo lettura)
   // (ALT+click apre la preview grande, se ti serve)
   if (!MODE && handCard) {
     const cardId = handCard.dataset.cardId;
@@ -952,13 +941,6 @@ document.addEventListener("click", (e) => {
     } else {
       openCardHud(cardId);
     }
-    return;
-  }
-
-  // click su evento/pactum piazzato: preview grande (ALT non serve)
-  if (!MODE && eventCard) {
-    const cardId = eventCard.dataset.cardId;
-    showPreviewFromCardId(cardId);
     return;
   }
 
@@ -979,6 +961,14 @@ document.addEventListener("click", (e) => {
 });
 
 function onPickTarget(targetUid) {
+  if (MODE?.kind === "PACTUM_ABILITY") {
+    const { owner, idx, slot } = MODE;
+    MODE = null;
+    STATE = applyAction(STATE, { type: "ACTIVATE_PACTUM", player: owner, idx, slot, payload: { targetUid } });
+    renderAll();
+    return;
+  }
+
   if (!MODE) return;
 
   // ===== QUEUE ATTACK =====
@@ -1176,12 +1166,6 @@ function initLogDock() {
     if (!Array.isArray(p.hand)) p.hand = [];
     if (!Array.isArray(p.discard)) p.discard = [];
     if (!Array.isArray(p.deck)) p.deck = [];
-
-    // Zone extra (eventi persistenti + riserva pactum)
-    if (!Array.isArray(p.events)) p.events = [null, null, null];
-    if (p.events.length < 3) p.events = [...p.events, null, null, null].slice(0, 3);
-    if (!Array.isArray(p.pactum)) p.pactum = [null, null];
-    if (p.pactum.length < 2) p.pactum = [...p.pactum, null, null].slice(0, 2);
   }
 
   function drawOpeningHandWithCommunis(player, size) {
@@ -1203,30 +1187,21 @@ function initLogDock() {
   // init arrays
   ensurePlayerArrays(STATE.players[0]);
   ensurePlayerArrays(STATE.players[1]);
-// mazzi
-// P0: usa il deck ATTIVO salvato (deck builder). Se non valido, fallback LEGIO base.
-function buildSavedDeckOrFallback() {
-  try {
-    const active = getActiveDeck(); // {name, deck:{id:qty}}
-    const list = expandDeck(active.deck);
-    const clean = list.filter(id => !!byId[id]); // solo carte esistenti in DB
-    if (clean.length !== DECK_SIZE) return null;
-    // shuffle per non avere ordine fisso
-    return shuffle(clean.slice());
-  } catch (e) {
-    return null;
+
+  // mazzi
+  // Usa il deck salvato (Deck Builder) se presente. Altrimenti fallback su deck fazione.
+  const activeDeck = (window.ARI_ACTIVE_DECK && Array.isArray(window.ARI_ACTIVE_DECK.list))
+    ? window.ARI_ACTIVE_DECK
+    : null;
+
+  if (activeDeck && activeDeck.list.length) {
+    STATE.players[0].deck = shuffle(activeDeck.list.slice());
+  } else {
+    STATE.players[0].deck = buildFactionDeck("LEGIO");
   }
-}
 
-const saved = buildSavedDeckOrFallback();
-STATE.players[0].deck = saved || buildFactionDeck("LEGIO");
-STATE.players[1].deck = buildFactionDeck("HELVETII");
-
-if (saved) {
-  STATE.log.push(`Deck attivo P0: ${getActiveDeck().name} (30)`);
-} else {
-  STATE.log.push("Deck attivo P0 non valido: uso fallback LEGIO (communis/rara).");
-}
+  // P1: per ora deck fazione (in futuro puoi aggiungere selettore)
+  STATE.players[1].deck = buildFactionDeck("HELVETII");
 
   // reset mani
   STATE.players[0].hand = [];
@@ -1247,18 +1222,28 @@ if (saved) {
     if (SELECTED_UID) positionHudToSelected();
   }, { passive: true });
 
-})()
-function isEventCard(card) {
-  return (card?.type === "event" || card?.type === "EVENT");
-}
+})();
+function highlightPactumTargets(mode) {
+  clearHighlights();
+  const t = mode.targeting || {};
+  const who = String(t.who || "ENEMY").toUpperCase();
+  const zone = String(t.zone || "ANY").toUpperCase();
 
-function isPactumCard(card) {
-  if (!card) return false;
-  const v = String(card.subtype || card.kind || card.group || card.tag || "").toLowerCase();
-  if (v.includes("pactum")) return true;
-  if (Array.isArray(card.tags) && card.tags.some(t => String(t).toLowerCase().includes("pactum"))) return true;
-  // fallback: alcune carte pactum potrebbero avere "pactum" nel nome
-  if (String(card.name || "").toLowerCase().includes("pactum")) return true;
-  return false;
+  const me = mode.owner;
+  const other = me === 0 ? 1 : 0;
+  const targetPlayer = (who === "ALLY" || who === "SELF") ? me : other;
+
+  const lanes = [];
+  if (zone.includes("FRONT")) lanes.push("front");
+  else if (zone.includes("BACK")) lanes.push("back");
+  else lanes.push("front","back");
+
+  for (const lane of lanes) {
+    for (let col=0; col<3; col++) {
+      const uid = STATE.players[targetPlayer].board?.[lane]?.[col];
+      if (!uid) continue;
+      const el = document.querySelector(`.card.on-board[data-uid="${uid}"]`);
+      if (el) el.classList.add("is-target");
+    }
+  }
 }
-;
