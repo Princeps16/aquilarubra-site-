@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Imperium – Battle</title>
+
+  <!-- SOLO questi due -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/battle.css">
+
+  <style>
+    /* Pactum: 2 slot laterali, verticali, sempre visibili */
+    .player{ position:relative; overflow:visible; }
+    .pactumSide{
+      position:absolute;
+      top: 0;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      z-index:999;
+      pointer-events:auto;
+    }
+    /* Dentro al riquadro per evitare clipping */
+    .pactumSide--left{ left: 14px; }
+    .pactumSide--right{ right: 14px; }
+
+    .pactumSlot{
+      width: 140px;
+      height: 210px;
+      border: 1px dashed rgba(255,255,255,.18);
+      border-radius: 14px;
+      background: rgba(0,0,0,.18);
+      position:relative;
+    }
+    .pactumSlot .zoneHint{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      font-size:11px;
+      letter-spacing:.08em;
+      opacity:.7;
+    }
+  
+    /* Pactum cards: fit inside pactumSlot */
+    .pactumSlot{ overflow:hidden; }
+    .pactumSlot .card{
+      width:100% !important;
+      height:100% !important;
+      max-width:100% !important;
+      max-height:100% !important;
+      margin:0 !important;
+      padding:0 !important;
+      border-radius:12px;
+      position:relative;
+      display:block;
+    }
+    .pactumSlot .card:not(.zooming){
+      box-shadow:none !important;
+      transform:none !important;
+    }
+    .pactumSlot .card img{
+      width:100% !important;
+      height:100% !important;
+      display:block;
+      object-fit:cover;
+    }
+
+    /* Zoom (press & hold) — niente hover zoom */
+    .card{ transition: transform .12s ease, box-shadow .12s ease; transform-origin:center; }
+    .card:hover{ transform:none; }
+
+    /* Zoom overlay (viewport-based, uniforme su PC e smartphone) */
+    #zoomOverlay{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(0,0,0,.78);
+      z-index:10000;
+      padding:min(4vh,24px) min(4vw,24px);
+    }
+    #zoomOverlay.is-on{ display:flex; }
+
+    #zoomOverlay .zoomWrap{
+      width:100%;
+      max-width:92vw;
+      max-height:92vh;
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:center;
+    }
+    #zoomOverlay .zoomCard{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:0 0 auto;
+    }
+    #zoomOverlay .zoomCard img{
+      max-height:92vh;
+      max-width:min(92vw, 640px);
+      width:auto;
+      height:auto;
+      border-radius:16px;
+      box-shadow:0 50px 140px rgba(0,0,0,.85);
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+    #zoomOverlay .zoomInfo{
+      flex:1 1 auto;
+      max-width:520px;
+      max-height:92vh;
+      overflow:auto;
+      border-radius:16px;
+      background:rgba(10,14,20,.92);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow:0 30px 90px rgba(0,0,0,.55);
+      padding:14px 14px;
+    }
+    #zoomOverlay .zoomInfo h3{
+      margin:0 0 6px 0;
+      font-size:16px;
+      letter-spacing:.01em;
+    }
+    #zoomOverlay .zoomInfo .meta{
+      font-size:12px;
+      opacity:.82;
+      margin-bottom:10px;
+    }
+    #zoomOverlay .zoomInfo .stats{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:10px;
+    }
+    #zoomOverlay .zoomInfo .stat{
+      font-size:12px;
+      padding:6px 8px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
+      white-space:nowrap;
+    }
+    #zoomOverlay .zoomInfo .sectTitle{
+      margin:10px 0 6px;
+      font-size:12px;
+      letter-spacing:.08em;
+      opacity:.75;
+      text-transform:uppercase;
+    }
+    #zoomOverlay .zoomInfo .ab{
+      border-radius:12px;
+      padding:10px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      margin-bottom:8px;
+    }
+    #zoomOverlay .zoomInfo .abTitle{
+      font-size:12px;
+      opacity:.9;
+      margin-bottom:4px;
+    }
+    #zoomOverlay .zoomInfo .abText{
+      font-size:12px;
+      opacity:.82;
+      line-height:1.35;
+    }
+
+    /* Mobile: info sotto la carta */
+    @media (max-width: 979px){
+      #zoomOverlay .zoomWrap{
+        flex-direction:column;
+        align-items:center;
+      }
+      #zoomOverlay .zoomCard img{
+        max-width:min(92vw, 520px);
+      }
+      #zoomOverlay .zoomInfo{
+        width:100%;
+        max-width:92vw;
+        max-height:42vh;
+      }
+    }
+
+    /* Desktop: carta più grande, info a lato */
+    @media (min-width: 980px){
+      #zoomOverlay .zoomCard img{ max-width:min(62vw, 720px); }
+    }
+
+    /* Command pips (2 actions per turn) */
+ (2 actions per turn) */
+    .commandPips{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:flex-end;
+      margin-left:12px;
+    }
+    .cmdgroup{ display:flex; gap:8px; align-items:center; font-size:12px; opacity:.9; }
+    .cmdlabel{ opacity:.75; }
+    .cmdpips{ display:inline-flex; gap:6px; }
+    .cmdpip{
+      width:10px; height:10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.35);
+      background:rgba(255,255,255,.10);
+      display:inline-block;
+    }
+    .cmdpip.is-on{
+      background:rgba(255,255,255,.75);
+      border-color:rgba(255,255,255,.65);
+    }
+
+</style>
+
+</head>
+
+<body class="page-battle">
+
+<header class="battlebar">
+  <div class="battlebar__inner">
+    <div class="battlebar__left">
+      <h1 class="battlebar__title">Campo di Battaglia</h1>
+      <div id="turnLine" class="battlebar__status">Turno — Fase</div>
+      <a class="battlebar__back" href="index.html">Torna alla collezione</a>
+    </div>
+
+    <div class="battlebar__right">
+      <button id="toCommandBtn" type="button" class="battlebar__btn battlebar__btn--ghost">Vai a COMMAND</button>
+      <button id="endTurnBtn" type="button" class="battlebar__btn battlebar__btn--primary">Fine Turno</button>
+          <div id="commandPips" class="commandPips" aria-label="Azioni Comando"></div>
+    </div>
+  </div>
+</header>
+
+
+
+  <!-- LOG DOCK (click per aprire/chiudere) -->
+  <aside id="logDock" class="logDock is-closed" aria-expanded="false">
+    <button id="logToggle" class="logDock__toggle" type="button">Log</button>
+    <div class="logDock__panel">
+      <div id="log" class="log log--scroll"></div>
+    </div>
+  </aside>
+
+
+  <main class="container battle-wrap">
+
+    <section id="battlefield">
+
+      <!-- GIOCATORE (P0) -->
+      <div class="player me">
+        <div class="player__head">
+          <h3 class="player__title">Giocatore</h3>
+
+          <div class="zones" aria-label="Zone Giocatore">
+            <div class="zone">
+              <div class="zone__title">Mazzo</div>
+              <div id="deckP0" class="zone__pile"></div>
+            </div>
+            <div class="zone">
+              <div class="zone__title">Scarti</div>
+              <div id="discardP0" class="zone__pile"></div>
+            </div>
+          </div>
+        </div>
+
+<div class="battleMeta battleMeta--me">
+  <div class="gloriaBox">
+    Gloria: <span id="gloriaP0">0</span>
+  </div>
+
+  <div class="cmdBox" aria-label="Azioni Comando Giocatore">
+    <span class="cmdlabel">Comando</span>
+    <span id="commandPipsP0" class="cmdpips" aria-hidden="true"></span>
+  </div>
+</div>
+        <div class="pactumSide pactumSide--left" id="pactumP0" aria-label="Riserva (Pactum)">
+          <div class="pactumSlot slot" data-owner="0" data-zone="pactum" data-idx="0"><div class="zoneHint">PACTUM</div></div>
+          <div class="pactumSlot slot" data-owner="0" data-zone="pactum" data-idx="1"><div class="zoneHint">PACTUM</div></div>
+        </div>
+
+
+        <div class="rows">
+          <div class="row back" id="playerBack">
+            <div class="slot" data-owner="0" data-row="back" data-col="0"></div>
+            <div class="slot" data-owner="0" data-row="back" data-col="1"></div>
+            <div class="slot" data-owner="0" data-row="back" data-col="2"></div>
+          </div>
+
+          <div class="row front" id="playerFront">
+            <div class="slot" data-owner="0" data-row="front" data-col="0"></div>
+            <div class="slot" data-owner="0" data-row="front" data-col="1"></div>
+            <div class="slot" data-owner="0" data-row="front" data-col="2"></div>
+          </div>
+        </div>
+
+        <div class="handHead">
+          <h3 class="handTitle">Mano</h3>
+        </div>
+        <div id="handP0" class="hand"></div>
+      </div>
+
+
+      <!-- AVVERSARIO (P1) -->
+      <div class="player enemy">
+        <div class="player__head">
+          <h3 class="player__title">Avversario</h3>
+
+          <div class="zones" aria-label="Zone Avversario">
+            <div class="zone">
+              <div class="zone__title">Mazzo</div>
+              <div id="deckP1" class="zone__pile"></div>
+            </div>
+            <div class="zone">
+              <div class="zone__title">Scarti</div>
+              <div id="discardP1" class="zone__pile"></div>
+            </div>
+          </div>
+        </div>
+
+<div class="battleMeta battleMeta--enemy">
+  <div class="gloriaBox">
+    Gloria: <span id="gloriaP1">0</span>
+  </div>
+
+  <div class="cmdBox" aria-label="Azioni Comando Avversario">
+    <span class="cmdlabel">Comando</span>
+    <span id="commandPipsP1" class="cmdpips" aria-hidden="true"></span>
+  </div>
+</div>
+        <div class="pactumSide pactumSide--right" id="pactumP1" aria-label="Riserva (Pactum)">
+          <div class="pactumSlot slot" data-owner="1" data-zone="pactum" data-idx="0"><div class="zoneHint">PACTUM</div></div>
+          <div class="pactumSlot slot" data-owner="1" data-zone="pactum" data-idx="1"><div class="zoneHint">PACTUM</div></div>
+        </div>
+
+
+        <div class="rows">
+          <div class="row back" id="enemyBack">
+            <div class="slot" data-owner="1" data-row="back" data-col="0"></div>
+            <div class="slot" data-owner="1" data-row="back" data-col="1"></div>
+            <div class="slot" data-owner="1" data-row="back" data-col="2"></div>
+          </div>
+
+          <div class="row front" id="enemyFront">
+            <div class="slot" data-owner="1" data-row="front" data-col="0"></div>
+            <div class="slot" data-owner="1" data-row="front" data-col="1"></div>
+            <div class="slot" data-owner="1" data-row="front" data-col="2"></div>
+          </div>
+        </div>
+
+        <div class="handHead">
+          <h3 class="handTitle">Mano</h3>
+          <span class="muted">(Avversario)</span>
+        </div>
+        <div id="handP1" class="hand hand--enemy"></div>
+      </div>
+
+    </section>
+
+    <div id="cardPreview" class="card-preview" aria-hidden="true">
+      <img id="cardPreviewImg" class="card-preview__img" alt="Preview carta">
+    </div>
+  </main>
+
+  <script type="module" src="battle-deck.js"></script>
+  <script type="module" src="battle.js"></script>
+
+  <script type="module">
+    const btn = document.getElementById("endTurnBtn");
+    btn?.addEventListener("click", () => {
+      window.dispatchEvent(new CustomEvent("BATTLE_END_TURN"));
+    });
+  </script>
+
+  <div id="actionHud" class="hud" aria-hidden="true">
+    <div class="hud__panel">
+      <div class="hud__header">
+        <div id="hudTitle" class="hud__title">Unità</div>
+        <button id="hudClose" class="hud__close" type="button">×</button>
+      </div>
+
+      <div id="hudStats" class="hud__stats"></div>
+      <div id="hudAbilities" class="hud__abilities"></div>
+      <div id="hudPassives" class="hud__passives"></div>
+    </div>
+  </div>
+
+  <!-- UI Prompt Modal (Scry/Choose) -->
+<div id="uiPromptOverlay" class="uiprompt hidden" role="dialog" aria-modal="true">
+  <div class="uiprompt__panel">
+    <div class="uiprompt__title" id="uiPromptTitle">Scelta</div>
+
+    <div class="uiprompt__card">
+      <img id="uiPromptImg" alt="Carta" />
+      <div class="uiprompt__name" id="uiPromptName"></div>
+    </div>
+
+    <div class="uiprompt__actions">
+      <button id="uiPromptTopBtn" class="btn">Lascia sopra</button>
+      <button id="uiPromptBottomBtn" class="btn btn--primary">Metti sotto</button>
+    </div>
+  </div>
+</div>
+
+  <div id="zoomOverlay" aria-hidden="true"><div class="zoomWrap"><div class="zoomCard"><img id="zoomImg" alt=""></div><div id="zoomInfo" class="zoomInfo" role="note" aria-label="Info carta"></div></div></div>
+</body>
+</html>
