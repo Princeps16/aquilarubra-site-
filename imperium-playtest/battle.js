@@ -206,7 +206,6 @@ function renderHand(pIndex) {
     cardEl.dataset.type = card.type;
     cardEl.dataset.handIndex = String(handIndex);
     cardEl.dataset.owner = String(pIndex);
-    cardEl.dataset.zone = "hand";
 
     const img = document.createElement("img");
     img.src = card.image?.startsWith("data/") ? card.image : `data/${card.image}`;
@@ -856,6 +855,22 @@ document.addEventListener("dragend", () => {
    Mobile touch/pointer drag (mano -> slot)
    ========================= */
 let TOUCH_DND = null; // { cardEl, ghostEl, overSlot, startX, startY, moved }
+let TOUCH_PICK = null; // fallback tap-to-place on mobile
+
+function __clearTouchPick(){
+  TOUCH_PICK = null;
+  document.querySelectorAll("#battlefield .hand .card.is-picked").forEach(el => el.classList.remove("is-picked"));
+  document.querySelectorAll(".slot.is-over, .slot.is-invalid").forEach(el => el.classList.remove("is-over","is-invalid"));
+}
+
+function __markTouchTargets(cardEl){
+  document.querySelectorAll(".slot.is-over, .slot.is-invalid").forEach(el => el.classList.remove("is-over","is-invalid"));
+  if(!cardEl) return;
+  document.querySelectorAll(".slot").forEach(slot => {
+    const ok = canDrop(cardEl, slot);
+    if (ok) slot.classList.add("is-over");
+  });
+}
 
 function __createGhost(cardEl){
   const img = cardEl.querySelector("img");
@@ -895,10 +910,6 @@ function __updateTouchOver(slot){
   slot.classList.add(ok ? "is-over" : "is-invalid");
 }
 
-function __cancelZoomHold(){
-  try { __clearZoom(); } catch {}
-}
-
 document.addEventListener("pointerdown", (e) => {
   // solo touch/pen, solo carte in mano
   if (e.pointerType === "mouse") return;
@@ -907,12 +918,18 @@ document.addEventListener("pointerdown", (e) => {
   if (!card) return;
   if (card.dataset.zone !== "hand") return;
 
-  // Solo se è possibile giocare (stesso gating del dragstart)
+  // Solo se è possibile giocare
   const owner = Number(card.dataset.owner);
-  if (STATE?.winner !== null) return;
-  if (STATE?.phase !== "COMMAND") return;
-  if (owner !== STATE.activePlayer) return;
+  if (STATE?.winner != null) return;
+  if (!STATE?.players?.[owner]) return;
+  if (STATE.phase !== "COMMAND") return;
   if (!isMyTurn(owner)) return;
+  if (owner !== STATE.activePlayer) return;
+
+  TOUCH_PICK = card;
+  document.querySelectorAll("#battlefield .hand .card.is-picked").forEach(el => el.classList.remove("is-picked"));
+  card.classList.add("is-picked");
+  __markTouchTargets(card);
 
   TOUCH_DND = {
     cardEl: card,
@@ -967,11 +984,28 @@ function __endTouchDnD(){
   if (TOUCH_DND.ghostEl) TOUCH_DND.ghostEl.remove();
   if (TOUCH_DND.overSlot) TOUCH_DND.overSlot.classList.remove("is-over","is-invalid");
   TOUCH_DND = null;
+  __clearTouchPick();
 }
 
 document.addEventListener("pointerup", __endTouchDnD, { passive: true });
 document.addEventListener("pointercancel", __endTouchDnD, { passive: true });
 
+
+document.addEventListener("pointerup", (e) => {
+  if (e.pointerType === "mouse") return;
+  const slot = e.target.closest?.(".slot");
+  if (!slot) {
+    const onHandCard = e.target.closest?.("#battlefield .hand .card");
+    if (!onHandCard && !TOUCH_DND?.moved) __clearTouchPick();
+    return;
+  }
+  const cardEl = TOUCH_PICK || TOUCH_DND?.cardEl;
+  if (!cardEl) return;
+  if (TOUCH_DND?.moved) return;
+  if (!canDrop(cardEl, slot)) return;
+  __performDrop(cardEl, slot);
+  __clearTouchPick();
+}, { passive: true });
 
 document.addEventListener("dragover", (e) => {
   const slot = e.target.closest(".slot");
@@ -1255,6 +1289,10 @@ function __clearZoom() {
   }
   __hideZoomOverlay();
   __zoomStart = null;
+}
+
+function __cancelZoomHold() {
+  __clearZoom();
 }
 
 document.addEventListener("pointerdown", (e) => {
