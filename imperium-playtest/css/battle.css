@@ -1120,30 +1120,50 @@
   transition:transform .12s ease;
 }
 
-/* ===== Mobile touch drag safety ===== */
-html.touch-dnd-lock,
-html.touch-dnd-lock body{
-  overflow:hidden !important;
-  overscroll-behavior:none;
-}
-
-#battlefield .card,
-#battlefield .slot,
-#zoomOverlay,
-.hud__panel{
-  -webkit-user-select:none;
-  user-select:none;
-  -webkit-touch-callout:none;
-}
-
-#battlefield .hand .card{
-  touch-action:none;
+/* ===== Mobile anti-zoom / anti-selection safeguards ===== */
+html, body{
+  overscroll-behavior-x: none;
 }
 
 @media (hover:none) and (pointer:coarse){
-  body{
+  html, body{
+    -webkit-text-size-adjust:100%;
+    touch-action: pan-y;
+  }
+
+  #battlefield,
+  #battlefield *{
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #battlefield .hand,
+  #battlefield .row,
+  #battlefield .slot,
+  #battlefield .card,
+  #battlefield .card img,
+  .pactumSlot,
+  .pactumSlot .card,
+  .pactumSlot .card img{
     -webkit-user-select:none;
     user-select:none;
     -webkit-touch-callout:none;
+  }
+
+  /* niente pinch/double-tap zoom sulle aree di gioco */
+  #battlefield .hand,
+  #battlefield .row,
+  #battlefield .slot,
+  #battlefield .card,
+  .pactumSlot,
+  .pactumSlot .card{
+    touch-action:none;
+  }
+
+  /* evita trascinamento immagine/browser ghost */
+  #battlefield .card img,
+  .pactumSlot .card img{
+    pointer-events:none;
+    -webkit-user-drag:none;
+    user-drag:none;
   }
 }
