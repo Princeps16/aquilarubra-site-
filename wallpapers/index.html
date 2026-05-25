@@ -6,6 +6,15 @@
   <meta name="description" content="Scarica i wallpaper ufficiali dell’universo narrativo Aquila Rubra.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- Google tag GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WLHJY4Z7FQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-WLHJY4Z7FQ');
+  </script>
+
   <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="/assets/style.css">
 
@@ -70,10 +79,19 @@
 
     .wallpaper-card img{
       width:100%;
+      aspect-ratio:16 / 9;
+      object-fit:cover;
       border-radius:10px;
       display:block;
       margin-bottom:16px;
       border:1px solid rgba(255,255,255,0.15);
+    }
+
+    .wallpaper-card img[src*="phone"]{
+      aspect-ratio:9 / 16;
+      object-fit:cover;
+      max-height:620px;
+      object-position:center;
     }
 
     .wallpaper-card h3{
@@ -130,162 +148,74 @@
       Simboli, personaggi e frammenti visivi dell’Impero da scaricare e conservare.
     </p>
 
-   <div class="wallpaper-grid">
+    <div class="wallpaper-grid">
 
-  <!-- Desktop 1080p -->
-  <div class="wallpaper-card">
-    <img src="/wallpapers/aquilarubra-1920x1080.png" alt="Aquila Rubra 1920x1080">
+      <div class="wallpaper-card">
+        <img src="/wallpapers/aquilarubra-1920x1080.png" alt="Aquila Rubra 1920x1080">
+        <h3>Aquila Rubra — 1920x1080</h3>
+        <p>Wallpaper desktop ufficiale in Full HD.</p>
+        <p class="download-count">Desktop • Full HD</p>
+        <a class="btn" href="/wallpapers/aquilarubra-1920x1080.png" download onclick="trackWallpaperDownload('Aquila Rubra 1920x1080')">Scarica</a>
+      </div>
 
-    <h3>Aquila Rubra — 1920x1080</h3>
+      <div class="wallpaper-card">
+        <img src="/wallpapers/aquilarubra-2560x1440.png" alt="Aquila Rubra 2560x1440">
+        <h3>Aquila Rubra — 2560x1440</h3>
+        <p>Variante desktop ad alta risoluzione.</p>
+        <p class="download-count">Desktop • QHD</p>
+        <a class="btn" href="/wallpapers/aquilarubra-2560x1440.png" download onclick="trackWallpaperDownload('Aquila Rubra 2560x1440')">Scarica</a>
+      </div>
 
-    <p>
-      Wallpaper desktop ufficiale in Full HD.
-    </p>
+      <div class="wallpaper-card">
+        <img src="/wallpapers/aquilarubra-logo-phone.png" alt="Aquila Rubra Mobile Classic">
+        <h3>Mobile — Classic</h3>
+        <p>Versione verticale classica per smartphone.</p>
+        <p class="download-count">Mobile Wallpaper</p>
+        <a class="btn" href="/wallpapers/aquilarubra-logo-phone.png" download onclick="trackWallpaperDownload('Mobile Classic')">Scarica</a>
+      </div>
 
-    <p class="download-count">
-      Desktop • Full HD
-    </p>
+      <div class="wallpaper-card">
+        <img src="/wallpapers/aquilarubra-logo-phone-bianconero.png" alt="Aquila Rubra Mobile Bianconero">
+        <h3>Mobile — Bianconero</h3>
+        <p>Variante monocromatica più austera e imperiale.</p>
+        <p class="download-count">Mobile • Monochrome</p>
+        <a class="btn" href="/wallpapers/aquilarubra-logo-phone-bianconero.png" download onclick="trackWallpaperDownload('Mobile Bianconero')">Scarica</a>
+      </div>
 
-    <a class="btn"
-       href="/wallpapers/aquilarubra-1920x1080.png"
-       download
-       onclick="trackWallpaperDownload('Aquila Rubra 1920x1080')">
-      Scarica
-    </a>
-  </div>
+      <div class="wallpaper-card">
+        <img src="/wallpapers/aquilarubra-logo-phone-leggero.png" alt="Aquila Rubra Mobile Light">
+        <h3>Mobile — Light</h3>
+        <p>Versione più leggera e discreta.</p>
+        <p class="download-count">Mobile • Soft Variant</p>
+        <a class="btn" href="/wallpapers/aquilarubra-logo-phone-leggero.png" download onclick="trackWallpaperDownload('Mobile Light')">Scarica</a>
+      </div>
 
-  <!-- Desktop 1440p -->
-  <div class="wallpaper-card">
-    <img src="/wallpapers/aquilarubra-2560x1440.png" alt="Aquila Rubra 2560x1440">
+      <div class="wallpaper-card">
+        <img src="/wallpapers/aquilarubra-logo-phone-opaco40%.png" alt="Aquila Rubra Mobile Opaco 40%">
+        <h3>Mobile — Opaco 40%</h3>
+        <p>Ideale come sfondo minimale per icone e widget.</p>
+        <p class="download-count">Mobile • Minimal</p>
+        <a class="btn" href="/wallpapers/aquilarubra-logo-phone-opaco40%.png" download onclick="trackWallpaperDownload('Mobile Opaco 40')">Scarica</a>
+      </div>
 
-    <h3>Aquila Rubra — 2560x1440</h3>
+    </div>
 
-    <p>
-      Variante desktop ad alta risoluzione.
-    </p>
-
-    <p class="download-count">
-      Desktop • QHD
-    </p>
-
-    <a class="btn"
-       href="/wallpapers/aquilarubra-2560x1440.png"
-       download
-       onclick="trackWallpaperDownload('Aquila Rubra 2560x1440')">
-      Scarica
-    </a>
-  </div>
-
-  <!-- Mobile Classic -->
-  <div class="wallpaper-card">
-    <img src="/wallpapers/aquilarubra-logo-phone.png" alt="Aquila Rubra Mobile">
-
-    <h3>Mobile — Classic</h3>
-
-    <p>
-      Versione verticale classica per smartphone.
-    </p>
-
-    <p class="download-count">
-      Mobile Wallpaper
-    </p>
-
-    <a class="btn"
-       href="/wallpapers/aquilarubra-logo-phone.png"
-       download
-       onclick="trackWallpaperDownload('Mobile Classic')">
-      Scarica
-    </a>
-  </div>
-
-  <!-- Mobile B/N -->
-  <div class="wallpaper-card">
-    <img src="/wallpapers/aquilarubra-logo-phone-bianconero.png" alt="Aquila Rubra Bianconero">
-
-    <h3>Mobile — Bianconero</h3>
-
-    <p>
-      Variante monocromatica più austera e imperiale.
-    </p>
-
-    <p class="download-count">
-      Mobile • Monochrome
-    </p>
-
-    <a class="btn"
-       href="/wallpapers/aquilarubra-logo-phone-bianconero.png"
-       download
-       onclick="trackWallpaperDownload('Mobile Bianconero')">
-      Scarica
-    </a>
-  </div>
-
-  <!-- Mobile Leggero -->
-  <div class="wallpaper-card">
-    <img src="/wallpapers/aquilarubra-logo-phone-leggero.png" alt="Aquila Rubra Light">
-
-    <h3>Mobile — Light</h3>
-
-    <p>
-      Versione più leggera e discreta.
-    </p>
-
-    <p class="download-count">
-      Mobile • Soft Variant
-    </p>
-
-    <a class="btn"
-       href="/wallpapers/aquilarubra-logo-phone-leggero.png"
-       download
-       onclick="trackWallpaperDownload('Mobile Light')">
-      Scarica
-    </a>
-  </div>
-
-  <!-- Mobile Opaco -->
-  <div class="wallpaper-card">
-    <img src="/wallpapers/aquilarubra-logo-phone-opaco40%.png" alt="Aquila Rubra Opaco">
-
-    <h3>Mobile — Opaco 40%</h3>
-
-    <p>
-      Ideale come sfondo minimale per icone e widget.
-    </p>
-
-    <p class="download-count">
-      Mobile • Minimal
-    </p>
-
-    <a class="btn"
-       href="/wallpapers/aquilarubra-logo-phone-opaco40%.png"
-       download
-       onclick="trackWallpaperDownload('Mobile Opaco 40')">
-      Scarica
-    </a>
-  </div>
-
-</div>
+    <div class="back">
+      <a class="btn" href="/">Torna alla Home</a>
+    </div>
   </main>
 
   <script>
     function trackWallpaperDownload(name){
       if (typeof gtag === "function") {
-        gtag('event', 'download_wallpaper', {
+        gtag('event', 'wallpaper_download', {
           wallpaper_name: name
         });
       }
+
+      console.log("Wallpaper scaricato:", name);
     }
   </script>
 
 </body>
-  <script>
-function trackWallpaperDownload(name){
-
-  gtag('event', 'wallpaper_download', {
-    wallpaper_name: name
-  });
-
-  console.log("Wallpaper scaricato:", name);
-}
-</script>
 </html>
