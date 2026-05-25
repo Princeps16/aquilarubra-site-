@@ -278,4 +278,14 @@
   </script>
 
 </body>
+  <script>
+function trackWallpaperDownload(name){
+
+  gtag('event', 'wallpaper_download', {
+    wallpaper_name: name
+  });
+
+  console.log("Wallpaper scaricato:", name);
+}
+</script>
 </html>
