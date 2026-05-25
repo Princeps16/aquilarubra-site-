@@ -206,16 +206,30 @@
   </main>
 
   <script>
-    function trackWallpaperDownload(name){
-      if (typeof gtag === "function") {
-        gtag('event', 'wallpaper_download', {
-          wallpaper_name: name
-        });
-      }
+  function trackWallpaperDownload(event, name, url) {
+    event.preventDefault();
 
-      console.log("Wallpaper scaricato:", name);
+    if (typeof gtag === "function") {
+
+      gtag('event', 'wallpaper_download', {
+        wallpaper_name: name,
+
+        event_callback: function () {
+          window.location.href = url;
+        }
+
+      });
+
+      // fallback sicurezza
+      setTimeout(function () {
+        window.location.href = url;
+      }, 500);
+
+    } else {
+      window.location.href = url;
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
